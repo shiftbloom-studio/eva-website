@@ -15,7 +15,7 @@ import { Testimonial, TestimonialProps } from '#components/testimonials'
 
 export interface HighlightBoxProps
   extends GridItemProps,
-    Omit<CardProps, 'title'> {}
+  Omit<CardProps, 'title'> { }
 
 export const HighlightsItem: React.FC<HighlightBoxProps> = (props) => {
   const { children, title, ...rest } = props
