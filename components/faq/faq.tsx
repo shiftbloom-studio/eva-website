@@ -29,7 +29,19 @@ export const Faq: React.FC<FaqProps> = (props) => {
 
   return (
     <Section id="faq" pos="relative" {...rest}>
-      <BackgroundGradient height="100%" />
+      <BackgroundGradient height="100%" style={{
+        height: '100%',
+        top: '0px',
+        left: '0px',
+        right: '0px',
+        bottom: '0px',
+        position: 'absolute',
+        zIndex: '2',
+        opacity: '0.3',
+        width: '50vw',
+        margin: 'auto',
+        filter: 'blur(100px)',
+      }} />
       <Box zIndex="2" pos="relative">
         <SectionTitle
           title={title}

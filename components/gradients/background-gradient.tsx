@@ -36,7 +36,7 @@ export const BackgroundGradient = (props: BoxProps) => {
       backgroundImage={`linear-gradient(130deg, ${gray800} 0%, ${primary600} 40%, ${secondary600} 60%, ${primary400} 80%)`}
       opacity="0.3"
       style={{
-        filter: 'blur(100px)',
+        filter: 'blur(120px)',
         overflow: 'hidden',
         maxWidth: '100vw',
       }}
