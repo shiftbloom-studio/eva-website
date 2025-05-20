@@ -27,8 +27,8 @@ export default function Layout(props: { children: React.ReactNode }) {
       </head>
       <body className="chakra-ui-dark">
         <Analytics />
-        <SpeedInsights />
         <Provider>{props.children}</Provider>
+        <SpeedInsights />
       </body>
     </html>
   )
