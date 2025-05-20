@@ -1,16 +1,64 @@
 import { Button, ButtonProps } from '@chakra-ui/react'
-import NextLink, { LinkProps } from 'next/link'
+import Link, { LinkProps } from 'next/link'
 
-export type ButtonLinkProps = LinkProps & ButtonProps
+export interface ButtonLinkProps extends ButtonProps {
+  href: LinkProps['href']
+  isExternal?: boolean
+}
 
-export const ButtonLink: React.FC<ButtonLinkProps> = ({
+export const ButtonLink = ({
   href,
+  isExternal,
   children,
-  ...props
-}) => {
+  ...buttonProps
+}: ButtonLinkProps) => {
+  const defaultProps = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    _hover: {
+      color: 'white',
+    },
+  }
+
+  // If it's primary, use the primary color and its hover state
+  const primaryProps =
+    buttonProps.colorScheme === 'primary'
+      ? {
+        bg: 'primary.500',
+        _hover: {
+          bg: 'primary.600',
+          color: 'white',
+        },
+      }
+      : {}
+
+  if (isExternal) {
+    return (
+      <Button
+        as="a"
+        href={href.toString()}
+        target="_blank"
+        rel="noopener noreferrer"
+        {...defaultProps}
+        {...primaryProps}
+        {...buttonProps}
+      >
+        {children}
+      </Button>
+    )
+  }
+
   return (
-    <NextLink href={href} passHref>
-      <Button {...props}>{children}</Button>
-    </NextLink>
+    <Button
+      as={Link}
+      href={href}
+      {...defaultProps}
+      {...primaryProps}
+      {...buttonProps}
+    >
+      {children}
+    </Button>
   )
 }

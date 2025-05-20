@@ -1,30 +1,74 @@
-import { Container, Flex, FlexProps, Text, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  Stack,
+  Text,
+  useBreakpointValue,
+} from '@chakra-ui/react'
 
-interface HeroProps extends Omit<FlexProps, 'title'> {
-  title: string | React.ReactNode
-  description?: string | React.ReactNode
+export interface HeroProps {
+  title: React.ReactNode
+  description: React.ReactNode
+  ctaText?: string
+  ctaLink?: string
 }
 
-export const Hero = ({ title, description, children, ...rest }: HeroProps) => {
+export const Hero: React.FC<HeroProps> = (props) => {
+  const { title, description, ctaText, ctaLink } = props
+
   return (
-    <Flex py="20" alignItems="center" {...rest}>
-      <Container>
-        <VStack spacing={[4, null, 8]} alignItems="flex-start">
-          <Text as="h1" textStyle="h1" textAlign="left">
-            {title}
-          </Text>
-          <Text
-            as="div"
-            textStyle="subtitle"
-            align="left"
-            color="gray.500"
-            _dark={{ color: 'gray.400' }}
+    <Box as="section" pt="16" pb="24">
+      <Container maxW="container.xl">
+        <Stack
+          direction={{ base: 'column', lg: 'row' }}
+          align="center"
+          spacing="12"
+          h={{ base: 'auto', lg: '80vh' }}
+          mx="auto"
+          maxW="container.xl"
+        >
+          <Box
+            flex="1"
+            maxW={{ base: 'full', lg: '40rem' }}
+            textAlign={{ base: 'center', lg: 'left' }}
           >
-            {description}
-          </Text>
-        </VStack>
-        {children}
+            <Heading
+              as="h1"
+              fontWeight="extrabold"
+              size={useBreakpointValue({ base: '3xl', lg: '4xl' })}
+              maxW="container.md"
+              mx={{ base: 'auto', lg: 0 }}
+            >
+              {title}
+            </Heading>
+
+            <Text
+              mt="6"
+              fontSize={{ base: 'lg', lg: 'xl' }}
+              maxW={{ base: 'md', lg: 'container.md' }}
+              mx={{ base: 'auto', lg: 0 }}
+            >
+              {description}
+            </Text>
+
+            {ctaText && ctaLink && (
+              <Button
+                mt="8"
+                colorScheme="primary"
+                size="lg"
+                as="a"
+                href={ctaLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {ctaText}
+              </Button>
+            )}
+          </Box>
+        </Stack>
       </Container>
-    </Flex>
+    </Box>
   )
 }

@@ -1,32 +1,47 @@
 import * as React from 'react'
 
-const faq = {
-  title: 'Frequently asked questions',
-  // description: '',
+export default {
+  title: 'Häufig gestellte Fragen',
   items: [
     {
-      q: 'How many products can I use Saas UI Pro for?',
-      a: (
-        <>
-          The single license can be used for one commercial application or SaaS
-          product and unlimited internal tools. You can buy as many licenses as
-          you need. <br /> The unlimited license does not have any restrictions.
-        </>
-      ),
+      question: 'Was ist Erbe von Arda?',
+      answer:
+        'Erbe von Arda ist ein Rollenspiel-Server für Mount & Blade 2: Bannerlord, der in der Welt von J.R.R. Tolkien (Mittelerde) angesiedelt ist. Wir bieten ein tiefgreifendes Rollenspielerlebnis mit Fokus auf Wirtschaft, Politik und Kampf in einem Herr der Ringe-Setting.',
     },
     {
-      q: 'Can I use Saas UI Pro for client work?',
-      a: "Yes, that's totally up to you, as long as it fits the license you purchase.",
+      question: 'Benötige ich Mount & Blade 2: Bannerlord, um mitzumachen?',
+      answer:
+        'Ja, du benötigst das Grundspiel Mount & Blade 2: Bannerlord auf Steam oder einer anderen Plattform. Zusätzlich installierst du unsere Mod, die wir dir nach der Registrierung zur Verfügung stellen.',
     },
     {
-      q: 'Can I use Saas UI Pro for Open Source projects?',
-      a: 'No currently not. A large part of Saas UI is already released under MIT license. We try to give back to the community as much as possible.',
+      question: 'Muss ich die Bücher oder Filme kennen, um mitspielen zu können?',
+      answer:
+        'Nein, grundlegende Kenntnisse über Mittelerde sind hilfreich, aber nicht zwingend erforderlich. Wir haben Guides für Neulinge und unsere Community hilft dir gerne, dich in der Welt von Herr der Ringe zurechtzufinden.',
     },
     {
-      q: 'Does Saas UI include Figma, Sketch or other design files?',
-      a: 'No, Saas UI does not include any design assets. Maintaining design resources costs a lot of extra effort. We believe small teams can move much faster by designing directly in code, with help of Storybooks.',
+      question: 'Gibt es Regeln für das Rollenspiel?',
+      answer:
+        'Ja, wir haben einen Regelkatalog, der ein faires und immersives Spielerlebnis gewährleisten soll. Dazu gehören Richtlinien zum Charakterverhalten, Umgang mit anderen Spielern und zur Einhaltung der Lore. Diese Regeln findest du auf unserem Discord-Server.',
+    },
+    {
+      question: 'Wie oft finden Events statt?',
+      answer:
+        'Wir veranstalten wöchentliche Events wie große Schlachten, Markttage oder politische Versammlungen. Zusätzlich gibt es spontane Events durch unsere Spielleiter und von der Community organisierte Aktivitäten.',
+    },
+    {
+      question: 'Kann ich meine eigene Fraktion oder Gilde gründen?',
+      answer:
+        'Ja, mit ausreichend Spielerfortschritt kannst du deine eigene Gilde, Handelskompanie oder sogar politische Fraktion gründen. Dafür sind bestimmte Bedingungen zu erfüllen, die im Spielverlauf erklärt werden.',
+    },
+    {
+      question: 'Ist der Server an 7 Tagen die Woche online?',
+      answer:
+        'Ja, unser Server ist durchgehend online, mit Ausnahme von angekündigten Wartungsarbeiten oder Updates. Die Hauptspielzeiten, an denen die meisten Spieler aktiv sind, liegen in den Abendstunden mitteleuropäischer Zeit.',
+    },
+    {
+      question: 'Wie kann ich dem Projekt beitreten oder es unterstützen?',
+      answer:
+        'Der einfachste Weg ist, unserem Discord-Server beizutreten und dich dort zu registrieren. Wenn du das Projekt unterstützen möchtest, kannst du dich auch als freiwilliger Helfer oder Entwickler bewerben oder an unseren Community-Events teilnehmen.',
     },
   ],
 }
-
-export default faq

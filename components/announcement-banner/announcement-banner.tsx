@@ -9,6 +9,7 @@ import {
   LinkOverlay,
   useColorModeValue,
   Button,
+  Text,
 } from "@chakra-ui/react";
 import {
   Banner,
@@ -18,7 +19,6 @@ import {
   BannerTitle,
 } from "@saas-ui/react";
 import { FiArrowRight } from "react-icons/fi";
-import { FallInPlace } from "../motion/fall-in-place";
 
 export interface AnnouncementBannerProps {
   title: string;
@@ -38,7 +38,7 @@ export const AnnouncementBanner: React.FC<AnnouncementBannerProps> = (
   return (
     <Flex position="absolute" zIndex="10" top="100px" width="100%">
       <Container maxW="container.2xl" px="8">
-        <FallInPlace delay={1.4} translateY="-100px">
+        <Text>
           <NextLink href={href} legacyBehavior>
             <Banner
               display="flex"
@@ -115,7 +115,7 @@ export const AnnouncementBanner: React.FC<AnnouncementBannerProps> = (
               </HStack>
             </Banner>
           </NextLink>
-        </FallInPlace>
+        </Text>
       </Container>
     </Flex>
   );

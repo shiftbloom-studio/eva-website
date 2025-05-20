@@ -22,13 +22,13 @@ const Revealer = ({ children }: any) => {
 
 export interface FeaturesProps
   extends Omit<SectionTitleProps, 'title' | 'variant'>,
-    ThemingProps<'Features'> {
+  ThemingProps<'Features'> {
   title?: React.ReactNode
   description?: React.ReactNode
   features: Array<FeatureProps>
   columns?: ResponsiveValue<number>
   spacing?: string | number
-  aside?: React.ReactChild
+  aside?: React.ReactNode
   reveal?: React.FC<any>
   iconSize?: SystemProps['boxSize']
   innerWidth?: SystemProps['maxW']

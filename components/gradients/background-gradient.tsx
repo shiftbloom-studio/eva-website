@@ -1,46 +1,44 @@
-import { Box, useTheme, useColorModeValue } from '@chakra-ui/react'
+import { Box, BoxProps, useToken } from '@chakra-ui/react'
+import { keyframes } from '@emotion/react'
+import styled from '@emotion/styled'
 
-export const BackgroundGradient = ({ hideOverlay, ...props }: any) => {
-  const theme = useTheme()
-  const colors = [
-    theme.colors.primary['800'],
-    theme.colors.secondary['500'],
-    theme.colors.cyan['500'],
-    theme.colors.teal['500'],
-  ]
+const animatedGradient = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`
 
-  let fallbackBackground = `radial-gradient(at top left, ${colors[0]} 30%, transparent 80%), radial-gradient(at bottom, ${colors[1]} 0%, transparent 60%), radial-gradient(at bottom left, var(--chakra-colors-cyan-500) 0%, transparent 50%),
-        radial-gradient(at top right, ${colors[3]}, transparent), radial-gradient(at bottom right, ${colors[0]} 0%, transparent 50%);`
+const AnimatedBox = styled(Box)`
+  animation: ${animatedGradient} 10s ease infinite;
+`
 
-  let gradientOverlay = `linear-gradient(0deg, var(--chakra-colors-${useColorModeValue(
-    'white',
-    'gray-900'
-  )}) 60%, rgba(0, 0, 0, 0) 100%);`
+export const BackgroundGradient = (props: BoxProps) => {
+  const [primary600, primary400, secondary600, gray800] = useToken('colors', [
+    'primary.600',
+    'primary.400',
+    'secondary.600',
+    'gray.800'
+  ])
 
   return (
-    <Box
-      backgroundImage={fallbackBackground}
-      backgroundBlendMode="saturation"
+    <AnimatedBox
       position="absolute"
-      top="0"
-      left="0"
-      zIndex="0"
-      opacity={useColorModeValue('0.3', '0.5')}
-      height="100vh"
+      height="1000px"
       width="100%"
-      overflow="hidden"
-      pointerEvents="none"
+      top="-300px"
+      backgroundSize="300% 300%"
+      backgroundImage={`linear-gradient(130deg, ${gray800} 0%, ${primary600} 40%, ${secondary600} 60%, ${primary400} 80%)`}
+      opacity="0.3"
+      style={{
+        filter: 'blur(100px)',
+      }}
       {...props}
-    >
-      <Box
-        backgroundImage={!hideOverlay ? gradientOverlay : undefined}
-        position="absolute"
-        top="0"
-        right="0"
-        bottom="0"
-        left="0"
-        zIndex="1"
-      ></Box>
-    </Box>
+    />
   )
 }
