@@ -19,6 +19,7 @@ export default {
           textDecoration: 'none',
           color: hoverColor,
         },
+        dropShadow: '0 0 10px 0 rgba(24, 24, 24, 0.5)',
       }
     },
   },

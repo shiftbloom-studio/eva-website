@@ -18,13 +18,11 @@ const customTheme = {
         bg: 'gray.900',
         color: 'gray.50',
       },
-      // Add styles for anchor tags
       a: {
-        color: '#63B3ED', // Light Blue (similar to Chakra UI's blue.300)
-        // Using hex value as 'blue' palette is not defined in custom colors.
+        color: 'white',
         _hover: {
           textDecoration: 'underline',
-          color: '#90CDF4', // Even Lighter Blue (similar to Chakra UI's blue.200)
+          color: 'white',
         },
       },
     },

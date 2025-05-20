@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     <>
       <Box>
         <BackgroundGradient height="100%" zIndex="-1" />
-        <VStack spacing="16" align="stretch" pt={{ base: "20", md: "0" }}>
+        <VStack spacing="8" align="stretch" pt={{ base: "20", md: "0" }}>
           <Hero
             title="Erbe von Arda"
             description="Ein Mount & Blade 2: Bannerlord Rollenspiel-Server in der Welt von Arda"
