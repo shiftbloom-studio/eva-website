@@ -1,4 +1,6 @@
 import { Provider } from './provider'
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function Layout(props: { children: React.ReactNode }) {
   return (
@@ -24,6 +26,8 @@ export default function Layout(props: { children: React.ReactNode }) {
         <link rel="manifest" href="/static/favicons/manifest.json" />
       </head>
       <body className="chakra-ui-dark">
+        <Analytics />
+        <SpeedInsights />
         <Provider>{props.children}</Provider>
       </body>
     </html>
