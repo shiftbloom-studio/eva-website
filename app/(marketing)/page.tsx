@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         <VStack spacing="4" align="stretch" pt={{ base: "20", md: "0" }}>
           <Hero
             title="Erbe von Arda"
-            description="Ein Mount & Blade 2: Bannerlord Rollenspiel-Server in der Welt von Arda.\n\nErlebe deine eigenen Abenteuer in der Welt von Mittelerde erschaffe deine eigene Geschichte."
+            description="Ein Mount & Blade 2: Bannerlord Rollenspiel-Server in der Welt von Arda. Erlebe deine eigenen Abenteuer in der Welt von Mittelerde erschaffe deine eigene Geschichte."
             ctaText="Discord beitreten"
             ctaLink="https://discord.gg/erbevonarda"
             image="/static/screenshots/border_village_gondor.png"
