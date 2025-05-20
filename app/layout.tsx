@@ -4,7 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function Layout(props: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" style={{ colorScheme: 'dark' }}>
+    <html lang="de" data-theme="dark" style={{ colorScheme: 'dark' }}>
       <head>
         <link
           rel="apple-touch-icon"
