@@ -6,14 +6,10 @@ import components from './components'
 import colors from './foundations/colors'
 import { fontSizes } from './foundations/typography'
 
-const config = {
-  initialColorMode: 'dark',
-  useSystemColorMode: false,
-}
+// Kein ColorMode-Config mehr nötig, da wir fest auf Dark setzen
 
 const customTheme = {
   ...baseTheme,
-  config,
   colors,
   components,
   styles: {

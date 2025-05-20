@@ -3,7 +3,6 @@ import {
     Heading,
     Text,
     VStack,
-    useColorModeValue,
     Container,
 } from '@chakra-ui/react'
 import React from 'react'
@@ -20,8 +19,8 @@ export interface ConceptSectionProps extends Omit<SectionProps, 'title' | 'child
 export const ConceptSection = (props: ConceptSectionProps) => {
     const { title, description, content, id, ...rest } = props
 
-    const bgColor = useColorModeValue('gray.50', 'gray.900')
-    const borderColor = useColorModeValue('gray.200', 'gray.700')
+    const bgColor = 'gray.900'
+    const borderColor = 'gray.700'
 
     return (
         <Section id={id} py={16} {...rest}>

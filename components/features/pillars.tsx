@@ -6,7 +6,6 @@ import {
     VStack,
     Image,
     Center,
-    useColorModeValue,
 } from '@chakra-ui/react'
 import React from 'react'
 
@@ -27,8 +26,8 @@ export interface PillarsProps {
 export const Pillars = (props: PillarsProps) => {
     const { title, description, items, ...rest } = props
 
-    const bgColor = useColorModeValue('blackAlpha.400', 'blackAlpha.400')
-    const borderColor = useColorModeValue('gray.700', 'gray.700')
+    const bgColor = 'blackAlpha.400'
+    const borderColor = 'gray.700'
 
     return (
         <Section id="pillars" {...rest}>

@@ -23,11 +23,11 @@ const CTA = {
         colorScheme: 'white',
       },
     },
-    light: ({ colorMode }: any) => ({
+    light: {
       wrapper: {
-        bg: colorMode === 'dark' ? 'gray.700' : 'gray.100',
+        bg: 'gray.700',
       },
-    }),
+    },
   },
   defaultProps: {
     variant: 'subtle',

@@ -7,7 +7,6 @@ import {
   Icon,
   LinkBox,
   LinkOverlay,
-  useColorModeValue,
   Button,
   Text,
 } from "@chakra-ui/react";

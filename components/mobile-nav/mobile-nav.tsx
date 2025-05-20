@@ -8,7 +8,6 @@ import {
   LinkProps,
   Stack,
   useBreakpointValue,
-  useColorModeValue,
   useUpdateEffect,
 } from '@chakra-ui/react'
 import { Link } from '@saas-ui/react'
@@ -30,7 +29,7 @@ interface NavLinkProps extends LinkProps {
 
 function NavLink({ href, children, isActive, ...rest }: NavLinkProps) {
   const pathname = usePathname()
-  const bgActiveHoverColor = useColorModeValue('gray.100', 'whiteAlpha.100')
+  const bgActiveHoverColor = 'whiteAlpha.100'
 
   const [, group] = href?.split('/') || []
   isActive = isActive ?? pathname?.includes(group)
@@ -67,7 +66,7 @@ export function MobileNavContent(props: MobileNavContentProps) {
   const { isOpen, onClose = () => { } } = props
   const closeBtnRef = React.useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
-  const bgColor = useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
+  const bgColor = 'blackAlpha.900'
 
   useRouteChanged(onClose)
   /**
@@ -143,7 +142,7 @@ export const MobileNavButton = React.forwardRef(
         ref={ref}
         display={{ base: 'flex', md: 'none' }}
         fontSize="20px"
-        color={useColorModeValue('gray.800', 'inherit')}
+        color="inherit"
         variant="ghost"
         icon={<AiOutlineMenu />}
         {...props}

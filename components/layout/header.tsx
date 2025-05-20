@@ -3,7 +3,6 @@ import {
   BoxProps,
   Container,
   Flex,
-  useColorModeValue,
 } from '@chakra-ui/react'
 
 import * as React from 'react'
@@ -18,7 +17,7 @@ export const Header = (props: HeaderProps) => {
   const [y, setY] = React.useState(0)
   const { height = 0 } = ref.current?.getBoundingClientRect() ?? {}
 
-  const bg = useColorModeValue('whiteAlpha.700', 'rgba(29, 32, 37, 0.7)')
+  const bg = 'rgba(29, 32, 37, 0.7)'
 
   return (
     <Box
