@@ -47,7 +47,7 @@ export const Faq: React.FC<FaqProps> = (props) => {
         width: '50vw',
         margin: 'auto',
         filter: 'blur(100px)',
-      }} />
+      }} display={{ base: 'none', md: 'block' }} />
       <MotionBox
         zIndex="2"
         pos="relative"
