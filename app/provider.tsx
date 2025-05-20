@@ -1,6 +1,5 @@
 'use client'
 
-import { AuthProvider } from '@saas-ui/auth'
 import { SaasProvider } from '@saas-ui/react'
 
 import theme from '#theme'
@@ -11,7 +10,7 @@ export function Provider(props: { children: React.ReactNode }) {
     <SaasProvider theme={theme}>
       <ChakraProvider theme={theme}>
         <ThemeProvider theme={theme}>
-          <AuthProvider>{props.children}</AuthProvider>
+          {props.children}
         </ThemeProvider>
       </ChakraProvider>
     </SaasProvider>
