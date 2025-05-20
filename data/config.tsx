@@ -1,6 +1,6 @@
 import { Link } from '@chakra-ui/react'
 import { NextSeoProps } from 'next-seo'
-import { FaGithub, FaDiscord } from 'react-icons/fa'
+import { FaDiscord } from 'react-icons/fa'
 import { Logo } from './logo'
 
 const siteConfig = {
@@ -16,32 +16,32 @@ const siteConfig = {
       {
         id: 'features',
         label: 'Features',
-        href: '/#features',
+        href: '#features',
       },
       {
         id: 'pillars',
         label: 'Konzept',
-        href: '/#pillars',
+        href: '#pillars',
       },
       {
         id: 'wirtschaft',
         label: 'Wirtschaft',
-        href: '/#wirtschaft',
+        href: '#wirtschaft',
       },
       {
         id: 'politik',
         label: 'Politik',
-        href: '/#politik',
+        href: '#politik',
       },
       {
         id: 'kampf',
         label: 'Kampf',
-        href: '/#kampf',
+        href: '#kampf',
       },
       {
         id: 'faq',
         label: 'FAQ',
-        href: '/#faq',
+        href: '#faq',
       },
     ],
   },
