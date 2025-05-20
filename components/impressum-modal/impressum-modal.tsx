@@ -19,9 +19,9 @@ interface ImpressumModalProps {
 
 export const ImpressumModal: React.FC<ImpressumModalProps> = ({ isOpen, onClose, onPrivacyModalOpen }) => {
     return (
-        <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered onEsc={onClose} scrollBehavior="inside">
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent bg="gray.900" color="white" margin="25px" boxShadow="0 0 10px 0 rgba(24, 24, 24, 0.5)">
                 <ModalHeader>Impressum</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>

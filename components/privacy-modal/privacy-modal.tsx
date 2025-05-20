@@ -15,7 +15,7 @@ interface PrivacyModalProps {
     onClose: () => void
 }
 
-const datenschutzHtmlContent = `<h1>Datenschutzerklärung</h1>
+const datenschutzHtmlContent = `
 <p>Stand: 20. Mai 2025</p>
 <h2>Inhaltsübersicht</h2>
 <ul class="index">
@@ -666,9 +666,9 @@ const datenschutzHtmlContent = `<h1>Datenschutzerklärung</h1>
 
 export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
     return (
-        <Modal isOpen={isOpen} onClose={onClose} isCentered size="6xl" scrollBehavior="inside">
+        <Modal isOpen={isOpen} onClose={onClose} isCentered onEsc={onClose} scrollBehavior="inside">
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent bg="gray.900" color="white" margin="25px" boxShadow="0 0 10px 0 rgba(24, 24, 24, 0.5)" maxWidth="calc(100vw - 50px)">
                 <ModalHeader>Datenschutzerklärung</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
@@ -691,6 +691,6 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                     <Button onClick={onClose}>Schließen</Button>
                 </ModalFooter>
             </ModalContent>
-        </Modal>
+        </Modal >
     )
 } 
