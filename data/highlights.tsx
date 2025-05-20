@@ -8,16 +8,19 @@ export default {
             title: 'Epische Schlachten',
             description: 'Kämpfe mit Dutzenden anderen Spielern in taktischen PvP-Schlachten um strategische Orte in Mittelerde.',
             icon: GiCrossedSwords,
+            image: "/static/screenshots/mine.png"
         },
         {
             title: 'Tiefgründiges Rollenspiel',
             description: 'Erschaffe deinen eigenen Charakter und erlebe seine Geschichte in der reichhaltigen Welt von Mittelerde.',
             icon: GiCastle,
+            image: "/static/screenshots/trading.png"
         },
         {
             title: 'Dynamische Wirtschaft',
             description: 'Handle mit Waren, betreibe Handwerk oder werde ein mächtiger Kaufmann im spielergesteuerten Wirtschaftssystem.',
             icon: GiCoins,
+            image: "/static/screenshots/marketplace.png"
         },
     ],
 } 

@@ -21,7 +21,7 @@ export const Hero: React.FC<HeroProps> = (props) => {
   const { title, description, ctaText, ctaLink, image } = props
 
   return (
-    <Box as="section" pt="16" pb="24">
+    <Box as="section" pt="12" pb="8">
       <Container maxW="container.xl">
         <Stack
           direction={{ base: 'column', lg: 'row' }}

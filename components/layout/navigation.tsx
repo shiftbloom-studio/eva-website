@@ -12,7 +12,6 @@ import siteConfig from '#data/config'
 
 const Navigation: React.FC = () => {
   const mobileNav = useDisclosure()
-  const router = useRouter()
   const path = usePathname()
   const activeId = useScrollSpy(
     siteConfig.header.links

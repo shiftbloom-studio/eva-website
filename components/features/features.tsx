@@ -71,7 +71,7 @@ export const Feature: React.FC<FeatureProps> = (props) => {
         <Heading sx={styles.title}>{title}</Heading>
         <Text sx={styles.description}>{description}</Text>
       </Box>
-    </Stack>
+    </Stack >
   )
 }
 

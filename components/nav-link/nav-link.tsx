@@ -17,7 +17,7 @@ export const NavLink = forwardRef<NavLinkProps, "a">((props, ref) => {
       href={href}
       ref={ref}
       variant="nav-link"
-      lineHeight="2rem"
+      lineHeight="46px"
       isActive={isActive}
       fontWeight="bold"
       textColor="white"

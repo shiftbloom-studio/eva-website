@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     <>
       <Box>
         <BackgroundGradient height="100%" zIndex="-1" />
-        <VStack spacing="8" align="stretch" pt={{ base: "20", md: "0" }}>
+        <VStack spacing="4" align="stretch" pt={{ base: "20", md: "0" }}>
           <Hero
             title="Erbe von Arda"
             description="Ein Mount & Blade 2: Bannerlord Rollenspiel-Server in der Welt von Arda.\n\nErlebe deine eigenen Abenteuer in der Welt von Mittelerde erschaffe deine eigene Geschichte."
@@ -30,43 +30,35 @@ const Home: NextPage = () => {
             ctaLink="https://discord.gg/erbevonarda"
             image="/static/screenshots/border_village_gondor.png"
           />
-
           <Container maxW="container.xl">
             <Highlights {...highlights} />
           </Container>
-
           <Features {...features} />
-
           <Pillars {...pillars} />
-
           <ConceptSection
             id="wirtschaft"
             title={concepts.wirtschaft.title}
             description={concepts.wirtschaft.description}
             content={concepts.wirtschaft.content}
           />
-
           <ConceptSection
             id="politik"
             title={concepts.politik.title}
             description={concepts.politik.description}
             content={concepts.politik.content}
           />
-
           <ConceptSection
             id="kampf"
             title={concepts.kampf.title}
             description={concepts.kampf.description}
             content={concepts.kampf.content}
           />
-
           <ConceptSection
             id="rollenspiel"
             title={concepts.rollenspiel.title}
             description={concepts.rollenspiel.description}
             content={concepts.rollenspiel.content}
           />
-
           <Faq {...faq} />
         </VStack>
       </Box>
