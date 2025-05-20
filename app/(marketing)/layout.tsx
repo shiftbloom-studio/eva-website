@@ -29,8 +29,5 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.erbe-von-arda.de',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-  },
+  metadataBase: new URL('https://www.erbe-von-arda.de'),
 }
