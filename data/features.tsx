@@ -9,7 +9,7 @@ export default {
         {
             title: 'Immersives Mittelerdegebiet',
             description:
-                'Erkunde eine authentische Nachbildung von Tolkiens Welt mit bekannten Orten aus den Büchern und Filmen.',
+                'Erkunde eine authentische Nachbildung von Mittelerde mit bekannten Orten aus den Büchern und Filmen.',
             icon: GiScrollUnfurled,
         },
         {

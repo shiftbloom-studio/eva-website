@@ -7,7 +7,7 @@ const siteConfig = {
   logo: Logo,
   seo: {
     title: 'Erbe von Arda',
-    description: 'Mount & Blade 2 Bannerlord Multiplayer Rollenspiel Mod im Mittelerde Setting',
+    description: 'Mount & Blade 2 Bannerlord Rollenspiel im Mittelerde Setting',
   } as NextSeoProps,
   termsUrl: '#',
   privacyUrl: '#',
@@ -54,16 +54,22 @@ const siteConfig = {
     ),
     links: [
       {
-        href: 'mailto:kontakt@erbevonarda.de',
+        href: 'mailto:support@erbe-von-arda.de',
         label: 'Kontakt',
       },
       {
-        href: 'https://discord.gg/erbevonarda',
-        label: <FaDiscord size="14" />,
+        id: 'impressum',
+        label: 'Impressum',
+        href: '#',
       },
       {
-        href: 'https://github.com/erbevonarda',
-        label: <FaGithub size="14" />,
+        id: 'datenschutz',
+        label: 'Datenschutz',
+        href: '#',
+      },
+      {
+        href: 'https://discord.gg/3EPrp4rw5k',
+        label: <FaDiscord size="14" />,
       },
     ],
   },

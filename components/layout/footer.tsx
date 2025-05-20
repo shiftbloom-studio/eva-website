@@ -14,10 +14,12 @@ import siteConfig from '#data/config'
 
 export interface FooterProps extends BoxProps {
   columns?: number
+  onImpressumOpen?: () => void
+  onPrivacyOpen?: () => void
 }
 
 export const Footer: React.FC<FooterProps> = (props) => {
-  const { columns = 2, ...rest } = props
+  const { columns = 2, onImpressumOpen, onPrivacyOpen, ...rest } = props
   return (
     <Box bg="white" _dark={{ bg: 'gray.900' }} {...rest}>
       <Container maxW="container.2xl" px="8" py="8">
@@ -34,11 +36,27 @@ export const Footer: React.FC<FooterProps> = (props) => {
             <Copyright>{siteConfig.footer.copyright}</Copyright>
           </Stack>
           <HStack justify="flex-end" spacing="4" alignSelf="flex-end">
-            {siteConfig.footer?.links?.map(({ href, label }) => (
-              <FooterLink key={href} href={href}>
-                {label}
-              </FooterLink>
-            ))}
+            {siteConfig.footer?.links?.map(({ id, href, label }) => {
+              if (id === 'impressum') {
+                return (
+                  <FooterLink key={id} onClick={onImpressumOpen} cursor="pointer">
+                    {label}
+                  </FooterLink>
+                )
+              }
+              if (id === 'datenschutz') {
+                return (
+                  <FooterLink key={id} onClick={onPrivacyOpen} cursor="pointer">
+                    {label}
+                  </FooterLink>
+                )
+              }
+              return (
+                <FooterLink key={href} href={href}>
+                  {label}
+                </FooterLink>
+              )
+            })}
           </HStack>
         </SimpleGrid>
       </Container>

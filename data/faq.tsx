@@ -6,15 +6,15 @@ export default {
     {
       question: 'Was ist Erbe von Arda?',
       answer:
-        'Erbe von Arda ist ein Rollenspiel-Server für Mount & Blade 2: Bannerlord, der in der Welt von Arda (Mittelerde) angesiedelt ist. Wir bieten ein tiefgreifendes Rollenspielerlebnis mit Fokus auf Wirtschaft, Politik und Kampf in einem Herr der Ringe-Setting.',
+        'Erbe von Arda ist ein Rollenspiel-Server für Mount & Blade 2: Bannerlord, der in der Welt von Arda (Mittelerde) angesiedelt ist. Wir bieten ein tiefgreifendes Rollenspielerlebnis mit Fokus auf Wirtschaft, Politik und Kampf in einem Mittelerde-Setting.',
     },
     {
       question: 'Benötige ich Mount & Blade 2: Bannerlord, um mitzumachen?',
       answer:
-        'Ja, du benötigst das Grundspiel Mount & Blade 2: Bannerlord auf Steam oder einer anderen Plattform. Zusätzlich installierst du unsere Mod, die wir dir nach der Registrierung zur Verfügung stellen.',
+        'Ja, das Grundspiel Mount & Blade 2: Bannerlord wird benötigt. Unsere eigene Mod wird zum Start des Servers im (voraussichtlich im vierten Quartal 2025) bequem über den Steam Workshop zur Verfügung stehen. Alle Details zur Installation erhältst du rechtzeitig über unseren Discord-Server.',
     },
     {
-      question: 'Muss ich die Bücher oder Filme kennen, um mitspielen zu können?',
+      question: 'Muss ich die Bücher oder Filme von Herr der Ringe kennen, um mitspielen zu können?',
       answer:
         'Nein, grundlegende Kenntnisse über Mittelerde sind hilfreich, aber nicht zwingend erforderlich. Wir haben Guides für Neulinge und unsere Community hilft dir gerne, dich in der Welt von Erbe von Arda zurechtzufinden.',
     },
@@ -26,22 +26,22 @@ export default {
     {
       question: 'Wie oft finden Events statt?',
       answer:
-        'Wir veranstalten wöchentliche Events wie große Schlachten, Markttage oder politische Versammlungen. Zusätzlich gibt es spontane Events durch unsere Spielleiter und von der Community organisierte Aktivitäten.',
+        'Wir veranstalten wöchentliche Events wie große Schlachten, Markttage oder politische Versammlungen. Zusätzlich gibt es spontane Events durch spätere Eventleiter und von der Community organisierte Aktivitäten.',
     },
     {
       question: 'Kann ich meine eigene Fraktion oder Gilde gründen?',
       answer:
-        'Ja, mit ausreichend Spielerfortschritt kannst du deine eigene Gilde, Handelskompanie oder sogar politische Fraktion gründen. Dafür sind bestimmte Bedingungen zu erfüllen, die im Spielverlauf erklärt werden.',
+        'Eigene offizielle Fraktionen können nicht gegründet werden, da die drei Hauptfraktionen auf dem Server feststehen. Du hast jedoch im Rahmen des freien Rollenspiels und mit entsprechendem Fortschritt viele Möglichkeiten, eigene Gruppierungen wie Gilden, Handelskompanien oder Allianzen zu bilden. Die genauen Bedingungen hierfür werden im Spielverlauf ersichtlich.',
     },
     {
       question: 'Ist der Server an 7 Tagen die Woche online?',
       answer:
-        'Ja, unser Server ist durchgehend online, mit Ausnahme von angekündigten Wartungsarbeiten oder Updates. Die Hauptspielzeiten, an denen die meisten Spieler aktiv sind, liegen in den Abendstunden mitteleuropäischer Zeit.',
+        'Ja, unser Server ist nach der Veröffentlichung durchgehend online, mit Ausnahme von angekündigten Wartungsarbeiten oder Updates. Die Hauptspielzeiten, an denen die meisten Spieler aktiv sind, liegen in den Abendstunden mitteleuropäischer Zeit.',
     },
     {
       question: 'Wie kann ich dem Projekt beitreten oder es unterstützen?',
       answer:
-        'Der einfachste Weg ist, unserem Discord-Server beizutreten und dich dort zu registrieren. Wenn du das Projekt unterstützen möchtest, kannst du dich auch als freiwilliger Helfer oder Entwickler bewerben oder an unseren Community-Events teilnehmen.',
+        'Der beste Weg, um auf dem Laufenden zu bleiben und dich einzubringen, ist unserem Discord-Server beizutreten. Dort kannst du dich mit der Community austauschen und erfährst als Erster von Neuigkeiten. Die Möglichkeit, dich als Spieler zu registrieren oder dich als freiwilliger Helfer oder Entwickler zu bewerben, wird mit dem öffentlichen Start des Servers im vierten Quartal 2025 freigeschaltet. Wir freuen uns schon jetzt auf dich!',
     },
   ],
 }

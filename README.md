@@ -1,62 +1,110 @@
-# Saas UI - Next.js - landing page.
+# Erbe von Arda - Website
 
-This is a free Next.js landing page template based on https://saas-ui.dev.
-Feel free to submit any feature requests. If you use this template please share what you've built [on Twitter](https://twitter.com/saas_js) 🚀.
+Eine moderne Next.js Website für das "Erbe von Arda" Mount & Blade 2: Bannerlord Rollenspiel im Mittelerde-Setting.
 
-**[View demo](https://saas-ui-nextjs-landing-page.netlify.app/)**
+## Über das Projekt
 
-## Tech
+"Erbe von Arda" ist ein umfassendes Rollenspiel-Erlebnis auf Basis von Mount & Blade 2: Bannerlord, das in der Welt von J.R.R. Tolkiens Mittelerde angesiedelt ist. Diese Website dient als Informations- und Anmeldeplattform für interessierte Spieler.
 
-- Next.js (App router)
-- Chakra UI
-- Saas UI
-- Typescript
+## Features der Website
 
-## Features
+- **Responsives Design**: Optimiert für Desktop und mobile Geräte
+- **Marketing-Seiten**: Übersichtliche Darstellung der Spielfeatures
+- **Authentifizierung**: Login- und Registrierungssystem
+- **FAQ-Bereich**: Häufig gestellte Fragen zum Rollenspiel
+- **Mehrere Themenbereiche**:
+  - Wirtschaftssystem
+  - Politik & Diplomatie
+  - Kampf & Schlachten
+  - Handwerk & Berufe
 
-- Feature blocks
-- Testimonials
-- Pricing tables
-- Log in and Sign up pages
-- FAQ
+## Spielfeatures
 
-## Getting Started
+- **Immersives Mittelerdegebiet**: Authentische Nachbildung von Mittelerde mit bekannten Orten
+- **Völker und Kulturen**: Spielbare Völker wie Menschen, Elben, Zwerge und mehr
+- **Handwerkssystem**: Verschiedene Handwerksberufe und Warenerstellung
+- **Rollenspiel-Events**: Regelmäßige Events mit Spielleitern
+- **Dynamisches Wirtschaftssystem**: Handel mit Angebot und Nachfrage
+- **Politik & Diplomatie**: Verhandlungen, Allianzen und Intrigen
 
-First, clone this repo and run `pnpm i`
+## Technologie
 
-To start the app run:
+- **Frontend**: 
+  - Next.js 14 (App Router)
+  - React 18
+  - TypeScript
+- **UI Frameworks**:
+  - Chakra UI
+  - Saas UI
+  - Framer Motion
+- **Authentifizierung**: @saas-ui/auth
+- **Deployment**: Vercel/Netlify kompatibel
 
-```bash
-pnpm dev
-```
+## Entwicklung
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Voraussetzungen
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- Node.js (18.x oder höher)
+- npm oder pnpm
 
-## Configuration
+### Installation
 
-Configuration files to edit basic site information, add testimonials, faq and pricing table can be found in `/data`.
+1. Repository klonen
+   ```bash
+   git clone [repository-url]
+   cd eva-website
+   ```
 
-## Learn More
+2. Abhängigkeiten installieren
+   ```bash
+   npm install
+   # oder mit pnpm
+   pnpm install
+   ```
 
-Find out more about Saas UI.
+3. Entwicklungsserver starten
+   ```bash
+   npm run dev
+   # oder
+   pnpm dev
+   ```
 
-- [Saas UI Documentation](https://saas-ui.dev/docs).
+4. Browser öffnen unter [http://localhost:3000](http://localhost:3000)
 
-To learn more about Next.js, take a look at the following resources:
+### Projektstruktur
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `app/`: Next.js App Router mit Routing und Seitenkomponenten
+  - `(auth)/`: Authentifizierungsseiten (Login/Signup)
+  - `(marketing)/`: Marketing-/Landingpages
+- `components/`: Wiederverwendbare UI-Komponenten
+- `data/`: Konfigurationsdateien, Content und Daten
+- `hooks/`: React Hooks
+- `public/`: Statische Assets
+- `theme/`: Chakra UI Theming und Styling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Konfiguration
 
-## Deploy on Vercel
+Die wichtigsten Konfigurationseinstellungen befinden sich in den Dateien im `/data` Verzeichnis:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `config.tsx`: Allgemeine Website-Konfiguration
+- `features.tsx`: Dargestellte Features
+- `faq.tsx`: FAQ-Einträge
+- `pillars.tsx`: Konzeptsäulen des Spiels
+- `testimonials.tsx`: Spielerstimmen und Erfahrungsberichte
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Beitragen
 
-## License
+Wenn du zum Projekt beitragen möchtest, erstelle bitte einen Fork des Repositories und reiche einen Pull Request ein.
+
+## Kontakt
+
+- **Discord**: [https://discord.gg/3EPrp4rw5k](https://discord.gg/3EPrp4rw5k)
+- **E-Mail**: support@erbe-von-arda.de
+
+## Lizenz
 
 MIT
+
+---
+
+Entwickelt vom Team Erbe von Arda

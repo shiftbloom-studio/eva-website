@@ -2,7 +2,7 @@ import { Box, Image } from '@chakra-ui/react'
 import * as React from 'react'
 
 export const Logo = (props: any) => {
-  const { height = '32px', ...rest } = props
+  const { height = '32px', borderRadius = 'md', boxShadow = 'md', ...rest } = props
   return (
     <Box {...rest}>
       <Image
@@ -10,6 +10,8 @@ export const Logo = (props: any) => {
         height={height}
         alt="Erbe von Arda Logo"
         objectFit="contain"
+        borderRadius={borderRadius}
+        boxShadow={boxShadow}
       />
     </Box>
   )
