@@ -15,7 +15,7 @@ import React from 'react'
 import { BackgroundGradient } from '#components/gradients/background-gradient'
 import { Section, SectionProps, SectionTitle } from '#components/section'
 
-export interface FaqProps extends SectionProps {
+export interface FaqProps extends Omit<SectionProps, 'title'> {
   title: React.ReactNode
   description?: React.ReactNode
   items: Array<{

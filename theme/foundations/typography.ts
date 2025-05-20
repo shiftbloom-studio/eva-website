@@ -7,7 +7,7 @@ export const fontSizes = {
   '2xl': '1.25rem',
   '3xl': '1.5rem',
   '4xl': '1.875rem',
-  '5xl': '2',
+  '5xl': '2rem',
   '6xl': '3.5rem',
   '7xl': '3rem',
   '8xl': '4rem',

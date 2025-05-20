@@ -1,4 +1,4 @@
-import { ThemeConfig } from '@chakra-ui/react'
+import { extendTheme } from '@chakra-ui/react'
 import '@fontsource-variable/inter'
 import { theme as baseTheme } from '@saas-ui/react'
 
@@ -6,12 +6,13 @@ import components from './components'
 import colors from './foundations/colors'
 import { fontSizes } from './foundations/typography'
 
-const config: ThemeConfig = {
+const config = {
   initialColorMode: 'dark',
   useSystemColorMode: false,
 }
 
 const customTheme = {
+  ...baseTheme,
   config,
   colors,
   components,
@@ -33,45 +34,6 @@ const customTheme = {
   },
 }
 
-const theme = {
-  ...baseTheme,
-  ...customTheme,
-  components: {
-    ...baseTheme.components,
-    ...customTheme.components,
-  },
-  styles: {
-    ...baseTheme.styles,
-    ...customTheme.styles,
-    global: {
-      ...(baseTheme.styles?.global || {}),
-      ...(customTheme.styles?.global || {}),
-      body: {
-        ...(baseTheme.styles?.global?.body || {}),
-        ...(customTheme.styles?.global?.body || {}),
-      },
-    },
-  },
-  colors: {
-    ...baseTheme.colors,
-    ...customTheme.colors,
-  },
-  fonts: {
-    ...baseTheme.fonts,
-    ...customTheme.fonts,
-  },
-  fontSizes: {
-    ...baseTheme.fontSizes,
-    ...customTheme.fontSizes,
-  },
-  shadows: {
-    ...baseTheme.shadows,
-    ...customTheme.shadows,
-  },
-  config: {
-    ...baseTheme.config,
-    ...customTheme.config,
-  }
-};
+const theme = extendTheme(customTheme)
 
 export default theme

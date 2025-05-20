@@ -25,7 +25,7 @@ export const MarketingLayout: React.FC<LayoutProps> = (props) => {
       <SkipNavLink>Skip to content</SkipNavLink>
       {announcementProps ? <AnnouncementBanner {...announcementProps} /> : null}
       <Header {...headerProps} />
-      <Box as="main">
+      <Box as="main" overflowX="hidden">
         <SkipNavContent />
         {children}
       </Box>

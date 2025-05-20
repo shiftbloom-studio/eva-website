@@ -6,6 +6,7 @@ import {
   Stack,
   Text,
   useBreakpointValue,
+  Image,
 } from '@chakra-ui/react'
 
 export interface HeroProps {
@@ -13,10 +14,11 @@ export interface HeroProps {
   description: React.ReactNode
   ctaText?: string
   ctaLink?: string
+  image?: string
 }
 
 export const Hero: React.FC<HeroProps> = (props) => {
-  const { title, description, ctaText, ctaLink } = props
+  const { title, description, ctaText, ctaLink, image } = props
 
   return (
     <Box as="section" pt="16" pb="24">
@@ -67,6 +69,19 @@ export const Hero: React.FC<HeroProps> = (props) => {
               </Button>
             )}
           </Box>
+
+          {image && (
+            <Box flex="1" display={{ base: 'none', lg: 'block' }}>
+              <Image
+                src={image}
+                alt="Hero Image"
+                objectFit="contain"
+                w="full"
+                h="full"
+                maxH="500px"
+              />
+            </Box>
+          )}
         </Stack>
       </Container>
     </Box>

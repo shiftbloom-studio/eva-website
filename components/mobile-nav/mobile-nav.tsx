@@ -64,13 +64,12 @@ interface MobileNavContentProps {
 }
 
 export function MobileNavContent(props: MobileNavContentProps) {
-  const { isOpen, onClose = () => {} } = props
+  const { isOpen, onClose = () => { } } = props
   const closeBtnRef = React.useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
   const bgColor = useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
 
   useRouteChanged(onClose)
-  console.log({ isOpen })
   /**
    * Scenario: Menu is open on mobile, and user resizes to desktop/tablet viewport.
    * Result: We'll close the menu

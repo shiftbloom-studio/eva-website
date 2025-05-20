@@ -2,7 +2,7 @@ import { GiCastle, GiCrossedSwords, GiCoins } from 'react-icons/gi'
 
 export default {
     title: 'Tauche ein in die Welt von Mittelerde',
-    description: 'Erlebe ein einzigartiges Rollenspiel-Abenteuer in der Welt von J.R.R. Tolkien',
+    description: 'Erlebe ein einzigartiges Rollenspiel-Abenteuer in der Welt von Mittelerde',
     items: [
         {
             title: 'Epische Schlachten',

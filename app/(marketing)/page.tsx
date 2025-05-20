@@ -2,9 +2,7 @@
 
 import { Box, Container, VStack } from '@chakra-ui/react'
 import { NextPage } from 'next'
-import { NextSeo } from 'next-seo'
 
-import { Features } from '#components/features'
 import { ConceptSection } from '#components/features/concept-section'
 import { Pillars } from '#components/features/pillars'
 import { Faq } from '#components/faq/faq'
@@ -12,29 +10,25 @@ import { Hero } from '#components/hero/hero'
 import { Highlights } from '#components/highlights'
 import { BackgroundGradient } from '#components/gradients/background-gradient'
 
-import config from '#data/config'
 import faq from '#data/faq'
 import features from '#data/features'
 import highlights from '#data/highlights'
 import pillars from '#data/pillars'
 import concepts from '#data/concepts'
+import { Features } from '#components/features/features'
 
 const Home: NextPage = () => {
   return (
     <>
-      <NextSeo
-        title={config.seo.title}
-        description={config.seo.description}
-        titleTemplate="%s"
-      />
       <Box>
         <BackgroundGradient height="100%" zIndex="-1" />
-        <VStack spacing="16" align="stretch">
+        <VStack spacing="16" align="stretch" pt={{ base: "20", md: "0" }}>
           <Hero
             title="Erbe von Arda"
-            description="Ein Mount & Blade 2: Bannerlord Rollenspiel-Server in der Welt von J.R.R. Tolkien"
+            description="Ein Mount & Blade 2: Bannerlord Rollenspiel-Server in der Welt von Arda"
             ctaText="Discord beitreten"
             ctaLink="https://discord.gg/erbevonarda"
+            image="/static/screenshots/border_village_gondor.png"
           />
 
           <Container maxW="container.xl">

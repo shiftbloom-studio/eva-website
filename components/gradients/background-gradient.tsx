@@ -37,6 +37,8 @@ export const BackgroundGradient = (props: BoxProps) => {
       opacity="0.3"
       style={{
         filter: 'blur(100px)',
+        overflow: 'hidden',
+        maxWidth: '100vw',
       }}
       {...props}
     />

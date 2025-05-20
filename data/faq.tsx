@@ -6,7 +6,7 @@ export default {
     {
       question: 'Was ist Erbe von Arda?',
       answer:
-        'Erbe von Arda ist ein Rollenspiel-Server für Mount & Blade 2: Bannerlord, der in der Welt von J.R.R. Tolkien (Mittelerde) angesiedelt ist. Wir bieten ein tiefgreifendes Rollenspielerlebnis mit Fokus auf Wirtschaft, Politik und Kampf in einem Herr der Ringe-Setting.',
+        'Erbe von Arda ist ein Rollenspiel-Server für Mount & Blade 2: Bannerlord, der in der Welt von Arda (Mittelerde) angesiedelt ist. Wir bieten ein tiefgreifendes Rollenspielerlebnis mit Fokus auf Wirtschaft, Politik und Kampf in einem Herr der Ringe-Setting.',
     },
     {
       question: 'Benötige ich Mount & Blade 2: Bannerlord, um mitzumachen?',
@@ -16,7 +16,7 @@ export default {
     {
       question: 'Muss ich die Bücher oder Filme kennen, um mitspielen zu können?',
       answer:
-        'Nein, grundlegende Kenntnisse über Mittelerde sind hilfreich, aber nicht zwingend erforderlich. Wir haben Guides für Neulinge und unsere Community hilft dir gerne, dich in der Welt von Herr der Ringe zurechtzufinden.',
+        'Nein, grundlegende Kenntnisse über Mittelerde sind hilfreich, aber nicht zwingend erforderlich. Wir haben Guides für Neulinge und unsere Community hilft dir gerne, dich in der Welt von Erbe von Arda zurechtzufinden.',
     },
     {
       question: 'Gibt es Regeln für das Rollenspiel?',

@@ -25,7 +25,7 @@ export const ConceptSection = (props: ConceptSectionProps) => {
 
     return (
         <Section id={id} py={16} {...rest}>
-            <Container maxW="container.md">
+            <Container maxW="container.lg">
                 <VStack
                     spacing={8}
                     align="start"

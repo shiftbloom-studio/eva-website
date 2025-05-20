@@ -18,17 +18,17 @@ export interface Pillar {
     image: string
 }
 
-export interface PillarsProps extends SectionProps {
-    title: React.ReactNode
-    description?: React.ReactNode
+export interface PillarsProps {
+    title: string
+    description?: string
     items: Array<Pillar>
 }
 
 export const Pillars = (props: PillarsProps) => {
     const { title, description, items, ...rest } = props
 
-    const bgColor = useColorModeValue('whiteAlpha.800', 'blackAlpha.400')
-    const borderColor = useColorModeValue('gray.200', 'gray.700')
+    const bgColor = useColorModeValue('blackAlpha.400', 'blackAlpha.400')
+    const borderColor = useColorModeValue('gray.700', 'gray.700')
 
     return (
         <Section id="pillars" {...rest}>

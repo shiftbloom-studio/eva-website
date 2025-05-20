@@ -7,7 +7,7 @@ const siteConfig = {
   logo: Logo,
   seo: {
     title: 'Erbe von Arda',
-    description: 'Mount & Blade 2 Bannerlord Multiplayer Rollenspiel Mod im Herr der Ringe Setting',
+    description: 'Mount & Blade 2 Bannerlord Multiplayer Rollenspiel Mod im Mittelerde Setting',
   } as NextSeoProps,
   termsUrl: '#',
   privacyUrl: '#',
@@ -16,26 +16,32 @@ const siteConfig = {
       {
         id: 'features',
         label: 'Features',
+        href: '/#features',
       },
       {
         id: 'pillars',
         label: 'Konzept',
+        href: '/#pillars',
       },
       {
         id: 'wirtschaft',
         label: 'Wirtschaft',
+        href: '/#wirtschaft',
       },
       {
         id: 'politik',
         label: 'Politik',
+        href: '/#politik',
       },
       {
         id: 'kampf',
         label: 'Kampf',
+        href: '/#kampf',
       },
       {
         id: 'faq',
         label: 'FAQ',
+        href: '/#faq',
       },
     ],
   },

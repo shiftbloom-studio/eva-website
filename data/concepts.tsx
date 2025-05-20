@@ -34,10 +34,10 @@ export default {
     },
     rollenspiel: {
         title: 'Tiefgründiges Rollenspiel',
-        description: 'Erschaffe deinen eigenen Charakter und erlebe deine persönliche Geschichte in der Welt von J.R.R. Tolkien.',
+        description: 'Erschaffe deinen eigenen Charakter und erlebe deine persönliche Geschichte in der Welt von Mittelerde.',
         content: `Erbe von Arda ist vor allem ein Rollenspiel-Server, der dir die Freiheit gibt, deinen eigenen Charakter in der reichhaltigen Welt von Mittelerde zu entwickeln. Du kannst dich für eine der klassischen Völker wie Menschen, Elben, Zwerge oder Orks entscheiden, oder eine ganz eigene Hintergrundgeschichte erschaffen.
 
-    Unser Fokus liegt auf authentischem Rollenspiel, das sich an der Lore von J.R.R. Tolkiens Werken orientiert, aber genug Raum für kreative Entfaltung lässt. Du kannst deine eigene Hintergrundgeschichte entwickeln und durch Interaktionen mit anderen Spielern zum Leben erwecken.
+    Unser Fokus liegt auf authentischem Rollenspiel, das sich an der Lore von Mittelerde orientiert, aber genug Raum für kreative Entfaltung lässt. Du kannst deine eigene Hintergrundgeschichte entwickeln und durch Interaktionen mit anderen Spielern zum Leben erwecken.
     
     In Taverner-Treffen, Ratsversammlungen und spontanen Begegnungen entstehen lebendige Geschichten, die von der Community gemeinsam weitererzählt werden. Erfahrene Rollenspieler und Neulinge sind gleichermaßen willkommen.
     

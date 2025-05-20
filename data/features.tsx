@@ -1,10 +1,11 @@
 import { FiArrowRight } from 'react-icons/fi'
 import { GiAnvil, GiCrossedSwords, GiScrollUnfurled, GiCrown } from 'react-icons/gi'
+import Image from 'next/image'
 
 export default {
     title: 'Features',
     description: 'Erbe von Arda bietet ein umfassendes Rollenspiel-Erlebnis auf Basis von Mount & Blade 2: Bannerlord',
-    items: [
+    features: [
         {
             title: 'Immersives Mittelerdegebiet',
             description:
@@ -30,10 +31,16 @@ export default {
             icon: GiCrossedSwords,
         },
         {
+            title: 'Einzigartige Geschichte',
+            description:
+                'Erlebe eine einzigartige Geschichte, die von erfahrenen Spielleitern geleitet wird und die Geschichte vorantreibt.',
+            icon: GiScrollUnfurled,
+        },
+        {
             title: 'Und vieles mehr',
             description:
-                'Entdecke alle Aspekte unseres einzigartigen Rollenspiel-Servers basierend auf Mount & Blade 2: Bannerlord.',
+                'Entdecke alle Aspekte unseres einzigartigen Rollenspiels basierend auf Mount & Blade 2: Bannerlord.',
             icon: FiArrowRight,
         },
-    ],
+    ]
 } 
