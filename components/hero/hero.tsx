@@ -13,11 +13,11 @@ import { motion } from 'framer-motion'
 import { fadeInLeft, fadeInRight, fadeInUp, floating } from '../../theme/animations'
 
 // Create motion variants of Chakra components
-const MotionBox = motion(Box)
-const MotionHeading = motion(Heading)
-const MotionText = motion(Text)
-const MotionStack = motion(Stack)
-const MotionImage = motion(Image)
+const MotionBox = motion.create(Box)
+const MotionHeading = motion.create(Heading)
+const MotionText = motion.create(Text)
+const MotionStack = motion.create(Stack)
+const MotionImage = motion.create(Image)
 
 export interface HeroProps {
   title: React.ReactNode

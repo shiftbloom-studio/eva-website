@@ -19,12 +19,12 @@ import { useRef } from 'react'
 import { Section, SectionTitle, SectionTitleProps } from 'components/section'
 import { fadeInUp, cardHover, staggerContainer } from '../../theme/animations'
 
-const MotionBox = motion(Box)
-const MotionStack = motion(Stack)
-const MotionHeading = motion(Heading)
-const MotionText = motion(Text)
-const MotionCircle = motion(Circle)
-const MotionSimpleGrid = motion(SimpleGrid)
+const MotionBox = motion.create(Box)
+const MotionStack = motion.create(Stack)
+const MotionHeading = motion.create(Heading)
+const MotionText = motion.create(Text)
+const MotionCircle = motion.create(Circle)
+const MotionSimpleGrid = motion.create(SimpleGrid)
 
 const Revealer = ({ children, delay = 0 }: any) => {
   const ref = useRef(null)

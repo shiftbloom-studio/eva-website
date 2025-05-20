@@ -16,10 +16,10 @@ import { BackgroundGradient } from '#components/gradients/background-gradient'
 import { Section, SectionProps, SectionTitle } from '#components/section'
 import { fadeInUp, staggerContainer } from '../../theme/animations'
 
-const MotionBox = motion(Box)
-const MotionAccordionItem = motion(AccordionItem)
-const MotionHeading = motion(Heading)
-const MotionText = motion(Text)
+const MotionBox = motion.create(Box)
+const MotionAccordionItem = motion.create(AccordionItem)
+const MotionHeading = motion.create(Heading)
+const MotionText = motion.create(Text)
 
 export interface FaqProps extends Omit<SectionProps, 'title'> {
   title: React.ReactNode

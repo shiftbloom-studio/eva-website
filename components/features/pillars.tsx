@@ -25,11 +25,11 @@ const fadeIn = {
 };
 
 // Motion components
-const MotionVStack = motion(VStack)
-const MotionHeading = motion(Heading)
-const MotionText = motion(Text)
-const MotionCenter = motion(Center)
-const MotionSimpleGrid = motion(SimpleGrid)
+const MotionVStack = motion.create(VStack)
+const MotionHeading = motion.create(Heading)
+const MotionText = motion.create(Text)
+const MotionCenter = motion.create(Center)
+const MotionSimpleGrid = motion.create(SimpleGrid)
 
 export interface Pillar {
     title: string

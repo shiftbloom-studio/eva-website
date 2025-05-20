@@ -11,11 +11,11 @@ import React, { useRef } from 'react'
 import { Section, SectionProps } from '#components/section'
 
 // Motion components
-const MotionVStack = motion(VStack)
-const MotionBox = motion(Box)
-const MotionHeading = motion(Heading)
-const MotionText = motion(Text)
-const MotionContainer = motion(Container)
+const MotionVStack = motion.create(VStack)
+const MotionBox = motion.create(Box)
+const MotionHeading = motion.create(Heading)
+const MotionText = motion.create(Text)
+const MotionContainer = motion.create(Container)
 
 // Custom animation variants for more pronounced movement
 const flyInLeft = {
