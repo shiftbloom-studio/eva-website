@@ -15,7 +15,9 @@ const animatedGradient = keyframes`
 `
 
 const AnimatedBox = styled(Box)`
-  animation: ${animatedGradient} 10s ease infinite;
+  animation: ${animatedGradient} 20s ease infinite;
+  will-change: background-position;
+  transform: translate3d(0, 0, 0);
 `
 
 export const BackgroundGradient = (props: BoxProps) => {
@@ -29,16 +31,18 @@ export const BackgroundGradient = (props: BoxProps) => {
   return (
     <AnimatedBox
       position="absolute"
-      height="1000px"
+      height="100%"
       width="100%"
-      top="-300px"
-      backgroundSize="300% 300%"
+      top="0"
+      left="0"
+      backgroundSize="200% 200%"
       backgroundImage={`linear-gradient(130deg, ${gray800} 0%, ${primary600} 40%, ${secondary600} 60%, ${primary400} 80%)`}
       opacity="0.3"
       style={{
-        filter: 'blur(120px)',
+        filter: 'blur(80px)',
         overflow: 'hidden',
         maxWidth: '100vw',
+        backfaceVisibility: 'hidden',
       }}
       {...props}
     />

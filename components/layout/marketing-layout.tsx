@@ -26,11 +26,24 @@ export const MarketingLayout: React.FC<LayoutProps> = (props) => {
   const { isOpen: isPrivacyOpen, onOpen: onPrivacyOpen, onClose: onPrivacyClose } = useDisclosure()
 
   return (
-    <Box>
+    <Box
+      style={{
+        overscrollBehavior: 'contain',
+        WebkitOverflowScrolling: 'touch' // Verbessert das Scrolling für iOS
+      }}
+    >
       <SkipNavLink>Skip to content</SkipNavLink>
       {announcementProps ? <AnnouncementBanner {...announcementProps} /> : null}
       <Header {...headerProps} />
-      <Box as="main" overflowX="hidden">
+      <Box
+        as="main"
+        overflowX="hidden"
+        style={{
+          willChange: 'transform',
+          perspective: '1000px',
+          height: '100%'
+        }}
+      >
         <SkipNavContent />
         {children}
       </Box>

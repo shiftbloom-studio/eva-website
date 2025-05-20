@@ -15,8 +15,6 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@fontsource-variable/inter": "^5.1.0",
-    "@fontsource/cinzel": "^5.2.5",
-    "@fontsource/eb-garamond": "^5.2.5",
     "@saas-ui/auth": "^3.4.0",
     "@saas-ui/react": "^2.9.0",
     "@svgr/webpack": "^8.1.0",
@@ -24,23 +22,22 @@
     "@vercel/speed-insights": "^1.2.0",
     "date-fns": "^4.1.0",
     "eslint": "^8.57.1",
-    "framer-motion": "^11.18.2",
+    "framer-motion": "^12.12.1",
     "next": "^15.3.2",
     "next-seo": "^6.7.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
-    "react-remove-scroll": "^2.7.0",
-    "velite": "^0.2.2"
+    "react-remove-scroll": "^2.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.7",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "22.7.9",
-    "@types/react": "18.3.21",
-    "@types/react-dom": "18.3.7",
+    "@types/react": "19.1.4",
+    "@types/react-dom": "19.1.5",
     "eslint-config-next": "14.2.28",
     "prettier": "^3.3.3",
-    "typescript": "5.6.3"
+    "typescript": "5.8.3"
   }
 }

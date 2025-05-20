@@ -9,11 +9,17 @@ import {
   Heading,
   Text,
 } from '@chakra-ui/react'
-
+import { motion } from 'framer-motion'
 import React from 'react'
 
 import { BackgroundGradient } from '#components/gradients/background-gradient'
 import { Section, SectionProps, SectionTitle } from '#components/section'
+import { fadeInUp, staggerContainer } from '../../theme/animations'
+
+const MotionBox = motion(Box)
+const MotionAccordionItem = motion(AccordionItem)
+const MotionHeading = motion(Heading)
+const MotionText = motion(Text)
 
 export interface FaqProps extends Omit<SectionProps, 'title'> {
   title: React.ReactNode
@@ -42,7 +48,13 @@ export const Faq: React.FC<FaqProps> = (props) => {
         margin: 'auto',
         filter: 'blur(100px)',
       }} />
-      <Box zIndex="2" pos="relative">
+      <MotionBox
+        zIndex="2"
+        pos="relative"
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer}
+      >
         <SectionTitle
           title={title}
           description={description}
@@ -58,6 +70,7 @@ export const Faq: React.FC<FaqProps> = (props) => {
           p="4"
           borderRadius="md"
           boxShadow="lg"
+          reduceMotion={false}
         >
           {items.map((faq, i) => (
             <FaqItem
@@ -66,10 +79,11 @@ export const Faq: React.FC<FaqProps> = (props) => {
               answer={faq.answer}
               isFirst={i === 0}
               isLast={i === items.length - 1}
+              custom={i * 0.1}
             />
           ))}
         </Accordion>
-      </Box>
+      </MotionBox>
     </Section>
   )
 }
@@ -79,28 +93,54 @@ export interface FaqItemProps {
   answer: React.ReactNode
   isFirst?: boolean
   isLast?: boolean
+  custom?: number
 }
 
 export const FaqItem: React.FC<FaqItemProps> = (props) => {
-  const { question, answer, isFirst, isLast } = props
+  const { question, answer, isFirst, isLast, custom } = props
 
   return (
-    <AccordionItem
+    <MotionAccordionItem
       border="0"
       borderBottomWidth={isLast ? 0 : '1px'}
       borderBottomColor="whiteAlpha.200"
       mb={isLast ? 0 : 2}
       borderTopWidth={isFirst ? 0 : undefined}
+      variants={fadeInUp}
+      custom={custom}
+      initial="hidden"
+      animate="visible"
+      transition={{ delay: custom }}
+      whileHover={{ scale: 1.01 }}
     >
-      <AccordionButton px="6" py="4" _hover={{ bg: 'blackAlpha.300' }}>
+      <AccordionButton
+        px="6"
+        py="4"
+        _hover={{ bg: "blackAlpha.300" }}
+        transition="all 0.2s ease"
+      >
         <Box flex="1" textAlign="left">
-          <Heading size="sm">{question}</Heading>
+          <MotionHeading size="sm">{question}</MotionHeading>
         </Box>
         <AccordionIcon />
       </AccordionButton>
-      <AccordionPanel pb={4} px="6">
-        <Text>{answer}</Text>
+      <AccordionPanel
+        pb={4}
+        px="6"
+        style={{
+          overflow: 'hidden',
+          transition: 'all 0.5s cubic-bezier(0.22, 1, 0.36, 1)'
+        }}
+      >
+        <MotionText
+          style={{
+            transition: 'all 0.3s ease-in-out',
+            transitionDelay: '0.1s'
+          }}
+        >
+          {answer}
+        </MotionText>
       </AccordionPanel>
-    </AccordionItem>
+    </MotionAccordionItem>
   )
 }

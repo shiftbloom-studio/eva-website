@@ -13,11 +13,35 @@ import {
   ThemingProps,
   SystemProps,
 } from '@chakra-ui/react'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 
 import { Section, SectionTitle, SectionTitleProps } from 'components/section'
+import { fadeInUp, cardHover, staggerContainer } from '../../theme/animations'
 
-const Revealer = ({ children }: any) => {
-  return children
+const MotionBox = motion(Box)
+const MotionStack = motion(Stack)
+const MotionHeading = motion(Heading)
+const MotionText = motion(Text)
+const MotionCircle = motion(Circle)
+const MotionSimpleGrid = motion(SimpleGrid)
+
+const Revealer = ({ children, delay = 0 }: any) => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px 0px" })
+
+  return (
+    <MotionBox
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={fadeInUp}
+      custom={delay}
+      transition={{ delay: delay * 0.2 }}
+    >
+      {children}
+    </MotionBox>
+  )
 }
 
 export interface FeaturesProps
@@ -61,17 +85,40 @@ export const Feature: React.FC<FeatureProps> = (props) => {
   const direction = pos === 'left' ? 'row' : 'column'
 
   return (
-    <Stack sx={styles.container} direction={direction}>
+    <MotionStack
+      sx={styles.container}
+      direction={direction}
+      whileHover="hover"
+      variants={cardHover}
+    >
       {icon && (
-        <Circle sx={styles.icon}>
+        <MotionCircle
+          sx={styles.icon}
+          whileHover={{ rotate: 5, scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        >
           <Icon as={icon} boxSize={iconSize} />
-        </Circle>
+        </MotionCircle>
       )}
       <Box>
-        <Heading sx={styles.title}>{title}</Heading>
-        <Text sx={styles.description}>{description}</Text>
+        <MotionHeading
+          sx={styles.title}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
+          {title}
+        </MotionHeading>
+        <MotionText
+          sx={styles.description}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          {description}
+        </MotionText>
       </Box>
-    </Stack >
+    </MotionStack>
   )
 }
 
@@ -85,42 +132,60 @@ export const Features: React.FC<FeaturesProps> = (props) => {
     align: alignProp = 'center',
     iconSize = 8,
     aside,
-    reveal: Wrap = Revealer,
+    reveal: WrapComponent = Revealer,
     ...rest
   } = props
   const align = !!aside ? 'left' : alignProp
-
   const ip = align === 'left' ? 'left' : 'top'
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px 0px" })
 
   return (
     <Section {...rest}>
-      <Stack direction="row" height="full" align="flex-start">
+      <MotionStack
+        ref={ref}
+        direction="row"
+        height="full"
+        align="flex-start"
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        variants={staggerContainer}
+      >
         <VStack flex="1" spacing={[4, null, 8]} alignItems="stretch">
           {(title || description) && (
-            <Wrap>
+            <WrapComponent>
               <SectionTitle
                 title={title}
                 description={description}
                 align={align}
               />
-            </Wrap>
+            </WrapComponent>
           )}
-          <SimpleGrid columns={columns} spacing={spacing}>
+          <MotionSimpleGrid
+            columns={columns}
+            spacing={spacing}
+            variants={staggerContainer}
+          >
             {features.map((feature, i) => {
               return (
-                <Wrap key={i} delay={feature.delay}>
+                <WrapComponent key={i} delay={i * 0.1}>
                   <Feature iconSize={iconSize} {...feature} ip={ip} />
-                </Wrap>
+                </WrapComponent>
               )
             })}
-          </SimpleGrid>
+          </MotionSimpleGrid>
         </VStack>
         {aside && (
-          <Box flex="1" p="8">
+          <MotionBox
+            flex="1"
+            p="8"
+            variants={fadeInUp}
+            transition={{ delay: 0.4 }}
+          >
             {aside}
-          </Box>
+          </MotionBox>
         )}
-      </Stack>
+      </MotionStack>
     </Section>
   )
 }
