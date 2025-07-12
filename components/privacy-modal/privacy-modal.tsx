@@ -37,8 +37,8 @@ const datenschutzHtmlContent = `
     <li><a class="index-link" href="#m328">Plug-ins und eingebettete Funktionen sowie Inhalte</a></li>
 </ul>
 <h2 id="m3">Verantwortlicher</h2>
-<p>Vorname, Name / Firma<br>Straße, Hausnr.<br>PLZ, Ort, Land</p>
-<p>E-Mail-Adresse: <a href="mailto:vorname.name@beispielsdomain.eu">vorname.name@beispielsdomain.eu</a></p>
+<p>Fabian Matthias, Zimber / Einzelunternehmer<br>Up de Worth, 6a<br>22927, Grosshansdorf, Deutschland</p>
+<p>E-Mail-Adresse: <a href="mailto:projektleitung@erbe-von-arda.de">projektleitung@erbe-von-arda.de</a></p>
 
 <h2 id="mOverview">Übersicht der Verarbeitungen</h2>
 <p>Die nachfolgende Übersicht fasst die Arten der verarbeiteten Daten und die Zwecke ihrer Verarbeitung zusammen und

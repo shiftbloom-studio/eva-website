@@ -68,6 +68,16 @@ const siteConfig = {
         href: '#',
       },
       {
+        id: 'community',
+        label: 'Community-Richtlinien',
+        href: '#',
+      },
+      {
+        id: 'legal',
+        label: 'Urheber & Marken',
+        href: '#',
+      },
+      {
         href: 'https://discord.gg/3EPrp4rw5k',
         label: <FaDiscord size="14" />,
       },

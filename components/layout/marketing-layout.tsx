@@ -12,6 +12,8 @@ import { Footer, FooterProps } from './footer'
 import { Header, HeaderProps } from './header'
 import { ImpressumModal } from '../impressum-modal/impressum-modal'
 import { PrivacyModal } from '../privacy-modal/privacy-modal'
+import { CommunityGuidelinesModal } from '../community-guidelines-modal/community-guidelines-modal'
+import { LegalNoticeModal } from '../legal-notice-modal/legal-notice-modal'
 
 interface LayoutProps {
   children: ReactNode
@@ -24,6 +26,8 @@ export const MarketingLayout: React.FC<LayoutProps> = (props) => {
   const { children, announcementProps, headerProps, footerProps } = props
   const { isOpen: isImpressumOpen, onOpen: onImpressumOpen, onClose: onImpressumClose } = useDisclosure()
   const { isOpen: isPrivacyOpen, onOpen: onPrivacyOpen, onClose: onPrivacyClose } = useDisclosure()
+  const { isOpen: isCommunityOpen, onOpen: onCommunityOpen, onClose: onCommunityClose } = useDisclosure()
+  const { isOpen: isLegalOpen, onOpen: onLegalOpen, onClose: onLegalClose } = useDisclosure()
 
   return (
     <Box
@@ -47,9 +51,11 @@ export const MarketingLayout: React.FC<LayoutProps> = (props) => {
         <SkipNavContent />
         {children}
       </Box>
-      <Footer {...footerProps} onImpressumOpen={onImpressumOpen} onPrivacyOpen={onPrivacyOpen} />
+      <Footer {...footerProps} onImpressumOpen={onImpressumOpen} onPrivacyOpen={onPrivacyOpen} onCommunityOpen={onCommunityOpen} onLegalOpen={onLegalOpen} />
       <ImpressumModal isOpen={isImpressumOpen} onClose={onImpressumClose} onPrivacyModalOpen={onPrivacyOpen} />
       <PrivacyModal isOpen={isPrivacyOpen} onClose={onPrivacyClose} />
+      <CommunityGuidelinesModal isOpen={isCommunityOpen} onClose={onCommunityClose} />
+      <LegalNoticeModal isOpen={isLegalOpen} onClose={onLegalClose} />
     </Box>
   )
 }

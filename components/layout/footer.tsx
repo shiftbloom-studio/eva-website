@@ -16,10 +16,12 @@ export interface FooterProps extends BoxProps {
   columns?: number
   onImpressumOpen?: () => void
   onPrivacyOpen?: () => void
+  onCommunityOpen?: () => void
+  onLegalOpen?: () => void
 }
 
 export const Footer: React.FC<FooterProps> = (props) => {
-  const { columns = 2, onImpressumOpen, onPrivacyOpen, ...rest } = props
+  const { columns = 2, onImpressumOpen, onPrivacyOpen, onCommunityOpen, onLegalOpen, ...rest } = props
   return (
     <Box bg="gray.900" _dark={{ bg: 'gray.900' }} {...rest}>
       <Container maxW="container.2xl" px="8" py="8">
@@ -39,6 +41,20 @@ export const Footer: React.FC<FooterProps> = (props) => {
               if (id === 'datenschutz') {
                 return (
                   <FooterLink key={id} onClick={onPrivacyOpen} cursor="pointer">
+                    {label}
+                  </FooterLink>
+                )
+              }
+              if (id === 'community') {
+                return (
+                  <FooterLink key={id} onClick={onCommunityOpen} cursor="pointer">
+                    {label}
+                  </FooterLink>
+                )
+              }
+              if (id === 'legal') {
+                return (
+                  <FooterLink key={id} onClick={onLegalOpen} cursor="pointer">
                     {label}
                   </FooterLink>
                 )
