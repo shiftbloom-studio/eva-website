@@ -1,110 +1,154 @@
-# Erbe von Arda - Website
+## Erbe von Arda – Website (EVA)
 
-Eine moderne Next.js Website für das "Erbe von Arda" Mount & Blade 2: Bannerlord Rollenspiel im Mittelerde-Setting.
+Marketing / landing page for **Erbe von Arda**, built with **Next.js (App Router)**.
 
-## Über das Projekt
+### Tech stack
 
-"Erbe von Arda" ist ein umfassendes Rollenspiel-Erlebnis auf Basis von Mount & Blade 2: Bannerlord, das in der Welt von J.R.R. Tolkiens Mittelerde angesiedelt ist. Diese Website dient als Informations- und Anmeldeplattform für interessierte Spieler.
+- **Framework**: Next.js 16, React 19, TypeScript
+- **UI**: Tailwind CSS v4, Chakra UI, Saas UI
+- **Animation**: Framer Motion
+- **Testing**: Vitest + Testing Library (unit/component), Playwright (E2E)
+- **Linting**: ESLint flat config (`eslint.config.mjs`)
 
-## Features der Website
+### Requirements
 
-- **Responsives Design**: Optimiert für Desktop und mobile Geräte
-- **Marketing-Seiten**: Übersichtliche Darstellung der Spielfeatures
-- **Authentifizierung**: Login- und Registrierungssystem
-- **FAQ-Bereich**: Häufig gestellte Fragen zum Rollenspiel
-- **Mehrere Themenbereiche**:
-  - Wirtschaftssystem
-  - Politik & Diplomatie
-  - Kampf & Schlachten
-  - Handwerk & Berufe
+- **Node.js**: `>= 20.9.0` (see `package.json#engines`)
+- **Package manager**: `npm` (this repo ships a `package-lock.json`)
 
-## Spielfeatures
+### Quickstart
 
-- **Immersives Mittelerdegebiet**: Authentische Nachbildung von Mittelerde mit bekannten Orten
-- **Völker und Kulturen**: Spielbare Völker wie Menschen, Elben, Zwerge und mehr
-- **Handwerkssystem**: Verschiedene Handwerksberufe und Warenerstellung
-- **Rollenspiel-Events**: Regelmäßige Events mit Spielleitern
-- **Dynamisches Wirtschaftssystem**: Handel mit Angebot und Nachfrage
-- **Politik & Diplomatie**: Verhandlungen, Allianzen und Intrigen
+```bash
+npm ci
+npm run dev
+```
 
-## Technologie
+Open the app at `http://localhost:3000`.
 
-- **Frontend**: 
-  - Next.js 14 (App Router)
-  - React 18
-  - TypeScript
-- **UI Frameworks**:
-  - Chakra UI
-  - Saas UI
-  - Framer Motion
-- **Authentifizierung**: @saas-ui/auth
-- **Deployment**: Vercel/Netlify kompatibel
+If dependency installation fails due to peer dependency mismatches, use:
 
-## Entwicklung
+```bash
+npm ci --legacy-peer-deps
+```
 
-### Voraussetzungen
+### Scripts
 
-- Node.js (18.x oder höher)
-- npm oder pnpm
+#### App / tooling
 
-### Installation
+- **dev**: `npm run dev` (uses `--webpack` for SVGR support)
+- **build**: `npm run build`
+- **start**: `npm run start` (production server; requires `npm run build` first)
+- **lint**: `npm run lint`
+- **lint:fix**: `npm run lint:fix`
+- **type check**: `npx tsc --noEmit`
 
-1. Repository klonen
-   ```bash
-   git clone [repository-url]
-   cd eva-website
-   ```
+#### Unit & component tests (Vitest)
 
-2. Abhängigkeiten installieren
-   ```bash
-   npm install
-   # oder mit pnpm
-   pnpm install
-   ```
+- **watch mode**: `npm test` or `npm run test:watch`
+- **single run + coverage (CI)**: `npm run test:ci`
+- **Vitest UI**: `npm run test:ui`
 
-3. Entwicklungsserver starten
-   ```bash
-   npm run dev
-   # oder
-   pnpm dev
-   ```
+Coverage output is written to `./coverage/` (HTML + LCOV + JSON); open:
 
-4. Browser öffnen unter [http://localhost:3000](http://localhost:3000)
+- `coverage/lcov-report/index.html`
 
-### Projektstruktur
+#### E2E tests (Playwright)
 
-- `app/`: Next.js App Router mit Routing und Seitenkomponenten
-  - `(auth)/`: Authentifizierungsseiten (Login/Signup)
-  - `(marketing)/`: Marketing-/Landingpages
-- `components/`: Wiederverwendbare UI-Komponenten
-- `data/`: Konfigurationsdateien, Content und Daten
-- `hooks/`: React Hooks
-- `public/`: Statische Assets
-- `theme/`: Chakra UI Theming und Styling
+First-time setup (installs browser binaries):
 
-## Konfiguration
+```bash
+npx playwright install
+```
 
-Die wichtigsten Konfigurationseinstellungen befinden sich in den Dateien im `/data` Verzeichnis:
+Run E2E:
 
-- `config.tsx`: Allgemeine Website-Konfiguration
-- `features.tsx`: Dargestellte Features
-- `faq.tsx`: FAQ-Einträge
-- `pillars.tsx`: Konzeptsäulen des Spiels
-- `testimonials.tsx`: Spielerstimmen und Erfahrungsberichte
+- **headless**: `npm run test:e2e`
+- **UI runner**: `npm run test:e2e:ui`
+- **headed**: `npm run test:e2e:headed`
+- **debug**: `npm run test:e2e:debug`
+- **open last report**: `npm run test:e2e:report`
 
-## Beitragen
+Run everything CI runs locally:
 
-Wenn du zum Projekt beitragen möchtest, erstelle bitte einen Fork des Repositories und reiche einen Pull Request ein.
+- **unit + coverage + e2e**: `npm run test:all`
 
-## Kontakt
+Playwright configuration lives in `playwright.config.ts`:
 
-- **Discord**: [https://discord.gg/3EPrp4rw5k](https://discord.gg/3EPrp4rw5k)
-- **E-Mail**: support@erbe-von-arda.de
+- **Test directory**: `e2e/`
+- **Base URL**: `PLAYWRIGHT_TEST_BASE_URL` (defaults to `http://127.0.0.1:3000`)
+- **Projects**: `chromium`, `firefox`, `webkit`, `Mobile Chrome`, `Mobile Safari`
+- **Local server**: auto-starts Next.js locally (dev server) and reuses an existing server when possible
 
-## Lizenz
+#### Visual regression tests (opt-in)
 
-MIT
+The tests in `e2e/visual.spec.ts` are **opt-in** (to avoid failing CI without committed snapshots).
+Enable them by setting `E2E_VISUAL=true`.
 
----
+- **macOS/Linux (bash/zsh)**:
 
-Entwickelt vom Team Erbe von Arda
+```bash
+E2E_VISUAL=true npm run test:e2e
+```
+
+- **Windows PowerShell**:
+
+```bash
+$env:E2E_VISUAL="true"; npm run test:e2e
+```
+
+To (re)generate snapshots:
+
+```bash
+E2E_VISUAL=true npm run test:e2e -- --update-snapshots
+```
+
+### GitHub Actions (CI)
+
+This repo ships two workflows:
+
+#### `CI` (`.github/workflows/ci.yml`)
+
+Runs on pushes and PRs to `main`, `master`, and `develop`.
+
+- **Lint & Type Check**: `npm run lint` and `npx tsc --noEmit`
+- **Unit & Component Tests**: `npm run test:ci` (coverage generated to `coverage/`)
+- **Coverage upload (optional)**: uploads `coverage/lcov.info` via Codecov
+  - **Secret**: `CODECOV_TOKEN` (optional; CI won’t fail if missing)
+- **Build**: `npm run build` (uploads `.next` as an artifact)
+- **E2E Tests**: Playwright on `chromium`, `firefox`, `webkit` (uses the built build artifact)
+- **E2E Tests (Mobile)**: Playwright on `Mobile Chrome` + `Mobile Safari`
+
+Artifacts produced by CI:
+
+- **Playwright report**: `playwright-report/`
+- **Playwright raw output**: `test-results/`
+
+#### `Playwright E2E Tests (Vercel Preview)` (`.github/workflows/playwright.yml`)
+
+Runs on `deployment_status` events and executes Playwright against the deployed URL.
+This is intended for **Vercel Preview** and **Production** deployments.
+
+### Project structure (high level)
+
+- **`app/`**: Next.js App Router routes and layouts (marketing pages live under `app/(marketing)/`)
+- **`components/`**: UI + section components (hero, FAQ, bento, etc.)
+- **`data/`**: content/config data used by sections
+- **`hooks/`**: shared hooks (e.g. scroll spy)
+- **`lib/`**: shared utilities (incl. audio engine/provider)
+- **`__tests__/`**: Vitest unit/component tests
+- **`e2e/`**: Playwright E2E tests
+- **`public/`**: static assets (images, audio, favicons)
+
+### Path aliases
+
+Configured in `tsconfig.json` and `vitest.config.mts`:
+
+- `#components/*` → `./components/*`
+- `#hooks/*` → `./hooks/*`
+- `#data/*` → `./data/*`
+- `#lib/*` → `./lib/*`
+
+### Notes / references
+
+- **Next.js 16 lint**: `next lint` was removed → lint runs via **ESLint CLI** (`npm run lint`)
+- **Bundler**: `dev/build` run with `--webpack` because the project has custom `webpack()` config (SVGR)
+- **Additional docs**: `.cursor/references/PROJECT_REFERENCE.md` (concept text, audio asset naming, etc.)

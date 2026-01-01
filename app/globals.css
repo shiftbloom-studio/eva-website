@@ -1,0 +1,23 @@
+@config "../tailwind.config.ts";
+@import "tailwindcss";
+
+@layer base {
+  html {
+    text-rendering: geometricPrecision;
+  }
+
+  body {
+    background: #07060a;
+  }
+
+  ::selection {
+    background: rgba(186, 138, 45, 0.35);
+    color: #fff;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

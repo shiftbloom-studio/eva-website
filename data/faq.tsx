@@ -1,47 +1,45 @@
-import * as React from 'react'
-
 export default {
   title: 'Häufig gestellte Fragen',
   items: [
     {
       question: 'Was ist Erbe von Arda?',
       answer:
-        'Erbe von Arda ist ein Rollenspiel-Server für Mount & Blade 2: Bannerlord, der in der Welt von Arda (Mittelerde) angesiedelt ist. Wir bieten ein tiefgreifendes Rollenspielerlebnis mit Fokus auf Wirtschaft, Politik und Kampf in einem Mittelerde-Setting.',
+        'Erbe von Arda ist ein Rollenspiel-Server für Mount & Blade II: Bannerlord – angesiedelt in Arda. Hier gibt es keine Questline, die dich trägt: Spieler treiben Handel, Räte und Feldzüge voran. Entscheidungen haben Gewicht – und werden erinnert.',
     },
     {
       question: 'Benötige ich Mount & Blade 2: Bannerlord, um mitzumachen?',
       answer:
-        'Ja, das Grundspiel Mount & Blade 2: Bannerlord wird benötigt. Unsere eigene Mod wird zum Start des Servers im (voraussichtlich im vierten Quartal 2025) bequem über den Steam Workshop zur Verfügung stehen. Alle Details zur Installation erhältst du rechtzeitig über unseren Discord-Server.',
+        'Ja – Mount & Blade II: Bannerlord ist die Grundlage. Unsere Mod stellen wir zum Start bequem über den Steam Workshop bereit. Eine kurze Anleitung (und Hilfe, falls etwas hakt) findest du rechtzeitig im Discord.',
     },
     {
       question: 'Muss ich die Bücher oder Filme von Herr der Ringe kennen, um mitspielen zu können?',
       answer:
-        'Nein, grundlegende Kenntnisse über Mittelerde sind hilfreich, aber nicht zwingend erforderlich. Wir haben Guides für Neulinge und unsere Community hilft dir gerne, dich in der Welt von Erbe von Arda zurechtzufinden.',
+        'Nein. Ein wenig Kenntnis hilft – doch wir lassen niemanden im Nebel stehen. Guides, Einsteigerrollen und eine hilfsbereite Community führen dich Schritt für Schritt in die Welt.',
     },
     {
       question: 'Gibt es Regeln für das Rollenspiel?',
       answer:
-        'Ja, wir haben einen Regelkatalog, der ein faires und immersives Spielerlebnis gewährleisten soll. Dazu gehören Richtlinien zum Charakterverhalten, Umgang mit anderen Spielern und zur Einhaltung der Lore. Diese Regeln findest du auf unserem Discord-Server.',
+        'Ja. Wenige, klare Grundsätze schützen Immersion und Fairness: Umgang, Grenzen, Lore-Nähe und Konsequenzen. Den vollständigen Kodex findest du im Discord – kurz, verständlich und ohne Juristendeutsch.',
     },
     {
       question: 'Wie oft finden Events statt?',
       answer:
-        'Wir veranstalten wöchentliche Events wie große Schlachten, Markttage oder politische Versammlungen. Zusätzlich gibt es spontane Events durch spätere Eventleiter und von der Community organisierte Aktivitäten.',
+        'In der Regel wöchentlich: Schlachten, Markttage, Ratsversammlungen. Dazu kommen spontane Szenen und Community-Aktionen – je nachdem, wohin eure Entscheidungen die Welt treiben.',
     },
     {
       question: 'Kann ich meine eigene Fraktion oder Gilde gründen?',
       answer:
-        'Eigene offizielle Fraktionen können nicht gegründet werden, da die drei Hauptfraktionen auf dem Server feststehen. Du hast jedoch im Rahmen des freien Rollenspiels und mit entsprechendem Fortschritt viele Möglichkeiten, eigene Gruppierungen wie Gilden, Handelskompanien oder Allianzen zu bilden. Die genauen Bedingungen hierfür werden im Spielverlauf ersichtlich.',
+        'Die großen Reiche stehen fest – doch unter ihren Bannern ist vieles möglich. Häuser, Gilden, Handelskompanien, Söldnerbünde, Orden und Bündnisse entstehen im Spiel aus Einfluss, Besitz und Beziehungen. Wie weit du kommst, entscheiden Taten – nicht Menüs.',
     },
     {
       question: 'Ist der Server an 7 Tagen die Woche online?',
       answer:
-        'Ja, unser Server ist nach der Veröffentlichung durchgehend online, mit Ausnahme von angekündigten Wartungsarbeiten oder Updates. Die Hauptspielzeiten, an denen die meisten Spieler aktiv sind, liegen in den Abendstunden mitteleuropäischer Zeit.',
+        'Ja – nach der Veröffentlichung durchgehend, abgesehen von angekündigten Wartungen oder Updates. Die Hauptspielzeit liegt meist in den Abendstunden (MEZ).',
     },
     {
       question: 'Wie kann ich dem Projekt beitreten oder es unterstützen?',
       answer:
-        'Der beste Weg, um auf dem Laufenden zu bleiben und dich einzubringen, ist unserem Discord-Server beizutreten. Dort kannst du dich mit der Community austauschen und erfährst als Erster von Neuigkeiten. Die Möglichkeit, dich als Spieler zu registrieren oder dich als freiwilliger Helfer oder Entwickler zu bewerben, wird mit dem öffentlichen Start des Servers im vierten Quartal 2025 freigeschaltet. Wir freuen uns schon jetzt auf dich!',
+        'Tritt unserem Discord bei: News, Roadmap, Regeln, Bewerbung (Whitelist) und Support. Wenn du helfen willst (Eventleitung, Moderation, Entwicklung), findest du dort auch die offenen Rollen.',
     },
   ],
 }

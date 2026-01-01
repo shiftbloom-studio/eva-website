@@ -1,3 +1,22 @@
 node_modules
 
 .next
+
+# Testing
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Environment
+.env*.local
+.vercel
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

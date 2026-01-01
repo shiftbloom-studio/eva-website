@@ -1,8 +1,6 @@
 import './globals.css'
 
 import { Provider } from './provider'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Inter, Space_Grotesk } from 'next/font/google'
 
 import { cn } from '#lib/cn'
@@ -48,9 +46,7 @@ export default function Layout(props: { children: React.ReactNode }) {
         <link rel="manifest" href="/static/favicons/manifest.json" />
       </head>
       <body className="min-h-[100svh]">
-        <Analytics />
         <Provider>{props.children}</Provider>
-        <SpeedInsights />
       </body>
     </html>
   )
