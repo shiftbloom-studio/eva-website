@@ -53,7 +53,7 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
     <section className="relative isolate min-h-[92svh] overflow-hidden">
       <HeroBackdrop />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-24 sm:pb-24 sm:pt-32">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-32">
         <div className="max-w-3xl">
           <motion.div
             className="inline-flex items-center gap-2 rounded-full border border-sunbronze/30 bg-sunbronze/10 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-sunbronze backdrop-blur-md"
@@ -70,10 +70,10 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
               as="h1"
               text={'Schatten\nüber Arda'}
               {...headlineMotion}
-              className="relative z-10 mt-8 font-display text-display-sm text-transparent bg-clip-text bg-gradient-to-b from-vellum-50 via-vellum-100 to-vellum-400 sm:text-display-md lg:text-display-lg"
+              className="relative z-10 mt-8 font-display text-display-md text-transparent bg-clip-text bg-gradient-to-b from-vellum-50 via-vellum-100 to-vellum-400 lg:text-display-lg"
             />
              {/* Subtle glow behind text */}
-             <div className="absolute -inset-x-10 -top-10 -bottom-10 z-0 bg-sunbronze/10 blur-[90px] rounded-full opacity-60 pointer-events-none" />
+             <div className="pointer-events-none absolute -inset-x-8 -top-8 -bottom-8 z-0 rounded-full bg-sunbronze/10 blur-[80px] opacity-50 sm:-inset-x-10 sm:-top-10 sm:-bottom-10 sm:blur-[90px] sm:opacity-60" />
           </div>
 
           <motion.p
@@ -87,18 +87,21 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
             <span className="text-sunbronze/90"> Dein Wort ist das einzige Gesetz, das zählt.</span>
           </motion.p>
 
-          <div className="mt-12 flex flex-col gap-5 sm:flex-row sm:items-center">
+          <div className="mt-10 flex flex-col gap-4 sm:mt-12 sm:flex-row sm:items-center">
             <MagneticButton
               href={discordUrl}
               target="_blank"
               rel="noopener noreferrer"
               title="Noch nicht veröffentlicht – geplant für Q3 2026"
-              className="w-full sm:w-auto border-sunbronze/30 bg-sunbronze/10 hover:bg-sunbronze/20 text-sunbronze hover:border-sunbronze/50"
+              className="w-full justify-between border-sunbronze/30 bg-sunbronze/10 text-sunbronze hover:border-sunbronze/50 hover:bg-sunbronze/20 sm:w-auto sm:justify-center"
             >
               <span className="flex flex-col items-start leading-tight">
-                <span className="text-[0.95rem] tracking-widest uppercase text-xs font-bold">Q3 2026</span>
-                <span className="mt-0.5 text-[0.7rem] uppercase tracking-[0.22em] opacity-75">
-                  Release geplant
+                <span className="text-sm font-semibold uppercase tracking-[0.18em] max-[360px]:normal-case max-[360px]:text-[0.85rem] max-[360px]:tracking-[0.06em] sm:hidden">
+                  Q3 2026 <span className="opacity-70">– Release geplant</span>
+                </span>
+                <span className="hidden flex-col items-start leading-tight sm:flex">
+                  <span className="text-xs font-bold uppercase tracking-[0.22em]">Q3 2026</span>
+                  <span className="mt-0.5 text-[0.7rem] uppercase tracking-[0.22em] opacity-75">Release geplant</span>
                 </span>
               </span>
               <Clock className="h-4 w-4 opacity-80" strokeWidth={1.5} />
@@ -106,7 +109,7 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
 
             <a
               href="#bento"
-              className="inline-flex w-full items-center justify-center rounded-full border border-white/10 bg-transparent px-6 py-3 text-sm font-medium text-vellum-50/90 transition hover:border-white/20 hover:bg-white/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950 sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-full border border-white/10 bg-transparent px-5 py-2.5 text-sm font-medium text-vellum-50/90 transition hover:border-white/20 hover:bg-white/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950 sm:w-auto sm:px-6 sm:py-3"
             >
               Lore entdecken
             </a>

@@ -1,0 +1,208 @@
+{
+  // EVA Futuristic Workspace (Cursor / VS Code)
+  // NOTE: VS Code settings files are JSONC → comments are allowed.
+
+  // --- EVA brand accents (from tailwind.config.ts) ---
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.preferredDarkColorTheme": "Default Dark Modern",
+  "window.commandCenter": true,
+  "workbench.startupEditor": "none",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.labelFormat": "short",
+  "workbench.colorCustomizations": {
+    "focusBorder": "#BA8A2D",
+    "selection.background": "#99432455",
+    "button.background": "#BA8A2D",
+    "button.foreground": "#07060A",
+    "button.hoverBackground": "#C5914C",
+    "activityBar.background": "#07060A",
+    "activityBar.foreground": "#FBF5EC",
+    "activityBar.inactiveForeground": "#E7CFA6AA",
+    "activityBarBadge.background": "#BA8A2D",
+    "activityBarBadge.foreground": "#07060A",
+    "sideBar.background": "#07060A",
+    "sideBar.foreground": "#FBF5EC",
+    "sideBar.border": "#333342",
+    "statusBar.background": "#121219",
+    "statusBar.foreground": "#FBF5EC",
+    "statusBar.border": "#333342",
+    "statusBarItem.remoteBackground": "#994324",
+    "statusBarItem.remoteForeground": "#FBF5EC",
+    "titleBar.activeBackground": "#07060A",
+    "titleBar.activeForeground": "#FBF5EC",
+    "titleBar.inactiveBackground": "#07060A",
+    "titleBar.inactiveForeground": "#A3A4B7"
+  },
+
+  // --- Editor feel: smooth + “futuristic” without being noisy ---
+  "editor.fontFamily": "'Cascadia Code', 'JetBrains Mono', 'Fira Code', Consolas, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.lineHeight": 22,
+  "editor.cursorBlinking": "phase",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "editor.minimap.enabled": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.indentation": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.renderWhitespace": "selection",
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 100,
+  "editor.rulers": [100],
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+
+  // --- Save hygiene ---
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+
+  // --- Formatting & Fixes on save (Biome formats; ESLint fixes rules) ---
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modificationsIfAvailable",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": "explicit"
+  },
+
+  // --- TypeScript / JavaScript (workspace TypeScript, shortest imports, etc.) ---
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.quoteStyle": "single",
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // --- Biome (biomejs.biome) ---
+  "biome.enabled": true,
+  "biome.requireConfiguration": false,
+  "biome.suggestInstallingGlobally": true,
+
+  // --- ESLint (dbaeumer.vscode-eslint) ---
+  // This repo uses `eslint.config.mjs` (ESLint flat config).
+  "eslint.enable": true,
+  "eslint.useFlatConfig": true,
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.format.enable": false,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+
+  // --- Formatter routing (Biome for JS/TS/JSON) ---
+  "[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[javascriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[typescriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[json]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[jsonc]": { "editor.defaultFormatter": "biomejs.biome" },
+
+  // --- Tailwind CSS IntelliSense (bradlc.vscode-tailwindcss) ---
+  // Enables class suggestions inside strings + inside cn/clsx/twMerge calls (used across this repo).
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.colorDecorators": true,
+  "tailwindCSS.showPixelEquivalents": true,
+  "tailwindCSS.validate": true,
+  "tailwindCSS.experimental.configFile": "./tailwind.config.ts",
+  "tailwindCSS.classFunctions": ["cn", "clsx", "twMerge"],
+  "tailwindCSS.experimental.classRegex": [
+    ["\\bcn\\(([^)]*)\\)", "[\"'`]([^\"'`]*?)[\"'`]"],
+    ["\\bclsx\\(([^)]*)\\)", "[\"'`]([^\"'`]*?)[\"'`]"],
+    ["\\btwMerge\\(([^)]*)\\)", "[\"'`]([^\"'`]*?)[\"'`]"]
+  ],
+
+  // --- Better Comments (aaron-bond.better-comments) ---
+  "better-comments.highlightPlainText": true,
+  "better-comments.multilineComments": true,
+  "better-comments.tags": [
+    { "tag": "!", "color": "#994324", "bold": true },
+    { "tag": "?", "color": "#BA8A2D", "bold": true },
+    { "tag": "TODO", "color": "#BA8A2D", "bold": true },
+    { "tag": "FIXME", "color": "#994324", "bold": true },
+    { "tag": "NOTE", "color": "#95A073", "bold": true },
+    { "tag": "HACK", "color": "#77798F", "bold": true },
+    { "tag": "//", "color": "#45465A", "strikethrough": true }
+  ],
+
+  // --- colorize (kamikillerto.vscode-colorize) ---
+  "colorize.languages": [
+    "css",
+    "sass",
+    "scss",
+    "less",
+    "postcss",
+    "stylus",
+    "svg",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "jsonc"
+  ],
+  "colorize.include": ["**/*.{css,scss,sass,less,styl,svg,js,jsx,ts,tsx,mdx}"],
+  "colorize.exclude": [
+    "**/.git",
+    "**/.next",
+    "**/node_modules",
+    "**/coverage",
+    "**/playwright-report",
+    "**/dist",
+    "**/build",
+    "**/out"
+  ],
+  "colorize.decoration_type": "square-dot",
+  "colorize.enable_search_variables": false,
+  "colorize.ruler_decoration": true,
+  "colorize.hide_current_line_decorations": true,
+  "colorize.colorized_colors": ["BROWSERS_COLORS", "HEXA", "RGB", "HSL", "OKLAB", "OKLCH"],
+  "colorize.colorized_variables": ["CSS", "SASS", "LESS", "STYLUS"],
+
+  // --- Dev Containers (ms-vscode-remote.remote-containers) ---
+  // Make the “futuristic toolchain” follow you into containers.
+  "dev.containers.defaultExtensions": [
+    "biomejs.biome",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "aaron-bond.better-comments",
+    "kamikillerto.vscode-colorize",
+    "github.vscode-github-actions",
+    "LeonardSSH.vscord"
+  ],
+  "dev.containers.logLevel": "info",
+  "dev.containers.experimentalLockfile": true,
+
+  // --- GitHub Actions (github.vscode-github-actions) ---
+  "github-actions.remote-name": "origin",
+  "github-actions.use-enterprise": false,
+  "github-actions.workflows.pinned.refresh.enabled": false,
+  "github-actions.workflows.pinned.refresh.interval": 60,
+  "github-actions.workflows.pinned.workflows": [],
+
+  // --- VSCord (LeonardSSH.vscord) ---
+  // Uses real, documented placeholders: {workspace}, {problems}, {file_name}, {file_extension}, {current_line}, {current_column}
+  "vscord.app.name": "Cursor",
+  "vscord.app.privacyMode.enable": false,
+  "vscord.status.showElapsedTime": true,
+  "vscord.status.idle.timeout": 180,
+  "vscord.status.problems.enabled": true,
+  "vscord.status.problems.countedSeverities": ["error", "warning"],
+  "vscord.status.details.text.editing": "EVA · {workspace} {problems}",
+  "vscord.status.state.text.editing": "Forging {file_name}{file_extension}:{current_line}:{current_column}",
+  "vscord.status.details.text.viewing": "EVA · {workspace} {problems}",
+  "vscord.status.state.text.viewing": "Reviewing {file_name}{file_extension}:{current_line}:{current_column}",
+  "vscord.status.details.text.debugging": "EVA · Debugging {workspace} {problems}",
+  "vscord.status.state.text.debugging": "Hunting bugs in {file_name}{file_extension}:{current_line}:{current_column}",
+  "vscord.status.details.text.idle": "EVA · Idle in {workspace}",
+  "vscord.status.state.text.idle": "Recharging…",
+  "vscord.status.details.text.noWorkSpaceText": "EVA · No workspace",
+  "vscord.status.state.text.noWorkspaceFound": "Boot sequence…",
+  "vscord.status.details.text.notInFile": "EVA · {workspace} {problems}",
+  "vscord.status.state.text.notInFile": "Navigating"
+}

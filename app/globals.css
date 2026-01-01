@@ -2,6 +2,14 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --eva-scroll-y: 0px;
+    --eva-scroll-y-num: 0;
+    --eva-scroll-progress: 0;
+    --eva-scroll-velocity: 0;
+    --eva-scroll-direction: 0;
+  }
+
   html {
     text-rendering: geometricPrecision;
   }
@@ -13,6 +21,14 @@
   ::selection {
     background: rgba(186, 138, 45, 0.35);
     color: #fff;
+  }
+
+  /* Debug helpers (enable via `?debugScroll=1` or Ctrl+Shift+D) */
+  html[data-eva-debug='1'] [data-eva-reveal],
+  html[data-eva-debug='1'] [data-eva-reveal-group],
+  html[data-eva-debug='1'] [data-eva-reveal-item] {
+    outline: 1px dashed rgba(186, 138, 45, 0.35);
+    outline-offset: 3px;
   }
 }
 

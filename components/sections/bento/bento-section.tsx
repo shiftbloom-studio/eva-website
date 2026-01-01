@@ -1,5 +1,6 @@
 import { MessageCircle, ScrollText, ServerCog } from 'lucide-react'
 
+import { Reveal, RevealGroup, RevealGroupItem } from '#components/scroll'
 import { BentoCard, BentoGrid } from '#components/ui/bento-grid'
 import { marketingImages } from '#lib/marketing-images'
 
@@ -10,18 +11,21 @@ export interface BentoSectionProps {
 export function BentoSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: BentoSectionProps) {
   return (
     <section id="bento" className="relative mx-auto max-w-7xl scroll-mt-28 px-6 pb-28 pt-10">
-      <div className="max-w-2xl">
-        <h2 className="font-display text-3xl tracking-[-0.02em] text-vellum-50 sm:text-4xl">
-          Der Pfad in die Legende
-        </h2>
-        <p className="mt-4 text-sm leading-relaxed text-vellum-200/80 sm:text-base font-serif">
-          Hinter den Mauern warten Intrigen, Handel und das Klirren von Stahl. 
-          Wähle deinen Einstieg in eine Welt, die niemals vergisst.
-        </p>
-      </div>
+      <Reveal preset="rise-blur" amount={0.5}>
+        <div className="max-w-2xl">
+          <h2 className="font-display text-3xl tracking-[-0.02em] text-vellum-50 sm:text-4xl">
+            Der Pfad in die Legende
+          </h2>
+          <p className="mt-4 text-sm leading-relaxed text-vellum-200/80 sm:text-base font-serif">
+            Hinter den Mauern warten Intrigen, Handel und das Klirren von Stahl. Wähle deinen Einstieg in eine Welt,
+            die niemals vergisst.
+          </p>
+        </div>
+      </Reveal>
 
-      <BentoGrid className="mt-10">
-        <div id="status" className="scroll-mt-28 md:col-span-7">
+      <RevealGroup className="mt-10">
+        <BentoGrid>
+          <RevealGroupItem id="status" className="scroll-mt-28 md:col-span-7">
           <BentoCard
             eyebrow="Server Status"
             title="Die Schmiede des Schicksals"
@@ -39,9 +43,9 @@ export function BentoSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: B
               </div>
             }
           />
-        </div>
+          </RevealGroupItem>
 
-        <div id="lore" className="scroll-mt-28 md:col-span-5">
+          <RevealGroupItem id="lore" className="scroll-mt-28 md:col-span-5">
           <BentoCard
             eyebrow="Lore & Geschichte"
             title="Chroniken der Alten Welt"
@@ -55,29 +59,33 @@ export function BentoSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: B
               </p>
             }
           />
-        </div>
+          </RevealGroupItem>
 
-        <div className="md:col-span-12">
-          <a
-            href={discordUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950"
-          >
-            <BentoCard
-              eyebrow="Gemeinschaft"
-              title="Die Halle der Gefährten"
-              description="Tritt dem Rat bei. Hier werden Allianzen geschmiedet, Charaktere geboren und die Zukunft des Servers diskutiert. Dein Platz am Feuer ist bereit."
-              icon={<MessageCircle className="h-5 w-5 text-vellum-50" strokeWidth={1.5} />}
-              footer={
-                <div className="inline-flex items-center gap-2 text-sm font-medium text-sunbronze group-hover:text-vellum-50 transition-colors">
-                  Discord beitreten <span aria-hidden="true" className="group-hover:translate-x-1 transition-transform">→</span>
-                </div>
-              }
-            />
-          </a>
-        </div>
-      </BentoGrid>
+          <RevealGroupItem className="md:col-span-12">
+            <a
+              href={discordUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950"
+            >
+              <BentoCard
+                eyebrow="Gemeinschaft"
+                title="Die Halle der Gefährten"
+                description="Tritt dem Rat bei. Hier werden Allianzen geschmiedet, Charaktere geboren und die Zukunft des Servers diskutiert. Dein Platz am Feuer ist bereit."
+                icon={<MessageCircle className="h-5 w-5 text-vellum-50" strokeWidth={1.5} />}
+                footer={
+                  <div className="inline-flex items-center gap-2 text-sm font-medium text-sunbronze group-hover:text-vellum-50 transition-colors">
+                    Discord beitreten{' '}
+                    <span aria-hidden="true" className="group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
+                  </div>
+                }
+              />
+            </a>
+          </RevealGroupItem>
+        </BentoGrid>
+      </RevealGroup>
     </section>
   )
 }

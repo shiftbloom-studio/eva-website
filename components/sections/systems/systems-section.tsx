@@ -5,6 +5,7 @@ import { Crown, ScrollText, Swords, Wheat } from 'lucide-react'
 import Image from 'next/image'
 import * as React from 'react'
 
+import { Reveal, RevealGroup } from '#components/scroll'
 import { Section, SectionHeader } from '#components/ui/section'
 import { useAudio } from '#lib/audio'
 import { cn } from '#lib/cn'
@@ -36,15 +37,30 @@ export function SystemsSection() {
   const audio = useAudio()
   const [openId, setOpenId] = React.useState<(typeof systems)[number]['id'] | null>('wirtschaft')
 
+  const cardVariants = React.useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 18, filter: 'blur(10px)' },
+      visible: {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
+      },
+    }),
+    [],
+  )
+
   return (
     <Section id="systeme" className="pb-28 pt-6">
-      <SectionHeader
-        eyebrow="Systeme"
-        title="Gebaut für Legenden, nicht für Listen."
-        subtitle="Drei Säulen treiben die Welt: Wirtschaft, Diplomatie, Krieg. Doch darunter liegt das eigentliche Fundament: Rollenspiel. Keine Questline. Kein vorgezeichnetes Ende. Du schmiedest deine Geschichte – mit anderen."
-      />
+      <Reveal preset="rise-blur" amount={0.55}>
+        <SectionHeader
+          eyebrow="Systeme"
+          title="Gebaut für Legenden, nicht für Listen."
+          subtitle="Drei Säulen treiben die Welt: Wirtschaft, Diplomatie, Krieg. Doch darunter liegt das eigentliche Fundament: Rollenspiel. Keine Questline. Kein vorgezeichnetes Ende. Du schmiedest deine Geschichte – mit anderen."
+        />
+      </Reveal>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6">
+      <RevealGroup className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6" amount={0.25} stagger={0.07}>
         {systems.map((item) => {
           const Icon = icons[item.id]
           const isOpen = openId === item.id
@@ -72,6 +88,7 @@ export function SystemsSection() {
                 item.id === 'wirtschaft' ? 'md:col-span-7' : 'md:col-span-5',
               )}
               layout
+              variants={cardVariants}
             >
               {/* Background image (storytelling) */}
               <div className="absolute inset-0 z-0">
@@ -142,7 +159,7 @@ export function SystemsSection() {
             </motion.button>
           )
         })}
-      </div>
+      </RevealGroup>
     </Section>
   )
 }

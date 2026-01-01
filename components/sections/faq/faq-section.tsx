@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
 
+import { Reveal } from '#components/scroll'
 import { Section, SectionHeader } from '#components/ui/section'
 import { cn } from '#lib/cn'
 import faq from '#data/faq'
@@ -13,9 +14,15 @@ export function FaqSection() {
 
   return (
     <Section id="faq" className="pb-28 pt-6">
-      <SectionHeader eyebrow="FAQ" title={faq.title} subtitle="Kurz, klar – und wenn du mehr willst: Discord." />
+      <Reveal preset="rise-blur" amount={0.55}>
+        <SectionHeader eyebrow="FAQ" title={faq.title} subtitle="Kurz, klar – und wenn du mehr willst: Discord." />
+      </Reveal>
 
-      <div className="mt-10 divide-y divide-white/10 overflow-hidden rounded-4xl border border-white/10 bg-void-900/30 backdrop-blur-md">
+      <Reveal
+        preset="rise-blur"
+        amount={0.25}
+        className="mt-10 divide-y divide-white/10 overflow-hidden rounded-4xl border border-white/10 bg-void-900/30 backdrop-blur-md"
+      >
         {faq.items.map((item) => {
           const isOpen = open === item.question
           return (
@@ -59,7 +66,7 @@ export function FaqSection() {
             </div>
           )
         })}
-      </div>
+      </Reveal>
     </Section>
   )
 }

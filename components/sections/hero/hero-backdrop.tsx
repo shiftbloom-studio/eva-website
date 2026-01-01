@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 import * as React from 'react'
 
@@ -143,11 +143,6 @@ export interface HeroBackdropProps {
 
 export function HeroBackdrop({ className }: HeroBackdropProps) {
   const reduceMotion = useReducedMotion()
-  const { scrollY } = useScroll()
-
-  // Parallax effect for the background image
-  const y = useTransform(scrollY, [0, 1000], [0, 400])
-  const opacity = useTransform(scrollY, [0, 600], [1, 0.3])
   const ashes = ASHES_PRESETS[ASHES_PRESET]
 
   return (
@@ -156,9 +151,17 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#2d2e3a_0%,#07060a_100%)]" />
 
       {/* Parallax Image Layer */}
-      <motion.div 
-        className="absolute inset-0 h-[120%]"
-        style={reduceMotion ? undefined : { y, opacity }}
+      <div
+        className="absolute inset-0 h-[120%] will-change-transform"
+        style={
+          reduceMotion
+            ? undefined
+            : {
+                transform:
+                  'translate3d(0, clamp(0px, calc(var(--eva-scroll-y) * 0.4), 420px), 0)',
+                opacity: 'clamp(0.3, calc(1 - (var(--eva-scroll-y) / 857px)), 1)',
+              }
+        }
       >
         <Image
           src={marketingImages.heroWide}
@@ -167,23 +170,23 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
           sizes="(max-width: 768px) 100vw, 2560px"
           priority
           quality={92}
-          className="object-cover object-top opacity-85 grayscale-[8%] sepia-[12%]"
+          className="object-cover object-[70%_0%] opacity-85 grayscale-[8%] sepia-[12%] sm:object-top"
         />
         {/* Vignette - Much lighter to let image show */}
-        <div className="absolute inset-0 bg-gradient-to-b from-void-950/10 via-void-950/20 to-void-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-void-950/15 via-void-950/30 to-void-950 sm:from-void-950/10 sm:via-void-950/20" />
         <div className="absolute inset-0 bg-gradient-to-r from-void-950/50 via-transparent to-void-950/50" />
-      </motion.div>
+      </div>
 
       {/* Animated Orbs/Glows */}
       {reduceMotion ? (
         <>
-          <div className="absolute -left-[10%] -top-[10%] h-[50rem] w-[50rem] rounded-full bg-sunbronze/10 blur-[120px]" />
-          <div className="absolute -right-[10%] top-[20%] h-[40rem] w-[40rem] rounded-full bg-bloodstone/10 blur-[120px]" />
+          <div className="absolute -left-[10%] -top-[10%] h-[38rem] w-[38rem] rounded-full bg-sunbronze/10 blur-[105px] sm:h-[50rem] sm:w-[50rem] sm:blur-[120px]" />
+          <div className="absolute -right-[10%] top-[20%] h-[32rem] w-[32rem] rounded-full bg-bloodstone/10 blur-[105px] sm:h-[40rem] sm:w-[40rem] sm:blur-[120px]" />
         </>
       ) : (
         <>
           <motion.div
-            className="absolute -left-[10%] -top-[10%] h-[50rem] w-[50rem] rounded-full bg-sunbronze/10 blur-[120px] mix-blend-screen"
+            className="absolute -left-[10%] -top-[10%] h-[38rem] w-[38rem] rounded-full bg-sunbronze/10 blur-[105px] mix-blend-screen sm:h-[50rem] sm:w-[50rem] sm:blur-[120px]"
             animate={{
               scale: [1, 1.1, 1],
               opacity: [0.3, 0.5, 0.3],
@@ -191,7 +194,7 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
             transition={{ duration: 10, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as const }}
           />
           <motion.div
-            className="absolute -right-[10%] top-[20%] h-[40rem] w-[40rem] rounded-full bg-bloodstone/10 blur-[120px] mix-blend-screen"
+            className="absolute -right-[10%] top-[20%] h-[32rem] w-[32rem] rounded-full bg-bloodstone/10 blur-[105px] mix-blend-screen sm:h-[40rem] sm:w-[40rem] sm:blur-[120px]"
             animate={{
               scale: [1, 1.2, 1],
               opacity: [0.2, 0.4, 0.2],
@@ -203,8 +206,8 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
 
       {/* Particles */}
       <FloatingParticles {...ashes.embers} className="mix-blend-screen" />
-      <FloatingParticles {...ashes.cinders} className="mix-blend-screen opacity-90" />
-      <FloatingParticles {...ashes.ash} className="opacity-55" />
+      <FloatingParticles {...ashes.cinders} className="hidden mix-blend-screen opacity-90 sm:block" />
+      <FloatingParticles {...ashes.ash} className="hidden opacity-55 sm:block" />
 
       {/* Texture */}
       <NoiseOverlay opacity={0.06} />

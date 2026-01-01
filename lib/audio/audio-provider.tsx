@@ -7,13 +7,36 @@ import { AudioEngine } from './audio-engine'
 import {
   DEFAULT_COOLDOWN_MS,
   SOUND_CHANNEL,
+  SFX_KEYS,
   type AudioChannel,
   type SfxKey,
   type SoundKey,
   type VoiceKey,
+  VOICE_KEYS,
 } from './sounds'
 
 type ConsentState = 'unknown' | 'granted' | 'denied'
+
+type AutoplayCandidate = {
+  id: string
+  el: HTMLElement
+  ratio: number
+  voice?: VoiceKey
+  sfx?: SfxKey
+}
+
+const VOICE_KEY_SET = new Set<string>(VOICE_KEYS)
+const SFX_KEY_SET = new Set<string>(SFX_KEYS)
+
+function parseVoiceKey(raw: string | undefined): VoiceKey | undefined {
+  if (!raw) return undefined
+  return VOICE_KEY_SET.has(raw) ? (raw as VoiceKey) : undefined
+}
+
+function parseSfxKey(raw: string | undefined): SfxKey | undefined {
+  if (!raw) return undefined
+  return SFX_KEY_SET.has(raw) ? (raw as SfxKey) : undefined
+}
 
 const STORAGE_KEYS = {
   consent: 'eva_audio_consent',
@@ -131,6 +154,9 @@ export function AudioProvider(props: { children: React.ReactNode }) {
   const sectionRatiosRef = React.useRef<Map<string, number>>(new Map())
   const sectionLastStingerAtRef = React.useRef<Map<string, number>>(new Map())
   const lastActiveSectionIdRef = React.useRef<string | null>(null)
+
+  const autoplayCandidatesRef = React.useRef<Map<string, AutoplayCandidate>>(new Map())
+  const autoplayPlayedIdsRef = React.useRef<Set<string>>(new Set())
 
   const routeInitRef = React.useRef(false)
 
@@ -362,6 +388,8 @@ export function AudioProvider(props: { children: React.ReactNode }) {
     }
     stopAll({ fadeMs: 160 })
     closeGate()
+    autoplayCandidatesRef.current.clear()
+    autoplayPlayedIdsRef.current.clear()
   }, [pathname, stopAll, closeGate])
 
   // Stop audio when tab becomes hidden (external links, tab switch, etc.)
@@ -430,6 +458,37 @@ export function AudioProvider(props: { children: React.ReactNode }) {
     tryPlaySound('sfx_section_stinger', { cooldownMs: 900 })
   }, [canPlay, tryPlaySound])
 
+  const maybeFireAutoplay = React.useCallback(() => {
+    if (!canPlay()) return
+
+    const played = autoplayPlayedIdsRef.current
+
+    const candidates = Array.from(autoplayCandidatesRef.current.values())
+      .filter((c) => c.ratio >= 0.25)
+      .filter((c) => !played.has(c.id))
+      .filter((c) => Boolean(c.voice || c.sfx))
+      .map((c) => ({ ...c, top: c.el.getBoundingClientRect().top }))
+      .sort((a, b) => a.top - b.top)
+
+    const best = candidates[0]
+    if (!best) return
+
+    // Enforce "only one per viewport moment": we only pick the top-most candidate once per scroll idle.
+    played.add(best.id)
+
+    if (best.sfx) {
+      // For scroll-autoplay, we intentionally bypass cooldown: the once-per-id gate prevents spam.
+      tryPlaySound(best.sfx, { cooldownMs: 0 })
+    }
+
+    if (best.voice) {
+      const delayMs = best.sfx ? 160 : 0
+      window.setTimeout(() => {
+        tryPlaySound(best.voice!, { cooldownMs: 0 })
+      }, delayMs)
+    }
+  }, [canPlay, tryPlaySound])
+
   // Scroll dominates audio: stop + fade out immediately on scroll start.
   React.useEffect(() => {
     const onScroll = () => {
@@ -451,6 +510,7 @@ export function AudioProvider(props: { children: React.ReactNode }) {
         scrollActiveRef.current = false
         setIsScrollActive(false)
         maybeFireSectionStinger()
+        maybeFireAutoplay()
       }, 240)
     }
 
@@ -459,7 +519,7 @@ export function AudioProvider(props: { children: React.ReactNode }) {
       window.removeEventListener('scroll', onScroll)
       if (scrollStopTimerRef.current) window.clearTimeout(scrollStopTimerRef.current)
     }
-  }, [gateOpen, stopAll, maybeFireSectionStinger])
+  }, [gateOpen, stopAll, maybeFireSectionStinger, maybeFireAutoplay])
 
   // Track which main sections are currently visible (for stingers after idle).
   React.useEffect(() => {
@@ -493,6 +553,69 @@ export function AudioProvider(props: { children: React.ReactNode }) {
     for (const section of sections) io.observe(section)
     return () => io.disconnect()
   }, [consent, enabled, pathname])
+
+  // Autoplay-on-scroll: observe specifically marked elements and play the top-most visible trigger after scroll idle.
+  React.useEffect(() => {
+    if (!(consent === 'granted' && enabled)) return
+
+    const els = Array.from(document.querySelectorAll('[data-eva-audio-autoplay]')) as HTMLElement[]
+    if (els.length === 0) return
+
+    autoplayCandidatesRef.current.clear()
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const el = entry.target as HTMLElement
+          const id = el.getAttribute('id')
+          if (!id) continue
+
+          if (!entry.isIntersecting) {
+            autoplayCandidatesRef.current.delete(id)
+            continue
+          }
+
+          const voice = parseVoiceKey(el.dataset.evaAudioVoice)
+          const sfx = parseSfxKey(el.dataset.evaAudioSfx)
+          autoplayCandidatesRef.current.set(id, {
+            id,
+            el,
+            ratio: entry.intersectionRatio,
+            voice: voice ?? undefined,
+            sfx: sfx ?? undefined,
+          })
+        }
+      },
+      {
+        threshold: [0, 0.15, 0.25, 0.35, 0.45, 0.6, 0.75],
+        // Slightly favor "arrivals" near the upper/middle viewport.
+        rootMargin: '-10% 0px -40% 0px',
+      },
+    )
+
+    for (const el of els) io.observe(el)
+
+    // If the user enables audio while already inside a marked section, we try once after IO has had a moment
+    // to populate candidates (without relying on a scroll event).
+    let rafId: number | null = null
+    let tries = 0
+
+    const pump = () => {
+      tries += 1
+      if (autoplayCandidatesRef.current.size > 0 || tries > 12) {
+        maybeFireAutoplay()
+        return
+      }
+      rafId = window.requestAnimationFrame(pump)
+    }
+
+    rafId = window.requestAnimationFrame(pump)
+
+    return () => {
+      io.disconnect()
+      if (rafId !== null) window.cancelAnimationFrame(rafId)
+    }
+  }, [consent, enabled, pathname, maybeFireAutoplay])
 
   const value = React.useMemo<AudioLayerApi>(
     () => ({
@@ -543,4 +666,3 @@ export function useAudioLayer() {
   }
   return ctx
 }
-

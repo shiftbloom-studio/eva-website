@@ -84,7 +84,7 @@ export function MagneticButton({
       onClick={handleClick}
       style={reduceMotion ? undefined : { x: xSpring, y: ySpring }}
       className={cn(
-        'group relative inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium text-vellum-50 backdrop-blur transition will-change-transform',
+        'group relative inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-vellum-50 backdrop-blur transition will-change-transform sm:px-6 sm:py-3',
         'hover:border-sunbronze/40 hover:shadow-glow-bronze',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950',
         className,
