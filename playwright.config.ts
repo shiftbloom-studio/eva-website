@@ -48,8 +48,6 @@ export default defineConfig({
 
   use: {
     baseURL,
-    // Make scroll + animation related assertions deterministic across browsers/CI.
-    reducedMotion: 'reduce',
     // Keep formatting stable in assertions/screenshots.
     locale: 'de-DE',
     timezoneId: 'Europe/Berlin',

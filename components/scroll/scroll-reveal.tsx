@@ -33,9 +33,11 @@ export function Reveal({
   const reduceMotion = useReducedMotion() ?? false
   const ref = React.useRef<HTMLDivElement | null>(null)
   const isInView = useInView(ref, { amount, once })
-  const hasBeenInViewRef = React.useRef(false)
+  const [hasBeenInView, setHasBeenInView] = React.useState(false)
 
-  if (isInView) hasBeenInViewRef.current = true
+  React.useEffect(() => {
+    if (isInView) setHasBeenInView(true)
+  }, [isInView])
 
   if (reduceMotion) {
     return (
@@ -65,7 +67,7 @@ export function Reveal({
       className={cn('will-change-transform', className)}
       data-eva-reveal=""
       initial="hidden"
-      animate={(once ? hasBeenInViewRef.current : isInView) ? 'visible' : 'hidden'}
+      animate={(once ? hasBeenInView : isInView) ? 'visible' : 'hidden'}
       variants={{
         hidden,
         visible: {
@@ -100,9 +102,11 @@ export function RevealGroup({
   const reduceMotion = useReducedMotion() ?? false
   const ref = React.useRef<HTMLDivElement | null>(null)
   const isInView = useInView(ref, { amount, once })
-  const hasBeenInViewRef = React.useRef(false)
+  const [hasBeenInView, setHasBeenInView] = React.useState(false)
 
-  if (isInView) hasBeenInViewRef.current = true
+  React.useEffect(() => {
+    if (isInView) setHasBeenInView(true)
+  }, [isInView])
 
   if (reduceMotion) {
     return (
@@ -118,7 +122,7 @@ export function RevealGroup({
       className={className}
       data-eva-reveal-group=""
       initial="hidden"
-      animate={(once ? hasBeenInViewRef.current : isInView) ? 'visible' : 'hidden'}
+      animate={(once ? hasBeenInView : isInView) ? 'visible' : 'hidden'}
       variants={{
         hidden: {},
         visible: {
