@@ -1,7 +1,10 @@
 import { test, expect, devices } from '@playwright/test'
 
-const iPhone = devices['iPhone 12']
-const pixel = devices['Pixel 5']
+// NOTE: Playwright device descriptors include `defaultBrowserType`, which is worker-scoped.
+// Calling `test.use({ defaultBrowserType })` inside a `test.describe(...)` group is forbidden
+// because it would require a new worker. We only need the context options here, so we strip it.
+const { defaultBrowserType: _iPhoneDefaultBrowserType, ...iPhone } = devices['iPhone 12']
+const { defaultBrowserType: _PixelDefaultBrowserType, ...pixel } = devices['Pixel 5']
 
 test.describe('Mobile Experience', () => {
   test.describe('iPhone 12', () => {
