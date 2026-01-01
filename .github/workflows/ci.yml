@@ -184,6 +184,11 @@ jobs:
           name: playwright-report-mobile
           path: playwright-report/
           retention-days: 30
+          
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   # Summary job that all other jobs depend on
   ci-success:
