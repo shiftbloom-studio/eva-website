@@ -1,5 +1,9 @@
 import { test, expect, devices } from '@playwright/test'
 
+// Firefox does not support mobile emulation (`isMobile`) in browser contexts.
+// This file relies on mobile device descriptors, so we skip it for Firefox projects.
+test.skip(({ browserName }) => browserName === 'firefox', 'Mobile emulation (isMobile) is not supported in Firefox')
+
 // NOTE: Playwright device descriptors include `defaultBrowserType`, which is worker-scoped.
 // Calling `test.use({ defaultBrowserType })` inside a `test.describe(...)` group is forbidden
 // because it would require a new worker. We only need the context options here, so we strip it.

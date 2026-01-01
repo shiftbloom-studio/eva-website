@@ -90,6 +90,7 @@ export default defineConfig({
     },
     {
       name: 'firefox',
+      testIgnore: /.*mobile\.spec\.ts/,
       use: { ...devices['Desktop Firefox'] },
     },
     {
