@@ -88,12 +88,14 @@ describe('useScrollSpy hook', () => {
 
     // Simulate intersection
     act(() => {
+      const entry = {
+        isIntersecting: true,
+        target: mockElement,
+      } as unknown as IntersectionObserverEntry
+
       mockObserverInstance.callback?.(
         [
-          {
-            isIntersecting: true,
-            target: mockElement,
-          } as IntersectionObserverEntry,
+          entry,
         ],
         {} as IntersectionObserver
       )

@@ -9,31 +9,32 @@ import { useAudio } from '#lib/audio'
 
 export function AudioGatekeeperModal() {
   const audio = useAudio()
+  const { gateOpen, closeGate, enable, deny } = audio
   const [isEnabling, setIsEnabling] = React.useState(false)
   const closeButtonRef = React.useRef<HTMLButtonElement | null>(null)
 
   React.useEffect(() => {
-    if (!audio.gateOpen) return
+    if (!gateOpen) return
 
     closeButtonRef.current?.focus()
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') audio.closeGate()
+      if (e.key === 'Escape') closeGate()
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [audio.gateOpen, audio.closeGate])
+  }, [gateOpen, closeGate])
 
   const onEnable = React.useCallback(async () => {
     setIsEnabling(true)
     try {
-      await audio.enable()
+      await enable()
     } finally {
       setIsEnabling(false)
     }
-  }, [audio])
+  }, [enable])
 
-  if (!audio.gateOpen) return null
+  if (!gateOpen) return null
 
   return (
     <AnimatePresence>
@@ -47,9 +48,9 @@ export function AudioGatekeeperModal() {
           type="button"
           aria-label="Schließen"
           className="absolute inset-0 bg-black/55 backdrop-blur-[2px]"
-          onClick={audio.closeGate}
-          onWheel={audio.closeGate}
-          onTouchMove={audio.closeGate}
+          onClick={closeGate}
+          onWheel={closeGate}
+          onTouchMove={closeGate}
         />
 
         <motion.div
@@ -86,7 +87,7 @@ export function AudioGatekeeperModal() {
                   'text-vellum-200/75 transition hover:border-white/15 hover:bg-white/[0.06] hover:text-vellum-50',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950',
                 )}
-                onClick={audio.closeGate}
+                onClick={closeGate}
                 aria-label="Schließen"
               >
                 <X className="h-4 w-4" strokeWidth={1.5} />
@@ -101,7 +102,7 @@ export function AudioGatekeeperModal() {
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
               <button
                 type="button"
-                onClick={audio.deny}
+                onClick={deny}
                 className={cn(
                   'inline-flex items-center justify-center rounded-full border border-white/10 bg-transparent px-5 py-2.5 text-sm font-medium text-vellum-200/85',
                   'transition hover:border-white/15 hover:bg-white/[0.03] hover:text-vellum-50',

@@ -86,6 +86,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-output
+          include-hidden-files: true
+          if-no-files-found: error
           path: .next
           retention-days: 7
 
