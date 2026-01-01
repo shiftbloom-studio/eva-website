@@ -9,6 +9,134 @@ import { FloatingParticles } from '#components/ui/floating-particles'
 import { NoiseOverlay } from '#components/ui/noise-overlay'
 import { marketingImages } from '#lib/marketing-images'
 
+const ASHES_PRESET = 'strong' as const
+
+const ASHES_PRESETS = {
+  subtle: {
+    embers: {
+      count: 18,
+      color: 'bg-sunbronze',
+      minSize: 1,
+      maxSize: 3.5,
+      peakOpacity: 0.55,
+      blur: 0.25,
+      glowColor: 'rgba(186, 138, 45, 0.45)',
+      glowRadiusMultiplier: 7,
+      minDuration: 12,
+      maxDuration: 32,
+      yDistance: 900,
+      xWiggle: 35,
+    },
+    cinders: {
+      count: 10,
+      color: 'bg-bloodstone',
+      minSize: 1,
+      maxSize: 3.2,
+      peakOpacity: 0.35,
+      blur: 0.35,
+      glowColor: 'rgba(153, 67, 36, 0.35)',
+      glowRadiusMultiplier: 7,
+      minDuration: 14,
+      maxDuration: 36,
+      yDistance: 850,
+      xWiggle: 30,
+    },
+    ash: {
+      count: 8,
+      color: 'bg-white',
+      minSize: 0.8,
+      maxSize: 1.8,
+      peakOpacity: 0.18,
+      minDuration: 16,
+      maxDuration: 38,
+      yDistance: 800,
+      xWiggle: 18,
+    },
+  },
+  strong: {
+    embers: {
+      count: 28,
+      color: 'bg-sunbronze',
+      minSize: 1,
+      maxSize: 4.6,
+      peakOpacity: 0.85,
+      blur: 0.35,
+      glowColor: 'rgba(186, 138, 45, 0.70)',
+      glowRadiusMultiplier: 8,
+      minDuration: 10,
+      maxDuration: 28,
+      yDistance: 1100,
+      xWiggle: 60,
+    },
+    cinders: {
+      count: 14,
+      color: 'bg-bloodstone',
+      minSize: 1,
+      maxSize: 3.9,
+      peakOpacity: 0.5,
+      blur: 0.45,
+      glowColor: 'rgba(153, 67, 36, 0.55)',
+      glowRadiusMultiplier: 8,
+      minDuration: 12,
+      maxDuration: 32,
+      yDistance: 1000,
+      xWiggle: 45,
+    },
+    ash: {
+      count: 10,
+      color: 'bg-white',
+      minSize: 0.8,
+      maxSize: 2.2,
+      peakOpacity: 0.25,
+      minDuration: 14,
+      maxDuration: 34,
+      yDistance: 950,
+      xWiggle: 22,
+    },
+  },
+  inferno: {
+    embers: {
+      count: 36,
+      color: 'bg-sunbronze',
+      minSize: 1,
+      maxSize: 5.2,
+      peakOpacity: 0.95,
+      blur: 0.45,
+      glowColor: 'rgba(186, 138, 45, 0.85)',
+      glowRadiusMultiplier: 9,
+      minDuration: 8,
+      maxDuration: 24,
+      yDistance: 1300,
+      xWiggle: 70,
+    },
+    cinders: {
+      count: 18,
+      color: 'bg-bloodstone',
+      minSize: 1,
+      maxSize: 4.3,
+      peakOpacity: 0.65,
+      blur: 0.55,
+      glowColor: 'rgba(153, 67, 36, 0.70)',
+      glowRadiusMultiplier: 9,
+      minDuration: 10,
+      maxDuration: 28,
+      yDistance: 1200,
+      xWiggle: 55,
+    },
+    ash: {
+      count: 14,
+      color: 'bg-white',
+      minSize: 0.8,
+      maxSize: 2.4,
+      peakOpacity: 0.3,
+      minDuration: 12,
+      maxDuration: 30,
+      yDistance: 1050,
+      xWiggle: 26,
+    },
+  },
+} as const
+
 export interface HeroBackdropProps {
   className?: string
 }
@@ -20,6 +148,7 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
   // Parallax effect for the background image
   const y = useTransform(scrollY, [0, 1000], [0, 400])
   const opacity = useTransform(scrollY, [0, 600], [1, 0.3])
+  const ashes = ASHES_PRESETS[ASHES_PRESET]
 
   return (
     <div className={cn('absolute inset-0 z-0 overflow-hidden bg-void-950', className)}>
@@ -73,8 +202,9 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
       )}
 
       {/* Particles */}
-      <FloatingParticles count={16} color="bg-sunbronze" />
-      <FloatingParticles count={10} color="bg-white" className="opacity-50" />
+      <FloatingParticles {...ashes.embers} className="mix-blend-screen" />
+      <FloatingParticles {...ashes.cinders} className="mix-blend-screen opacity-90" />
+      <FloatingParticles {...ashes.ash} className="opacity-55" />
 
       {/* Texture */}
       <NoiseOverlay opacity={0.06} />

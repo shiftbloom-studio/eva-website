@@ -12,7 +12,43 @@ export interface HeroSectionProps {
   discordUrl?: string
 }
 
+// Quick tweak point for the main headline animation.
+// Try: 'chars_blur' | 'words' | 'lines_blur'
+const HEADLINE_PRESET = 'chars_blur' as const
+
+const HEADLINE_PRESETS = {
+  chars_blur: {
+    trigger: 'mount',
+    split: 'chars',
+    effect: 'rise-blur',
+    stagger: 0.018,
+    delay: 0.08,
+    duration: 1.05,
+    tilt: 0,
+  },
+  words: {
+    trigger: 'mount',
+    split: 'words',
+    effect: 'rise',
+    stagger: 0.06,
+    delay: 0.1,
+    duration: 0.95,
+    tilt: 0,
+  },
+  lines_blur: {
+    trigger: 'mount',
+    split: 'lines',
+    effect: 'rise-blur',
+    stagger: 0.18,
+    delay: 0.06,
+    duration: 1.1,
+    tilt: 0,
+  },
+} as const
+
 export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: HeroSectionProps) {
+  const headlineMotion = HEADLINE_PRESETS[HEADLINE_PRESET]
+
   return (
     <section className="relative isolate min-h-[92svh] overflow-hidden">
       <HeroBackdrop />
@@ -33,6 +69,7 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
             <DisplayText
               as="h1"
               text={'Schatten\nüber Arda'}
+              {...headlineMotion}
               className="relative z-10 mt-8 font-display text-display-sm text-transparent bg-clip-text bg-gradient-to-b from-vellum-50 via-vellum-100 to-vellum-400 sm:text-display-md lg:text-display-lg"
             />
              {/* Subtle glow behind text */}

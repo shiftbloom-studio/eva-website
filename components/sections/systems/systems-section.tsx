@@ -55,12 +55,15 @@ export function SystemsSection() {
               type="button"
               onMouseEnter={() => audio.playSfx('sfx_hover_card')}
               onClick={() => {
-                const next = openId === item.id ? null : item.id
+                const wasOpen = openId === item.id
+                const next = wasOpen ? null : item.id
                 setOpenId(next)
 
                 audio.playSfx('sfx_click_confirm')
-                // Explicitly restart on repeated clicks (bypass voice throttling).
-                audio.playVoice(voices[item.id], { cooldownMs: 0 })
+                if (!wasOpen) {
+                  // Explicitly restart on repeated opens (bypass voice throttling).
+                  audio.playVoice(voices[item.id], { cooldownMs: 0 })
+                }
               }}
               className={cn(
                 'group relative isolate flex h-full w-full flex-col overflow-hidden rounded-4xl border border-white/10 bg-void-900/35 p-6 text-left backdrop-blur-md',

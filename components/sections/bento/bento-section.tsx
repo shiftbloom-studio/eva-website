@@ -33,7 +33,7 @@ export function BentoSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: B
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex items-center gap-2 rounded-full border border-sunbronze/20 bg-sunbronze/10 px-3 py-1 text-xs text-vellum-100 shadow-[0_0_10px_rgba(186,138,45,0.1)]">
                   <span className="h-1.5 w-1.5 rounded-full bg-sunbronze animate-pulse" />
-                  Saison 0: Vorbereitung
+                  In Entwicklung
                 </span>
                 <span className="text-xs text-vellum-200/60 font-medium">Whitelist offen • RP-Eröffnung bald</span>
               </div>

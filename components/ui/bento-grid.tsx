@@ -132,7 +132,7 @@ export function BentoCard({
         </div>
       </div>
 
-      {footer ? <div className="mt-6">{footer}</div> : null}
+      {footer ? <div className="relative z-20 mt-6">{footer}</div> : null}
     </div>
   )
 }
