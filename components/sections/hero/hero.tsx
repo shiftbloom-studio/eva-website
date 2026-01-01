@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { Clock, Sparkles } from 'lucide-react'
 
 import { DisplayText } from '#components/ui/display-text'
 import { MagneticButton } from '#components/ui/magnetic-button'
@@ -14,7 +14,7 @@ export interface HeroSectionProps {
 
 // Quick tweak point for the main headline animation.
 // Try: 'chars_blur' | 'words' | 'lines_blur'
-const HEADLINE_PRESET = 'chars_blur' as const
+const HEADLINE_PRESET = 'lines_blur' as const
 
 const HEADLINE_PRESETS = {
   chars_blur: {
@@ -92,10 +92,16 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
               href={discordUrl}
               target="_blank"
               rel="noopener noreferrer"
+              title="Noch nicht veröffentlicht – geplant für Q3 2026"
               className="w-full sm:w-auto border-sunbronze/30 bg-sunbronze/10 hover:bg-sunbronze/20 text-sunbronze hover:border-sunbronze/50"
             >
-              <span className="text-[0.95rem] tracking-widest uppercase text-xs font-bold">In die Welt eintreten</span>
-              <ArrowRight className="h-4 w-4 opacity-80" strokeWidth={1.5} />
+              <span className="flex flex-col items-start leading-tight">
+                <span className="text-[0.95rem] tracking-widest uppercase text-xs font-bold">Q3 2026</span>
+                <span className="mt-0.5 text-[0.7rem] uppercase tracking-[0.22em] opacity-75">
+                  Release geplant
+                </span>
+              </span>
+              <Clock className="h-4 w-4 opacity-80" strokeWidth={1.5} />
             </MagneticButton>
 
             <a

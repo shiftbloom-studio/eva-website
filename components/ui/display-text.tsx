@@ -61,6 +61,34 @@ export function DisplayText({
   const MotionTag = motionTags[as]
 
   const lines = React.useMemo(() => text.split('\n'), [text])
+  const { containerClassName, segmentGradientClassName } = React.useMemo(() => {
+    const raw = className?.trim()
+    if (!raw) return { containerClassName: className, segmentGradientClassName: undefined }
+
+    const tokens = raw.split(/\s+/).filter(Boolean)
+    const bases = tokens.map((t) => t.split(':').at(-1) ?? t)
+    const hasGradientText = bases.includes('bg-clip-text') && bases.includes('text-transparent')
+    if (!hasGradientText) return { containerClassName: className, segmentGradientClassName: undefined }
+
+    const gradientTokens = tokens.filter(
+      (t) => {
+        const base = t.split(':').at(-1) ?? t
+        return (
+          base === 'bg-clip-text' ||
+          base === 'text-transparent' ||
+          base.startsWith('bg-gradient-') ||
+          base.startsWith('from-') ||
+          base.startsWith('via-') ||
+          base.startsWith('to-')
+        )
+      },
+    )
+
+    return {
+      containerClassName: tokens.filter((t) => !gradientTokens.includes(t)).join(' '),
+      segmentGradientClassName: gradientTokens.join(' '),
+    }
+  }, [className])
   const resolvedStagger = stagger ?? (split === 'chars' ? 0.018 : split === 'lines' ? 0.14 : 0.06)
   const resolvedDelay = delay ?? 0.15
 
@@ -115,7 +143,7 @@ export function DisplayText({
 
   return (
     <MotionTag
-      className={className}
+      className={containerClassName}
       initial="hidden"
       animate={trigger === 'mount' ? 'visible' : undefined}
       whileInView={trigger === 'inView' ? 'visible' : undefined}
@@ -126,7 +154,10 @@ export function DisplayText({
       {split === 'lines'
         ? lines.map((line, lineIdx) => (
             <span key={lineIdx} className="block overflow-hidden">
-              <motion.span className={cn('inline-block will-change-transform', wordClassName)} variants={segmentVariants}>
+              <motion.span
+                className={cn('inline-block will-change-transform', segmentGradientClassName, wordClassName)}
+                variants={segmentVariants}
+              >
                 {line}
               </motion.span>
             </span>
@@ -139,7 +170,10 @@ export function DisplayText({
                       key={`${lineIdx}-${charIdx}-${char}`}
                       className="inline-block overflow-hidden align-baseline"
                     >
-                      <motion.span className={cn('inline-block will-change-transform', wordClassName)} variants={segmentVariants}>
+                      <motion.span
+                        className={cn('inline-block will-change-transform', segmentGradientClassName, wordClassName)}
+                        variants={segmentVariants}
+                      >
                         {char === ' ' ? '\u00A0' : char}
                       </motion.span>
                     </span>
@@ -149,7 +183,10 @@ export function DisplayText({
                       key={`${lineIdx}-${wordIdx}-${word}`}
                       className="inline-block overflow-hidden align-baseline"
                     >
-                      <motion.span className={cn('inline-block will-change-transform', wordClassName)} variants={segmentVariants}>
+                      <motion.span
+                        className={cn('inline-block will-change-transform', segmentGradientClassName, wordClassName)}
+                        variants={segmentVariants}
+                      >
                         {word}
                       </motion.span>
                       <span className="inline-block w-[0.22em]" aria-hidden="true" />

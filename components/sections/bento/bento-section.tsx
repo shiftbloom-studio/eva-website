@@ -35,7 +35,7 @@ export function BentoSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: B
                   <span className="h-1.5 w-1.5 rounded-full bg-sunbronze animate-pulse" />
                   In Entwicklung
                 </span>
-                <span className="text-xs text-vellum-200/60 font-medium">Whitelist offen • RP-Eröffnung bald</span>
+                <span className="text-xs text-vellum-200/60 font-medium">Whitelist offen • RP-Eröffnung geplant: Q3 2026</span>
               </div>
             }
           />

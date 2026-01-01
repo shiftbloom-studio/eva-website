@@ -95,7 +95,7 @@ test.describe('Visual Regression Tests', () => {
     test('CTA button hover state', async ({ page }) => {
       await page.goto('/')
 
-      const ctaButton = page.getByRole('link', { name: /In die Welt eintreten/i })
+      const ctaButton = page.getByRole('link', { name: /Q3\s*2026/i })
       await ctaButton.hover()
       await page.waitForTimeout(200)
 

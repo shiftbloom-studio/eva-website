@@ -34,7 +34,7 @@ export default {
     {
       question: 'Ist der Server an 7 Tagen die Woche online?',
       answer:
-        'Ja – nach der Veröffentlichung durchgehend, abgesehen von angekündigten Wartungen oder Updates. Die Hauptspielzeit liegt meist in den Abendstunden (MEZ).',
+        'Geplant: Ja – nach dem Release (Q3 2026) durchgehend, abgesehen von angekündigten Wartungen oder Updates. Die Hauptspielzeit liegt meist in den Abendstunden (MEZ).',
     },
     {
       question: 'Wie kann ich dem Projekt beitreten oder es unterstützen?',

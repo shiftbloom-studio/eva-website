@@ -9,7 +9,7 @@ import { FloatingParticles } from '#components/ui/floating-particles'
 import { NoiseOverlay } from '#components/ui/noise-overlay'
 import { marketingImages } from '#lib/marketing-images'
 
-const ASHES_PRESET = 'strong' as const
+const ASHES_PRESET = 'inferno' as const
 
 const ASHES_PRESETS = {
   subtle: {

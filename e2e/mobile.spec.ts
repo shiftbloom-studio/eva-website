@@ -29,7 +29,7 @@ test.describe('Mobile Experience', () => {
       await expect(heroHeading).toBeVisible()
 
       // CTA buttons should be full-width on mobile
-      const ctaButton = page.getByRole('link', { name: /In die Welt eintreten/i })
+      const ctaButton = page.getByRole('link', { name: /Q3\s*2026/i })
       await expect(ctaButton).toBeVisible()
     })
 
@@ -104,7 +104,7 @@ test.describe('Mobile Experience', () => {
       await page.goto('/')
 
       // Test touch on CTA button
-      const ctaButton = page.getByRole('link', { name: /In die Welt eintreten/i })
+      const ctaButton = page.getByRole('link', { name: /Q3\s*2026/i })
       await expect(ctaButton).toBeVisible()
     })
   })

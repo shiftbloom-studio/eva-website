@@ -23,7 +23,7 @@ export function CtaSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: Cta
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-vellum-200/80 sm:text-base">
             Wenn du früh da bist, formst du Ton, Regeln und Legenden. Komm in den Discord, lies dich ein – und
-            melde dich, wenn die Pforten öffnen.
+            sichere dir einen Platz auf der Whitelist. Eröffnung geplant: Q3 2026.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">

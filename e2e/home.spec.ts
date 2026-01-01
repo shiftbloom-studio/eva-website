@@ -23,7 +23,7 @@ test.describe('Homepage', () => {
   })
 
   test('should have Discord CTA button', async ({ page }) => {
-    const ctaButton = page.getByRole('link', { name: /In die Welt eintreten/i })
+    const ctaButton = page.getByRole('link', { name: /Q3\s*2026/i })
     await expect(ctaButton).toBeVisible()
     await expect(ctaButton).toHaveAttribute('href', /discord/i)
   })
