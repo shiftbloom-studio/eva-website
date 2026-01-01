@@ -1,18 +1,37 @@
 'use client'
 
-import { SaasProvider } from '@saas-ui/react'
+import { cancelFrame, frame, MotionConfig } from 'framer-motion'
+import { ReactLenis, type LenisRef } from 'lenis/react'
 
-import theme from '#theme'
-import { ChakraProvider, ThemeProvider } from '@chakra-ui/react'
+import * as React from 'react'
 
 export function Provider(props: { children: React.ReactNode }) {
+  const lenisRef = React.useRef<LenisRef>(null)
+
+  React.useEffect(() => {
+    function update(data: { timestamp: number }) {
+      lenisRef.current?.lenis?.raf(data.timestamp)
+    }
+
+    frame.update(update, true)
+    return () => cancelFrame(update)
+  }, [])
+
   return (
-    <SaasProvider theme={theme}>
-      <ChakraProvider theme={theme}>
-        <ThemeProvider theme={theme}>
-          {props.children}
-        </ThemeProvider>
-      </ChakraProvider>
-    </SaasProvider>
+    <MotionConfig reducedMotion="user">
+      <ReactLenis
+        root
+        ref={lenisRef}
+        options={{
+          autoRaf: false,
+          lerp: 0.1,
+          smoothWheel: true,
+          smoothTouch: false,
+          wheelMultiplier: 0.9,
+        }}
+      >
+        {props.children}
+      </ReactLenis>
+    </MotionConfig>
   )
 }
