@@ -123,7 +123,26 @@ export interface AudioLayerApi {
   stopAll: (options?: { fadeMs?: number }) => void
 }
 
-const AudioLayerContext = React.createContext<AudioLayerApi | null>(null)
+const NOOP_AUDIO_LAYER_API: AudioLayerApi = {
+  consent: 'denied',
+  enabled: false,
+  muted: true,
+  volume: 0,
+  gateOpen: false,
+  openGate: () => {},
+  closeGate: () => {},
+  isScrollActive: false,
+  enable: async () => {},
+  deny: () => {},
+  disable: () => {},
+  setVolume: () => {},
+  setMuted: () => {},
+  playSfx: () => {},
+  playVoice: () => {},
+  stopAll: () => {},
+}
+
+const AudioLayerContext = React.createContext<AudioLayerApi>(NOOP_AUDIO_LAYER_API)
 
 export function AudioProvider(props: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -661,8 +680,5 @@ export function AudioProvider(props: { children: React.ReactNode }) {
 
 export function useAudioLayer() {
   const ctx = React.useContext(AudioLayerContext)
-  if (!ctx) {
-    throw new Error('useAudioLayer must be used within <AudioProvider />')
-  }
   return ctx
 }

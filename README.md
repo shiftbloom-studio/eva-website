@@ -10,8 +10,13 @@ Marketing website for **Erbe von Arda** — cinematic, scroll-driven storytellin
 
 - **Immersive landing page**: hero, bento/overview, “systems”, testimonials, FAQ.
 - **Optional sound & voice layer**: consent-gated audio with subtle SFX on interactions and section voice lines.
+- **Birthday‑Cake Loading (progressive enhancement)**: base experience for old/slow devices, rich layers for capable devices.
 - **Accessibility & legal pages**: pages for accessibility statement, privacy policy, and imprint.
 - **Quality gates**: unit/component tests (Vitest) + E2E tests (Playwright), both automated via GitHub Actions.
+
+## Birthday‑Cake Loading
+
+See `docs/birthday-cake-loading.md`.
 
 ## Tech (high level)
 
