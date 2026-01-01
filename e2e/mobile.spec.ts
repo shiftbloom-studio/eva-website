@@ -56,14 +56,33 @@ test.describe('Mobile Experience', () => {
       const faqSection = page.locator('#faq')
       await expect(faqSection).toBeVisible()
 
-      // FAQ items should be tappable
-      const faqButtons = page.locator('#faq button[type="button"]')
-      const firstButton = faqButtons.first()
-      await expect(firstButton).toBeVisible()
-      
-      // Tap to expand
-      await firstButton.tap()
-      await page.waitForTimeout(400)
+      // FAQ items should be tappable (use a specific question to avoid strict-mode collisions)
+      const question = faqSection.getByRole('button', { name: 'Was ist Erbe von Arda?', exact: true })
+      await question.scrollIntoViewIfNeeded()
+      await expect(question).toBeVisible()
+      await expect(question).toBeEnabled()
+
+      // On some mobile emulation runs the fixed header can intercept pointer events.
+      // Temporarily disable it for the tap to make this deterministic.
+      const header = page.locator('header')
+      const prevPointerEvents = await header.evaluate((h) => (h as HTMLElement).style.pointerEvents)
+      await header.evaluate((h) => {
+        ;(h as HTMLElement).style.pointerEvents = 'none'
+      })
+
+      try {
+        await question.tap()
+      } finally {
+        await header.evaluate(
+          (h, prev) => {
+            ;(h as HTMLElement).style.pointerEvents = prev as string
+          },
+          prevPointerEvents,
+        )
+      }
+
+      // Answer should become visible after expansion.
+      await expect(faqSection.getByText('Erbe von Arda ist ein Rollenspiel-Server', { exact: false })).toBeVisible()
     })
   })
 

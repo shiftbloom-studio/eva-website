@@ -78,7 +78,7 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
             <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">
               RP-first
             </span>
-            <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">
+            <span data-testid="feature-whitelist" className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">
               Whitelist
             </span>
             <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">

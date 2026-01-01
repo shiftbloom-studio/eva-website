@@ -52,6 +52,7 @@ export function MarketingLayout({ children }: MarketingLayoutProps) {
               </Link>
               <Link
                 href="/datenschutz"
+                data-testid="footer-datenschutz"
                 className="text-vellum-200/70 underline underline-offset-4 decoration-white/20 transition hover:text-vellum-50 hover:decoration-white/40"
               >
                 Datenschutz

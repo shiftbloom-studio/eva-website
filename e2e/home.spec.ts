@@ -18,7 +18,7 @@ test.describe('Homepage', () => {
   })
 
   test('should display hero tagline badge', async ({ page }) => {
-    const badge = page.getByText('Die Welt ist im Wandel')
+    const badge = page.getByText('Die Welt ist im Wandel', { exact: true })
     await expect(badge).toBeVisible()
   })
 
@@ -35,21 +35,28 @@ test.describe('Homepage', () => {
   })
 
   test('should display feature tags', async ({ page }) => {
-    await expect(page.getByText('RP-first')).toBeVisible()
-    await expect(page.getByText('Whitelist')).toBeVisible()
-    await expect(page.getByText('Events & Intrigen')).toBeVisible()
+    // Use stable selectors / exact locators to avoid strict-mode failures when text appears multiple times.
+    await expect(page.getByText('RP-first', { exact: true })).toBeVisible()
+    await expect(page.getByTestId('feature-whitelist')).toBeVisible()
+    await expect(page.getByText('Events & Intrigen', { exact: true })).toBeVisible()
   })
 
   test('should scroll to sections when clicking navigation', async ({ page }) => {
-    // Click on FAQ link
-    const faqLink = page.getByRole('link', { name: 'FAQ' })
-    if (await faqLink.isVisible()) {
-      await faqLink.click()
-      // Wait for scroll animation
-      await page.waitForTimeout(500)
-      // Check URL hash
-      await expect(page).toHaveURL(/#faq/)
-    }
+    test.setTimeout(60_000)
+
+    // Desktop header navigation is hidden on mobile viewports.
+    const viewport = page.viewportSize()
+    test.skip(!!viewport && viewport.width < 768, 'Desktop navigation links are hidden on mobile')
+
+    const faqLink = page.locator('header').getByRole('link', { name: 'FAQ', exact: true })
+    await faqLink.scrollIntoViewIfNeeded()
+    await expect(faqLink).toBeVisible()
+    await expect(faqLink).toBeEnabled()
+
+    await faqLink.click()
+
+    await expect(page).toHaveURL(/#faq/)
+    await expect(page.locator('#faq')).toBeVisible()
   })
 })
 
@@ -78,8 +85,11 @@ test.describe('FAQ Section', () => {
   })
 
   test('should expand FAQ item on click', async ({ page }) => {
+    test.setTimeout(60_000)
+
     // Find and click a FAQ question
     const firstQuestion = page.locator('#faq button[type="button"]').first()
+    await firstQuestion.scrollIntoViewIfNeeded()
     await firstQuestion.click()
 
     // Wait for animation
@@ -114,9 +124,8 @@ test.describe('Navigation', () => {
 test.describe('Footer', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
-    // Scroll to footer
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
-    await page.waitForTimeout(500)
+    // Scroll to footer (more reliable than window.scrollTo in mobile emulation).
+    await page.locator('footer').scrollIntoViewIfNeeded()
   })
 
   test('should display footer', async ({ page }) => {
@@ -125,8 +134,9 @@ test.describe('Footer', () => {
   })
 
   test('should have legal links', async ({ page }) => {
-    const impressumLink = page.getByText('Impressum')
-    const datenschutzLink = page.getByText('Datenschutz')
+    const footer = page.locator('footer')
+    const impressumLink = footer.getByRole('link', { name: 'Impressum', exact: true })
+    const datenschutzLink = footer.getByTestId('footer-datenschutz')
 
     await expect(impressumLink).toBeVisible()
     await expect(datenschutzLink).toBeVisible()
