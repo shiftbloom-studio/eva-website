@@ -134,6 +134,10 @@ export function SystemsSection() {
                 initial={false}
                 animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }}
+                id={`system-content-${item.id}`}
+                data-eva-audio-autoplay={item.id === 'wirtschaft' ? '' : undefined}
+                data-eva-audio-voice={item.id === 'wirtschaft' ? voices[item.id] : undefined}
+                data-eva-audio-sfx={item.id === 'wirtschaft' ? 'sfx_forge_strike' : undefined}
               >
                 <div className="mt-4 border-t border-white/10 pt-4 text-sm leading-relaxed text-vellum-200/75">
                   {item.detail}

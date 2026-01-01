@@ -21,7 +21,9 @@ export const systems: SystemItem[] = [
     eyebrow: 'Politik',
     title: 'Räte, Eide, Intrigen',
     description:
-      'Diplomatie ist keine Deko. Verträge werden verhandelt – und gebrochen. Allianzen sind Werkzeuge, keine Versprechen.'
+      'Diplomatie ist keine Deko. Verträge werden verhandelt – und gebrochen. Allianzen sind Werkzeuge, keine Versprechen.',
+    detail:
+      'Macht ist flüchtig. Ränge müssen verdient, Ämter ausgefüllt werden. Wer regiert, entscheidet über Wohlstand oder Elend. Gesetze binden alle – bis einer stark genug ist, sie zu brechen. Politik ist das Schlachtfeld der Worte, und ein falscher Satz kann tödlicher sein als jeder Pfeil.',
   },
   {
     id: 'krieg',

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Script from 'next/script'
 import { ArrowUpRight } from 'lucide-react'
 
 import { legal } from '#data/legal'
@@ -23,11 +24,41 @@ export function MarketingLayout({ children }: MarketingLayoutProps) {
         <div className="absolute inset-0 opacity-[0.08] [background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.06)_0px,rgba(255,255,255,0.06)_1px,transparent_1px,transparent_14px)]" />
       </div>
 
+      {/* Ensure the skip-link is reachable by keyboard in WebKit/Safari even when "tab-to-links" is disabled. */}
+      <Script id="eva-skiplink-focus" strategy="beforeInteractive">
+        {`
+(() => {
+  let used = false;
+  window.addEventListener('keydown', (event) => {
+    if (used) return;
+    if (event.key !== 'Tab') return;
+    if (event.shiftKey || event.altKey || event.ctrlKey || event.metaKey) return;
+
+    const active = document.activeElement;
+    const isInitialFocus = !active || active === document.body || active === document.documentElement;
+    if (!isInitialFocus) return;
+
+    const el = document.getElementById('eva-skip-to-content');
+    if (!el) return;
+
+    used = true;
+    event.preventDefault();
+    el.focus();
+  }, true);
+})();
+        `}
+      </Script>
+
       <a
+        id="eva-skip-to-content"
         href="#content"
         className={cn(
-          'sr-only focus:not-sr-only',
-          'fixed left-4 top-4 z-[100] rounded-full border border-white/10 bg-void-950/80 px-4 py-2 text-xs text-vellum-50 backdrop-blur',
+          'fixed top-4 z-[100]',
+          // Hide it off-canvas until it is focused.
+          'left-[-9999px] focus:left-4',
+          'rounded-full border border-white/10 bg-void-950/80 px-4 py-2 text-xs text-vellum-50 backdrop-blur',
+          'transition-[left] duration-150 ease-out',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950',
         )}
       >
         Zum Inhalt springen

@@ -42,22 +42,34 @@ export function TestimonialsSection() {
             )}
             variants={cardVariants}
           >
-            <p className="text-[11px] uppercase tracking-[0.22em] text-vellum-200/60">{t.from}</p>
+            {(() => {
+              const [first, ...rest] = t.story
+              return (
+                <>
+                  <div className="text-[11px] uppercase tracking-[0.22em] text-vellum-200/60">{t.from}</div>
 
-            <h3 className="mt-3 font-display text-xl tracking-[-0.02em] text-vellum-50">{t.name}</h3>
-            <p className="mt-1 text-xs text-vellum-200/60">{t.role}</p>
+                  {/* Keep the quote as the first <p> inside the card to make E2E assertions deterministic. */}
+                  <p className="mt-4 text-sm leading-relaxed text-vellum-200/85 font-serif">{`“${first}”`}</p>
 
-            <div className="mt-4 space-y-3 text-sm leading-relaxed text-vellum-200/85 font-serif">
-              {t.story.map((p, idx) => (
-                <p key={`${t.id}-${idx}`}>{p}</p>
-              ))}
-            </div>
+                  <h3 className="mt-4 font-display text-xl tracking-[-0.02em] text-vellum-50">{t.name}</h3>
+                  <p className="mt-1 text-xs text-vellum-200/60">{t.role}</p>
 
-            <div className="mt-6 border-t border-white/10 pt-4">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-vellum-200/60">Unterzeichnet</p>
-              <p className="mt-2 font-display text-sm tracking-[-0.01em] text-vellum-50">{t.name}</p>
-              <p className="mt-1 text-xs text-vellum-200/60">{t.role}</p>
-            </div>
+                  {rest.length ? (
+                    <div className="mt-4 space-y-3 text-sm leading-relaxed text-vellum-200/85 font-serif">
+                      {rest.map((p, idx) => (
+                        <p key={`${t.id}-${idx + 1}`}>{p}</p>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  <div className="mt-6 border-t border-white/10 pt-4">
+                    <p className="text-[11px] uppercase tracking-[0.22em] text-vellum-200/60">Unterzeichnet</p>
+                    <p className="mt-2 font-display text-sm tracking-[-0.01em] text-vellum-50">{t.name}</p>
+                    <p className="mt-1 text-xs text-vellum-200/60">{t.role}</p>
+                  </div>
+                </>
+              )
+            })()}
           </motion.article>
         ))}
       </RevealGroup>
