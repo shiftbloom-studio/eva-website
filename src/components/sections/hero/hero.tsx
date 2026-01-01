@@ -54,6 +54,11 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
   return (
     <section className="relative isolate min-h-[92svh] overflow-hidden">
       <HeroBackdrop />
+      {/* Readability overlay: darkens bottom-left, fades to fully transparent top-right */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-tr from-void-950/55 via-void-950/18 to-transparent"
+        aria-hidden="true"
+      />
 
       <div className="relative z-10 mx-auto flex min-h-[92svh] max-w-7xl flex-col justify-center px-5 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-32">
         <div className="max-w-3xl">

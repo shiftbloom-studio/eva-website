@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Quote } from 'lucide-react'
 import * as React from 'react'
 
 import { Reveal, RevealGroup } from '#components/scroll'
@@ -28,30 +27,36 @@ export function TestimonialsSection() {
       <Reveal preset="rise-blur" amount={0.55}>
         <SectionHeader
           eyebrow="Stimmen"
-          title="Echos aus der Taverne."
-          subtitle="Nicht Marketing. Geschichten von Spielern, die bereits Banner, Bündnisse und Brüche erlebt haben."
+          title="Auszüge aus Leben, Blut und Bannern."
+          subtitle="Keine Rezensionen. Keine Sterne. Nur Fragmente aus Tagebüchern, Briefen und Lagerfeuern – erzählt von denen, die Arda bereits geprägt hat."
         />
       </Reveal>
 
       <RevealGroup className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6" amount={0.25} stagger={0.08}>
         {testimonials.map((t) => (
           <motion.article
-            key={t.name}
+            key={t.id}
             className={cn(
               'relative overflow-hidden rounded-4xl border border-white/10 bg-void-900/35 p-6 backdrop-blur-md',
               'transition hover:border-white/15 hover:bg-void-900/45',
             )}
             variants={cardVariants}
           >
-            <div className="absolute right-6 top-6 text-vellum-200/20">
-              <Quote className="h-6 w-6" strokeWidth={1.25} />
+            <p className="text-[11px] uppercase tracking-[0.22em] text-vellum-200/60">{t.from}</p>
+
+            <h3 className="mt-3 font-display text-xl tracking-[-0.02em] text-vellum-50">{t.name}</h3>
+            <p className="mt-1 text-xs text-vellum-200/60">{t.role}</p>
+
+            <div className="mt-4 space-y-3 text-sm leading-relaxed text-vellum-200/85 font-serif">
+              {t.story.map((p, idx) => (
+                <p key={`${t.id}-${idx}`}>{p}</p>
+              ))}
             </div>
 
-            <p className="text-sm leading-relaxed text-vellum-200/85">“{t.quote}”</p>
-
             <div className="mt-6 border-t border-white/10 pt-4">
-              <p className="font-display text-sm tracking-[-0.01em] text-vellum-50">{t.name}</p>
-              <p className="mt-1 text-xs text-vellum-200/60">{t.title}</p>
+              <p className="text-[11px] uppercase tracking-[0.22em] text-vellum-200/60">Unterzeichnet</p>
+              <p className="mt-2 font-display text-sm tracking-[-0.01em] text-vellum-50">{t.name}</p>
+              <p className="mt-1 text-xs text-vellum-200/60">{t.role}</p>
             </div>
           </motion.article>
         ))}

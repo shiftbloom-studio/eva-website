@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Clock, Quote } from 'lucide-react'
+import { Clock } from 'lucide-react'
 import Image from 'next/image'
 
 import { useCake } from '#components/birthday-cake'
@@ -54,6 +54,11 @@ function MarketingHomeBase() {
             <div className="absolute inset-0 bg-gradient-to-r from-void-950/50 via-transparent to-void-950/50" />
           </div>
         </div>
+        {/* Readability overlay: darkens bottom-left, fades to fully transparent top-right */}
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-tr from-void-950/55 via-void-950/18 to-transparent"
+          aria-hidden="true"
+        />
 
         <div className="relative z-10 mx-auto flex min-h-[92svh] max-w-7xl flex-col justify-center px-5 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-32">
           <div className="max-w-3xl">
@@ -226,28 +231,37 @@ function MarketingHomeBase() {
       <section id="stimmen" className="relative mx-auto max-w-7xl scroll-mt-28 px-6 pb-28 pt-6">
         <div className="max-w-3xl">
           <p className="text-[11px] uppercase tracking-[0.22em] text-vellum-200/60">Stimmen</p>
-          <h2 className="mt-3 font-display text-3xl tracking-[-0.02em] text-vellum-50 sm:text-4xl">Echos aus der Taverne.</h2>
+          <h2 className="mt-3 font-display text-3xl tracking-[-0.02em] text-vellum-50 sm:text-4xl">
+            Auszüge aus Leben, Blut und Bannern.
+          </h2>
           <p className="mt-4 text-sm leading-relaxed text-vellum-200/80 sm:text-base font-serif">
-            Nicht Marketing. Geschichten von Spielern, die bereits Banner, Bündnisse und Brüche erlebt haben.
+            Keine Rezensionen. Keine Sterne. Nur Fragmente aus Tagebüchern, Briefen und Lagerfeuern – erzählt von denen,
+            die Arda bereits geprägt hat.
           </p>
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
           {testimonials.map((t) => (
             <article
-              key={t.name}
+              key={t.id}
               className={cn(
                 'relative overflow-hidden rounded-4xl border border-white/10 bg-void-900/35 p-6 backdrop-blur-md',
                 'transition hover:border-white/15 hover:bg-void-900/45',
               )}
             >
-              <div className="absolute right-6 top-6 text-vellum-200/20" aria-hidden="true">
-                <Quote className="h-6 w-6" strokeWidth={1.25} />
+              <p className="text-[11px] uppercase tracking-[0.22em] text-vellum-200/60">{t.from}</p>
+              <h3 className="mt-3 font-display text-xl tracking-[-0.02em] text-vellum-50">{t.name}</h3>
+              <p className="mt-1 text-xs text-vellum-200/60">{t.role}</p>
+
+              <div className="mt-4 space-y-3 text-sm leading-relaxed text-vellum-200/85 font-serif">
+                {t.story.map((p, idx) => (
+                  <p key={`${t.id}-${idx}`}>{p}</p>
+                ))}
               </div>
-              <p className="text-sm leading-relaxed text-vellum-200/85">“{t.quote}”</p>
               <div className="mt-6 border-t border-white/10 pt-4">
-                <p className="font-display text-sm tracking-[-0.01em] text-vellum-50">{t.name}</p>
-                <p className="mt-1 text-xs text-vellum-200/60">{t.title}</p>
+                <p className="text-[11px] uppercase tracking-[0.22em] text-vellum-200/60">Unterzeichnet</p>
+                <p className="mt-2 font-display text-sm tracking-[-0.01em] text-vellum-50">{t.name}</p>
+                <p className="mt-1 text-xs text-vellum-200/60">{t.role}</p>
               </div>
             </article>
           ))}

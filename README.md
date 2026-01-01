@@ -14,10 +14,6 @@ Marketing website for **Erbe von Arda** — cinematic, scroll-driven storytellin
 - **Accessibility & legal pages**: pages for accessibility statement, privacy policy, and imprint.
 - **Quality gates**: unit/component tests (Vitest) + E2E tests (Playwright), both automated via GitHub Actions.
 
-## Birthday‑Cake Loading
-
-See `docs/birthday-cake-loading.md`.
-
 ## Tech (high level)
 
 - **Framework**: Next.js (App Router), React, TypeScript

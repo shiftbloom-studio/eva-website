@@ -33,7 +33,7 @@ export function MarketingHeader() {
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <Link href="/" className="group inline-flex items-baseline gap-3">
+          <Link href="/" className="group inline-flex items-center gap-3">
             <span className="relative block h-6 w-6 shrink-0 sm:h-7 sm:w-7">
               <Image
                 src="/static/images/eva-logo-tp.png"
@@ -44,9 +44,10 @@ export function MarketingHeader() {
                 className="object-contain [filter:brightness(0)_invert(1)]"
               />
             </span>
-            <span className="hidden text-xs uppercase tracking-[0.18em] text-vellum-200/60 sm:inline">
-              Bannerlord RP
-            </span>
+            <div className="hidden flex-col justify-center text-[0.625rem] font-medium uppercase leading-tight tracking-[0.18em] text-vellum-200/60 sm:flex">
+              <span className="leading-none">Ein Mittelerde</span>
+              <span className="leading-none">Rollenspiel</span>
+            </div>
           </Link>
 
           <nav aria-label="Hauptnavigation" className="hidden items-center gap-7 text-sm text-vellum-200/75 md:flex">
