@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import * as React from 'react'
@@ -33,8 +34,15 @@ export function MarketingHeader() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
           <Link href="/" className="group inline-flex items-baseline gap-3">
-            <span className="font-display text-base tracking-[-0.02em] text-vellum-50 sm:text-lg">
-              Erbe von Arda
+            <span className="relative block h-6 w-6 shrink-0 sm:h-7 sm:w-7">
+              <Image
+                src="/static/images/eva-logo-tp.png"
+                alt="Erbe von Arda"
+                fill
+                sizes="28px"
+                priority
+                className="object-contain [filter:brightness(0)_invert(1)]"
+              />
             </span>
             <span className="hidden text-xs uppercase tracking-[0.18em] text-vellum-200/60 sm:inline">
               Bannerlord RP

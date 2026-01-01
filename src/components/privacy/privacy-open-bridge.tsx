@@ -18,6 +18,9 @@ export function PrivacyOpenBridge() {
 
       // If this came from a real <button>, keep keyboard semantics intact.
       e.preventDefault()
+      // If the rich layer (and thus <PrivacyLayer/>) hasn't mounted yet, remember the intent
+      // so the dialog can open as soon as it becomes available.
+      ;(window as unknown as { __evaPrivacyOpenRequested?: boolean }).__evaPrivacyOpenRequested = true
       window.dispatchEvent(new Event('eva:privacy-open'))
     }
 

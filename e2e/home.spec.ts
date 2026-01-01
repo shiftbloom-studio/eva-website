@@ -51,7 +51,6 @@ test.describe('Homepage', () => {
     const header = page.locator('header')
     // Keep this deterministic: on WebKit multiple sequential anchor-clicks can be flaky.
     const link = header.getByRole('link', { name: 'FAQ', exact: true })
-    await link.scrollIntoViewIfNeeded()
     await expect(link).toBeVisible()
     await expect(link).toBeEnabled()
 
@@ -62,7 +61,6 @@ test.describe('Homepage', () => {
 
   test('should render Systems section and allow expanding a system card with details', async ({ page }) => {
     const section = page.locator('#systeme')
-    await section.scrollIntoViewIfNeeded()
     await expect(section).toBeVisible()
 
     const cards = section.locator('button[type="button"]')
@@ -75,7 +73,6 @@ test.describe('Homepage', () => {
 
   test('should render Stimmen section with testimonial cards', async ({ page }) => {
     const section = page.locator('#stimmen')
-    await section.scrollIntoViewIfNeeded()
     await expect(section).toBeVisible()
 
     const testimonials = section.locator('article')
@@ -119,7 +116,7 @@ test.describe('FAQ Section', () => {
 
     // Find and click a FAQ question
     const firstQuestion = page.locator('#faq button[type="button"]').first()
-    await firstQuestion.scrollIntoViewIfNeeded()
+    await expect(firstQuestion).toBeVisible()
     await firstQuestion.click()
 
     // The content should be visible
@@ -151,8 +148,6 @@ test.describe('Navigation', () => {
 test.describe('Footer', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
-    // Scroll to footer (more reliable than window.scrollTo in mobile emulation).
-    await page.locator('footer').scrollIntoViewIfNeeded()
   })
 
   test('should display footer', async ({ page }) => {
@@ -216,18 +211,16 @@ test.describe('Accessibility', () => {
   test('should be keyboard navigable', async ({ page }) => {
     await page.goto('/')
 
-    // Tab through the page
-    await page.keyboard.press('Tab')
+    // First tabbable item should be the "skip to content" link.
+    const skip = page.getByRole('link', { name: 'Zum Inhalt springen', exact: true })
+    await expect(skip).toBeAttached()
 
-    // Skip link or first interactive element should be focused
-    await expect
-      .poll(async () => {
-        return page.evaluate(() => {
-          const el = document.activeElement as HTMLElement | null
-          if (!el) return null
-          return el.tagName
-        })
-      })
-      .not.toBe('BODY')
+    // Some headless browsers can drop the first key event right after navigation.
+    for (let i = 0; i < 5; i++) {
+      await page.keyboard.press('Tab')
+      if (await skip.evaluate((el) => el === document.activeElement).catch(() => false)) break
+    }
+
+    await expect(skip).toBeFocused()
   })
 })

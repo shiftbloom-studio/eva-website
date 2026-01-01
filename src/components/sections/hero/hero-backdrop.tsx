@@ -168,7 +168,8 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
           fill
           sizes="(max-width: 768px) 100vw, 2560px"
           priority
-          quality={92}
+          placeholder="blur"
+          quality={86}
           className="object-cover object-[70%_0%] opacity-85 grayscale-[8%] sepia-[12%] sm:object-top"
         />
         {/* Vignette - Much lighter to let image show */}

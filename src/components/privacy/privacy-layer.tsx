@@ -59,6 +59,14 @@ export function PrivacyLayer() {
   }, [])
 
   React.useEffect(() => {
+    const w = window as unknown as { __evaPrivacyOpenRequested?: boolean }
+    if (w.__evaPrivacyOpenRequested) {
+      w.__evaPrivacyOpenRequested = false
+      setSettingsOpen(true)
+    }
+  }, [])
+
+  React.useEffect(() => {
     const onOpen = () => setSettingsOpen(true)
     window.addEventListener('eva:privacy-open', onOpen as EventListener)
     return () => window.removeEventListener('eva:privacy-open', onOpen as EventListener)

@@ -27,11 +27,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '#components': resolve(__dirname, './components'),
-      '#hooks': resolve(__dirname, './hooks'),
-      '#data': resolve(__dirname, './data'),
+      '#components': resolve(__dirname, './src/components'),
+      '#hooks': resolve(__dirname, './src/hooks'),
+      '#data': resolve(__dirname, './src/data'),
       '#theme': resolve(__dirname, './theme'),
-      '#lib': resolve(__dirname, './lib'),
+      '#lib': resolve(__dirname, './src/lib'),
     },
   },
 })

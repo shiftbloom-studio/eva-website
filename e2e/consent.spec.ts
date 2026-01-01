@@ -41,7 +41,7 @@ test.describe('Consent & Settings', () => {
 
     // Open via footer trigger (doesn't require banner).
     const footerTrigger = page.getByRole('button', { name: 'Datenschutz-Einstellungen', exact: true })
-    await footerTrigger.scrollIntoViewIfNeeded()
+    await expect(footerTrigger).toBeVisible()
     await footerTrigger.click()
 
     const dialog = page.getByRole('dialog', { name: 'Datenschutzeinstellungen' })

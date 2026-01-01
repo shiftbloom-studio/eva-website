@@ -39,7 +39,8 @@ export default defineConfig({
   timeout: 60_000,
   retries: isCI ? 2 : 0,
   workers: isCI ? 2 : undefined,
-  reporter: isCI ? 'github' : 'html',
+  // In CI we want GitHub annotations *and* an HTML report artifact.
+  reporter: isCI ? [['github'], ['html', { open: 'never', outputFolder: 'playwright-report' }]] : 'html',
   outputDir: 'test-results',
 
   expect: {

@@ -22,19 +22,19 @@
     "baseUrl": ".",
     "paths": {
       "#components/*": [
-        "./components/*"
+        "./src/components/*"
       ],
       "#hooks/*": [
-        "./hooks/*"
+        "./src/hooks/*"
       ],
       "#data/*": [
-        "./data/*"
+        "./src/data/*"
       ],
       "#theme": [
         "./theme"
       ],
       "#lib/*": [
-        "./lib/*"
+        "./src/lib/*"
       ]
     },
     "plugins": [

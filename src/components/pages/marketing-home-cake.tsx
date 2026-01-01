@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { Clock, Quote } from 'lucide-react'
+import Image from 'next/image'
 
 import { useCake } from '#components/birthday-cake'
 import faq from '#data/faq'
@@ -9,6 +10,7 @@ import { legal } from '#data/legal'
 import { systems } from '#data/systems'
 import { testimonials } from '#data/testimonials-arda'
 import { cn } from '#lib/cn'
+import { marketingImages } from '#lib/marketing-images'
 
 const MarketingHomeEnhanced = React.lazy(async () => {
   const mod = await import('./marketing-home-enhanced')
@@ -34,8 +36,24 @@ function MarketingHomeBase() {
     <>
       {/* HERO (base) */}
       <section className="relative isolate min-h-[92svh] overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#2d2e3a_0%,#07060a_100%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-void-950/25 via-transparent to-void-950" />
+        {/* Base hero image (loads early even before rich layer chunks arrive) */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#2d2e3a_0%,#07060a_100%)]" />
+          <div className="absolute inset-0">
+            <Image
+              src={marketingImages.heroWide}
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 2560px"
+              priority
+              placeholder="blur"
+              quality={86}
+              className="object-cover object-[70%_0%] opacity-85 grayscale-[8%] sepia-[12%] sm:object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-void-950/15 via-void-950/30 to-void-950 sm:from-void-950/10 sm:via-void-950/20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-void-950/50 via-transparent to-void-950/50" />
+          </div>
+        </div>
 
         <div className="relative z-10 mx-auto flex min-h-[92svh] max-w-7xl flex-col justify-center px-5 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-32">
           <div className="max-w-3xl">
