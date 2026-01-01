@@ -140,14 +140,25 @@ test.describe('Responsive Images', () => {
       await page.setViewportSize({ width: vp.width, height: vp.height })
       await page.goto('/')
 
-      // Wait for images to load
-      await page.waitForLoadState('networkidle')
+      // NOTE: Avoid `networkidle` here. Playwright discourages it for testing and in CI it can
+      // hang indefinitely due to background prefetching/analytics/etc.
+      const heroSection = page.locator('section').first()
+      await expect(heroSection).toBeVisible()
 
-      // Check that images are visible
-      const heroImage = page.locator('section').first().locator('img').first()
-      if (await heroImage.isVisible()) {
-        await expect(heroImage).toBeVisible()
-      }
+      const heroImage = heroSection.locator('img').first()
+      await expect(heroImage).toBeVisible()
+
+      // Ensure the hero image actually loaded (not just a placeholder element).
+      await expect
+        .poll(
+          async () =>
+            heroImage.evaluate((img) => {
+              const el = img as HTMLImageElement
+              return el.complete && el.naturalWidth > 0
+            }),
+          { timeout: 30_000 },
+        )
+        .toBe(true)
     })
   }
 })

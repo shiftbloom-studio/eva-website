@@ -18,7 +18,16 @@ export type DisplayTextTrigger = 'inView' | 'mount'
 export type DisplayTextSplit = 'words' | 'chars' | 'lines'
 export type DisplayTextEffect = 'rise' | 'rise-blur'
 
-export interface DisplayTextProps extends React.HTMLAttributes<HTMLElement> {
+type DisplayTextHtmlProps = Omit<
+  React.HTMLAttributes<HTMLElement>,
+  /**
+   * `motion.*` components use these prop names for gesture/animation callbacks,
+   * which conflict with React's native DOM event handler typings.
+   */
+  'onDrag' | 'onDragStart' | 'onDragEnd' | 'onAnimationStart'
+>
+
+export interface DisplayTextProps extends DisplayTextHtmlProps {
   text: string
   as?: 'h1' | 'h2' | 'h3' | 'p' | 'div' | 'span'
   className?: string
@@ -56,25 +65,22 @@ export function DisplayText({
   const resolvedDelay = delay ?? 0.15
 
   const segmentVariants = React.useMemo(() => {
-    const hidden: Record<string, unknown> = {
+    const hidden = {
       y: '110%',
       opacity: 0,
       rotate: tilt,
+      ...(effect === 'rise-blur' ? { filter: 'blur(12px)' } : null),
     }
 
-    const visible: Record<string, unknown> = {
+    const visible = {
       y: '0%',
       opacity: 1,
       rotate: 0,
+      ...(effect === 'rise-blur' ? { filter: 'blur(0px)' } : null),
       transition: {
         duration,
         ease: [0.22, 1, 0.36, 1] as const,
       },
-    }
-
-    if (effect === 'rise-blur') {
-      hidden.filter = 'blur(12px)'
-      visible.filter = 'blur(0px)'
     }
 
     return { hidden, visible }
@@ -94,7 +100,7 @@ export function DisplayText({
   )
 
   if (reduceMotion) {
-    const Tag = as as keyof React.JSX.IntrinsicElements
+    const Tag = as as keyof typeof motionTags
     return (
       <Tag className={className} {...props}>
         {lines.map((line, i) => (
