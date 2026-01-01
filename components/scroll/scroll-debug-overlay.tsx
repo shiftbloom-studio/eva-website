@@ -51,7 +51,7 @@ export function ScrollDebugOverlay() {
     setVelocity(Math.round((lenis.velocity ?? 0) * 10) / 10)
     setProgress(Math.round((lenis.progress ?? 0) * 1000) / 10)
     setDirection(lenis.direction ?? 0)
-    setIsScrolling(Boolean(lenis.isScrolling && lenis.isScrolling !== false))
+    setIsScrolling(Boolean(lenis.isScrolling))
   })
 
   React.useEffect(() => {

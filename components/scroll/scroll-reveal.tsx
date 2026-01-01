@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useInView, useReducedMotion, type HTMLMotionProps } from 'framer-motion'
 import * as React from 'react'
 
 import { cn } from '#lib/cn'
@@ -9,7 +9,8 @@ const EASE_OUT = [0.22, 1, 0.36, 1] as const
 
 type RevealPreset = 'fade' | 'rise' | 'rise-blur'
 
-export interface RevealProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface RevealProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
+  children?: React.ReactNode
   preset?: RevealPreset
   once?: boolean
   amount?: number
@@ -30,10 +31,15 @@ export function Reveal({
   ...props
 }: RevealProps) {
   const reduceMotion = useReducedMotion() ?? false
+  const ref = React.useRef<HTMLDivElement | null>(null)
+  const isInView = useInView(ref, { amount, once })
+  const hasBeenInViewRef = React.useRef(false)
+
+  if (isInView) hasBeenInViewRef.current = true
 
   if (reduceMotion) {
     return (
-      <div className={className} {...props}>
+      <div className={className} {...(props as unknown as React.HTMLAttributes<HTMLDivElement>)}>
         {children}
       </div>
     )
@@ -55,11 +61,11 @@ export function Reveal({
 
   return (
     <motion.div
+      ref={ref}
       className={cn('will-change-transform', className)}
       data-eva-reveal=""
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount }}
+      animate={(once ? hasBeenInViewRef.current : isInView) ? 'visible' : 'hidden'}
       variants={{
         hidden,
         visible: {
@@ -74,7 +80,8 @@ export function Reveal({
   )
 }
 
-export interface RevealGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface RevealGroupProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
+  children?: React.ReactNode
   once?: boolean
   amount?: number
   stagger?: number
@@ -91,10 +98,15 @@ export function RevealGroup({
   ...props
 }: RevealGroupProps) {
   const reduceMotion = useReducedMotion() ?? false
+  const ref = React.useRef<HTMLDivElement | null>(null)
+  const isInView = useInView(ref, { amount, once })
+  const hasBeenInViewRef = React.useRef(false)
+
+  if (isInView) hasBeenInViewRef.current = true
 
   if (reduceMotion) {
     return (
-      <div className={className} {...props}>
+      <div className={className} {...(props as unknown as React.HTMLAttributes<HTMLDivElement>)}>
         {children}
       </div>
     )
@@ -102,11 +114,11 @@ export function RevealGroup({
 
   return (
     <motion.div
+      ref={ref}
       className={className}
       data-eva-reveal-group=""
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount }}
+      animate={(once ? hasBeenInViewRef.current : isInView) ? 'visible' : 'hidden'}
       variants={{
         hidden: {},
         visible: {
@@ -123,7 +135,8 @@ export function RevealGroup({
   )
 }
 
-export interface RevealGroupItemProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface RevealGroupItemProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
+  children?: React.ReactNode
   preset?: RevealPreset
   duration?: number
   y?: number
@@ -141,7 +154,7 @@ export function RevealGroupItem({
 
   if (reduceMotion) {
     return (
-      <div className={className} {...props}>
+      <div className={className} {...(props as unknown as React.HTMLAttributes<HTMLDivElement>)}>
         {children}
       </div>
     )

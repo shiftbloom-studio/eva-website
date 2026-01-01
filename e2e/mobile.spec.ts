@@ -7,8 +7,14 @@ test.skip(({ browserName }) => browserName === 'firefox', 'Mobile emulation (isM
 // NOTE: Playwright device descriptors include `defaultBrowserType`, which is worker-scoped.
 // Calling `test.use({ defaultBrowserType })` inside a `test.describe(...)` group is forbidden
 // because it would require a new worker. We only need the context options here, so we strip it.
-const { defaultBrowserType: _iPhoneDefaultBrowserType, ...iPhone } = devices['iPhone 12']
-const { defaultBrowserType: _PixelDefaultBrowserType, ...pixel } = devices['Pixel 5']
+function stripDefaultBrowserType<T extends Record<string, unknown>>(device: T): Omit<T, 'defaultBrowserType'> {
+  const copy = { ...device } as T & { defaultBrowserType?: unknown }
+  delete copy.defaultBrowserType
+  return copy
+}
+
+const iPhone = stripDefaultBrowserType(devices['iPhone 12'])
+const pixel = stripDefaultBrowserType(devices['Pixel 5'])
 
 test.describe('Mobile Experience', () => {
   test.describe('iPhone 12', () => {
@@ -16,7 +22,7 @@ test.describe('Mobile Experience', () => {
 
     test('should display mobile-friendly layout', async ({ page }) => {
       await page.goto('/')
-      
+
       // Viewport should be mobile-sized
       const viewport = page.viewportSize()
       expect(viewport?.width).toBeLessThan(450)
@@ -46,11 +52,11 @@ test.describe('Mobile Experience', () => {
 
       // Scroll down
       await page.evaluate(() => window.scrollTo(0, 500))
-      await page.waitForTimeout(300)
 
       // Check scroll position
-      const scrollY = await page.evaluate(() => window.scrollY)
-      expect(scrollY).toBeGreaterThan(0)
+      await expect
+        .poll(async () => page.evaluate(() => window.scrollY), { timeout: 15_000 })
+        .toBeGreaterThan(0)
     })
 
     test('FAQ should be accessible on mobile', async ({ page }) => {

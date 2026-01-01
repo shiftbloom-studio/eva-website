@@ -89,7 +89,7 @@ export function BentoCard({
           `,
         }}
       />
-      
+
       {/* Background Image */}
       {image && (
         <div className="absolute inset-0 z-0">
@@ -136,4 +136,3 @@ export function BentoCard({
     </div>
   )
 }
-

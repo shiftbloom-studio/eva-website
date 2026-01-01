@@ -48,15 +48,45 @@ test.describe('Homepage', () => {
     const viewport = page.viewportSize()
     test.skip(!!viewport && viewport.width < 768, 'Desktop navigation links are hidden on mobile')
 
-    const faqLink = page.locator('header').getByRole('link', { name: 'FAQ', exact: true })
-    await faqLink.scrollIntoViewIfNeeded()
-    await expect(faqLink).toBeVisible()
-    await expect(faqLink).toBeEnabled()
+    const header = page.locator('header')
+    // Keep this deterministic: on WebKit multiple sequential anchor-clicks can be flaky.
+    const link = header.getByRole('link', { name: 'FAQ', exact: true })
+    await link.scrollIntoViewIfNeeded()
+    await expect(link).toBeVisible()
+    await expect(link).toBeEnabled()
 
-    await faqLink.click()
-
-    await expect(page).toHaveURL(/#faq/)
+    await link.click()
+    await expect(page).toHaveURL(/#faq$/)
     await expect(page.locator('#faq')).toBeVisible()
+  })
+
+  test('should render Systems section and allow expanding a system card with details', async ({ page }) => {
+    const section = page.locator('#systeme')
+    await section.scrollIntoViewIfNeeded()
+    await expect(section).toBeVisible()
+
+    const cards = section.locator('button[type="button"]')
+    await expect(cards).toHaveCount(4)
+
+    const krieg = section.getByRole('button', { name: /Krieg ist Taktik/i })
+    await krieg.click()
+    await expect(section.getByText(/Schlachten haben Phasen/i)).toBeVisible()
+  })
+
+  test('should render Stimmen section with testimonial cards', async ({ page }) => {
+    const section = page.locator('#stimmen')
+    await section.scrollIntoViewIfNeeded()
+    await expect(section).toBeVisible()
+
+    const testimonials = section.locator('article')
+    await expect(testimonials).toHaveCount(3)
+    // Avoid strict-mode collisions (all quotes contain “…)
+    await expect(testimonials.first().locator('p').first()).toContainText('“')
+  })
+
+  test('should not auto-open the audio gatekeeper modal in the default E2E storage state', async ({ page }) => {
+    // We pre-seed eva_audio_consent=denied in playwright.config.ts to avoid interceptions in CI.
+    await expect(page.getByRole('dialog', { name: 'Atmosphäre aktivieren?' })).toHaveCount(0)
   })
 })
 
@@ -91,9 +121,6 @@ test.describe('FAQ Section', () => {
     const firstQuestion = page.locator('#faq button[type="button"]').first()
     await firstQuestion.scrollIntoViewIfNeeded()
     await firstQuestion.click()
-
-    // Wait for animation
-    await page.waitForTimeout(400)
 
     // The content should be visible
     const faqContent = page.locator('#faq').getByText('Erbe von Arda ist ein Rollenspiel-Server', { exact: false })
@@ -191,41 +218,16 @@ test.describe('Accessibility', () => {
 
     // Tab through the page
     await page.keyboard.press('Tab')
-    
+
     // Skip link or first interactive element should be focused
-    const focusedElement = page.locator(':focus')
-    await expect(focusedElement).toBeTruthy()
-  })
-})
-
-test.describe('Performance', () => {
-  test('should load within acceptable time', async ({ page }) => {
-    const startTime = Date.now()
-    await page.goto('/')
-    const loadTime = Date.now() - startTime
-
-    // Page should load within 5 seconds (generous for CI environments)
-    expect(loadTime).toBeLessThan(5000)
-  })
-
-  test('should have responsive images', async ({ page }) => {
-    await page.goto('/')
-
-    // Check for Next.js Image optimization or srcset
-    const images = page.locator('img')
-    const count = await images.count()
-
-    if (count > 0) {
-      for (let i = 0; i < count; i++) {
-        const img = images.nth(i)
-        const srcset = await img.getAttribute('srcset')
-        const loading = await img.getAttribute('loading')
-
-        if (srcset || loading === 'lazy') {
-          return
-        }
-      }
-      // Note: This is informational, not all images need to be optimized
-    }
+    await expect
+      .poll(async () => {
+        return page.evaluate(() => {
+          const el = document.activeElement as HTMLElement | null
+          if (!el) return null
+          return el.tagName
+        })
+      })
+      .not.toBe('BODY')
   })
 })

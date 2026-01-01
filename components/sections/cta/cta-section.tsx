@@ -10,7 +10,13 @@ export interface CtaSectionProps {
 
 export function CtaSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: CtaSectionProps) {
   return (
-    <Section id="cta" className="pb-28 pt-6">
+    <Section
+      id="cta"
+      className="pb-28 pt-6"
+      data-eva-audio-autoplay=""
+      data-eva-audio-voice="voice_cta_final"
+      data-eva-audio-sfx="sfx_heavy_door_open"
+    >
       <Reveal
         preset="rise-blur"
         amount={0.25}

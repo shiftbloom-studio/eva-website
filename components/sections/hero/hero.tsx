@@ -5,6 +5,7 @@ import { Clock, Sparkles } from 'lucide-react'
 
 import { DisplayText } from '#components/ui/display-text'
 import { MagneticButton } from '#components/ui/magnetic-button'
+import { useAudio } from '#lib/audio'
 
 import { HeroBackdrop } from './hero-backdrop'
 
@@ -47,13 +48,14 @@ const HEADLINE_PRESETS = {
 } as const
 
 export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: HeroSectionProps) {
+  const audio = useAudio()
   const headlineMotion = HEADLINE_PRESETS[HEADLINE_PRESET]
 
   return (
     <section className="relative isolate min-h-[92svh] overflow-hidden">
       <HeroBackdrop />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-5 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-32">
+      <div className="relative z-10 mx-auto flex min-h-[92svh] max-w-7xl flex-col justify-center px-5 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-32">
         <div className="max-w-3xl">
           <motion.div
             className="inline-flex items-center gap-2 rounded-full border border-sunbronze/30 bg-sunbronze/10 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-sunbronze backdrop-blur-md"
@@ -109,6 +111,7 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
 
             <a
               href="#bento"
+              onClick={() => audio.playSfx('sfx_scroll_whoosh')}
               className="inline-flex w-full items-center justify-center rounded-full border border-white/10 bg-transparent px-5 py-2.5 text-sm font-medium text-vellum-50/90 transition hover:border-white/20 hover:bg-white/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950 sm:w-auto sm:px-6 sm:py-3"
             >
               Lore entdecken
@@ -150,4 +153,3 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
     </section>
   )
 }
-

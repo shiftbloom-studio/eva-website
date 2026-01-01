@@ -26,7 +26,9 @@ export default defineConfig([
       // These can be real issues, but we don't want lint to block builds while we migrate.
       'react-hooks/refs': 'warn',
       'react-hooks/static-components': 'warn',
+
+      // Disable noisy React Compiler warnings about manual memoization
+      'react-compiler/react-compiler': 'off',
     },
   },
 ])
-

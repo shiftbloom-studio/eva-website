@@ -7,13 +7,21 @@ import * as React from 'react'
 import { Reveal } from '#components/scroll'
 import { Section, SectionHeader } from '#components/ui/section'
 import { cn } from '#lib/cn'
+import { useAudio } from '#lib/audio'
 import faq from '#data/faq'
 
 export function FaqSection() {
+  const audio = useAudio()
   const [open, setOpen] = React.useState<string | null>(faq.items[0]?.question ?? null)
 
   return (
-    <Section id="faq" className="pb-28 pt-6">
+    <Section
+      id="faq"
+      className="pb-28 pt-6"
+      data-eva-audio-autoplay=""
+      data-eva-audio-voice="voice_faq"
+      data-eva-audio-sfx="sfx_parchment_open"
+    >
       <Reveal preset="rise-blur" amount={0.55}>
         <SectionHeader eyebrow="FAQ" title={faq.title} subtitle="Kurz, klar – und wenn du mehr willst: Discord." />
       </Reveal>
@@ -29,7 +37,17 @@ export function FaqSection() {
             <div key={item.question} className="group">
               <button
                 type="button"
-                onClick={() => setOpen((prev) => (prev === item.question ? null : item.question))}
+                onClick={() => {
+                  setOpen((prev) => {
+                    const willOpen = prev !== item.question
+                    if (willOpen) {
+                      audio.playSfx('sfx_parchment_open')
+                    } else {
+                      audio.playSfx('sfx_toggle_off')
+                    }
+                    return willOpen ? item.question : null
+                  })
+                }}
                 className={cn(
                   'flex w-full items-center justify-between gap-4 px-6 py-5 text-left',
                   'transition hover:bg-white/[0.03]',

@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent } from '../../test-utils'
 import { FaqSection } from '#components/sections/faq'
 
 // Mock framer-motion
@@ -12,6 +12,9 @@ vi.mock('framer-motion', async () => {
     motion: {
       div: React.forwardRef((props: any, ref: any) => React.createElement('div', { ref, ...props })),
     },
+    // Used by our Reveal components.
+    useReducedMotion: () => false,
+    useInView: () => true,
   }
 })
 

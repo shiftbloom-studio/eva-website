@@ -48,6 +48,11 @@ export default defineConfig({
 
   use: {
     baseURL,
+    // Make scroll + animation related assertions deterministic across browsers/CI.
+    reducedMotion: 'reduce',
+    // Keep formatting stable in assertions/screenshots.
+    locale: 'de-DE',
+    timezoneId: 'Europe/Berlin',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -64,6 +69,12 @@ export default defineConfig({
           localStorage: [
             { name: 'eva_audio_consent', value: 'denied' },
             { name: 'eva_audio_enabled', value: '0' },
+            // Hide privacy banner by default to keep E2E flows focused and non-flaky.
+            // Consent-specific tests override storageState to verify the banner + settings dialog.
+            {
+              name: 'eva_privacy_consent',
+              value: JSON.stringify({ v: 1, analytics: false, updatedAt: '2026-01-01T00:00:00.000Z' }),
+            },
           ],
         },
       ],
@@ -107,4 +118,3 @@ export default defineConfig({
     },
   ],
 })
-

@@ -5,8 +5,10 @@ import { ArrowUpRight } from 'lucide-react'
 import * as React from 'react'
 
 import { cn } from '#lib/cn'
+import { useAudio } from '#lib/audio'
 
 export function MarketingHeader() {
+  const audio = useAudio()
   const [scrolled, setScrolled] = React.useState(false)
 
   React.useEffect(() => {
@@ -40,22 +42,22 @@ export function MarketingHeader() {
           </Link>
 
           <nav aria-label="Hauptnavigation" className="hidden items-center gap-7 text-sm text-vellum-200/75 md:flex">
-            <a href="#lore" className="transition hover:text-vellum-50">
+            <a href="#lore" onClick={() => audio.playSfx('sfx_scroll_whoosh')} className="transition hover:text-vellum-50">
               Lore
             </a>
-            <a href="#status" className="transition hover:text-vellum-50">
+            <a href="#status" onClick={() => audio.playSfx('sfx_scroll_whoosh')} className="transition hover:text-vellum-50">
               Status
             </a>
-            <a href="#bento" className="transition hover:text-vellum-50">
+            <a href="#bento" onClick={() => audio.playSfx('sfx_scroll_whoosh')} className="transition hover:text-vellum-50">
               Einstieg
             </a>
-            <a href="#systeme" className="transition hover:text-vellum-50">
+            <a href="#systeme" onClick={() => audio.playSfx('sfx_scroll_whoosh')} className="transition hover:text-vellum-50">
               Systeme
             </a>
-            <a href="#stimmen" className="transition hover:text-vellum-50">
+            <a href="#stimmen" onClick={() => audio.playSfx('sfx_scroll_whoosh')} className="transition hover:text-vellum-50">
               Stimmen
             </a>
-            <a href="#faq" className="transition hover:text-vellum-50">
+            <a href="#faq" onClick={() => audio.playSfx('sfx_scroll_whoosh')} className="transition hover:text-vellum-50">
               FAQ
             </a>
             <a
@@ -89,4 +91,3 @@ export function MarketingHeader() {
     </header>
   )
 }
-

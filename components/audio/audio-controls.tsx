@@ -95,6 +95,7 @@ export function AudioControls() {
           type="button"
           onClick={() => {
             if (isOn) {
+              audio.playSfx('sfx_toggle_off', { cooldownMs: 0 })
               audio.disable({ fadeMs: 160 })
               return
             }
@@ -115,4 +116,3 @@ export function AudioControls() {
     </>
   )
 }
-

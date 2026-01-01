@@ -3,7 +3,7 @@ export interface SystemItem {
   eyebrow: string
   title: string
   description: string
-  detail: string
+  detail?: string
 }
 
 export const systems: SystemItem[] = [
@@ -21,9 +21,7 @@ export const systems: SystemItem[] = [
     eyebrow: 'Politik',
     title: 'Räte, Eide, Intrigen',
     description:
-      'Diplomatie ist keine Deko. Verträge werden verhandelt – und gebrochen. Allianzen sind Werkzeuge, keine Versprechen.',
-    detail:
-      'Ein Wort kann Frieden stiften oder Blut rufen. Ratsversammlungen, Gesandtschaften, Bündnisse – alles in Spielerhand. Führung ist kein Titel, sondern ein Risiko: durch Wahl, Rat oder Erbe. Wer führen will, muss überzeugen. Wer fällt, fällt öffentlich.',
+      'Diplomatie ist keine Deko. Verträge werden verhandelt – und gebrochen. Allianzen sind Werkzeuge, keine Versprechen.'
   },
   {
     id: 'krieg',
@@ -44,4 +42,3 @@ export const systems: SystemItem[] = [
       'Eine Quest kann man wiederholen. Ein Schwur nicht. In Tavernen, Audienzen, auf Straßen und an Lagerfeuern entsteht eine Geschichte, die niemand geplant hat – weil ihr sie schreibt. Lore-nah, doch offen für deinen Klang: solange du ihn mit Taten trägst.',
   },
 ]
-

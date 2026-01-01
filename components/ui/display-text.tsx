@@ -60,18 +60,20 @@ export function DisplayText({
   const reduceMotion = useReducedMotion()
   const MotionTag = motionTags[as]
 
-  const lines = React.useMemo(() => text.split('\n'), [text])
-  const { containerClassName, segmentGradientClassName } = React.useMemo(() => {
-    const raw = className?.trim()
-    if (!raw) return { containerClassName: className, segmentGradientClassName: undefined }
+  const lines = text.split('\n')
 
-    const tokens = raw.split(/\s+/).filter(Boolean)
+  // NOTE: Avoid manual memoization here; the React Compiler can optimize this component itself.
+  // We split out gradient-related Tailwind tokens so each animated segment inherits the gradient.
+  let containerClassName = className
+  let segmentGradientClassName: string | undefined
+  const rawClassName = className?.trim()
+  if (rawClassName) {
+    const tokens = rawClassName.split(/\s+/).filter(Boolean)
     const bases = tokens.map((t) => t.split(':').at(-1) ?? t)
     const hasGradientText = bases.includes('bg-clip-text') && bases.includes('text-transparent')
-    if (!hasGradientText) return { containerClassName: className, segmentGradientClassName: undefined }
 
-    const gradientTokens = tokens.filter(
-      (t) => {
+    if (hasGradientText) {
+      const gradientTokens = tokens.filter((t) => {
         const base = t.split(':').at(-1) ?? t
         return (
           base === 'bg-clip-text' ||
@@ -81,14 +83,12 @@ export function DisplayText({
           base.startsWith('via-') ||
           base.startsWith('to-')
         )
-      },
-    )
+      })
 
-    return {
-      containerClassName: tokens.filter((t) => !gradientTokens.includes(t)).join(' '),
-      segmentGradientClassName: gradientTokens.join(' '),
+      containerClassName = tokens.filter((t) => !gradientTokens.includes(t)).join(' ')
+      segmentGradientClassName = gradientTokens.join(' ')
     }
-  }, [className])
+  }
   const resolvedStagger = stagger ?? (split === 'chars' ? 0.018 : split === 'lines' ? 0.14 : 0.06)
   const resolvedDelay = delay ?? 0.15
 
@@ -197,4 +197,3 @@ export function DisplayText({
     </MotionTag>
   )
 }
-

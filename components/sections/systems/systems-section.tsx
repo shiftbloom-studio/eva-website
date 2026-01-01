@@ -7,10 +7,10 @@ import * as React from 'react'
 
 import { Reveal, RevealGroup } from '#components/scroll'
 import { Section, SectionHeader } from '#components/ui/section'
+import { systems } from '#data/systems'
 import { useAudio } from '#lib/audio'
 import { cn } from '#lib/cn'
 import { marketingImages } from '#lib/marketing-images'
-import { systems } from '#data/systems'
 
 const icons = {
   wirtschaft: Wheat,
@@ -77,6 +77,9 @@ export function SystemsSection() {
 
                 audio.playSfx('sfx_click_confirm')
                 if (!wasOpen) {
+                  if (item.id === 'wirtschaft') {
+                    audio.playSfx('sfx_forge_strike', { cooldownMs: 0 })
+                  }
                   // Explicitly restart on repeated opens (bypass voice throttling).
                   audio.playVoice(voices[item.id], { cooldownMs: 0 })
                 }
@@ -145,7 +148,7 @@ export function SystemsSection() {
                         alt=""
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover opacity-90"
+                        className="object-cover object-top opacity-90"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-void-950/70 via-transparent to-transparent" />
                     </div>

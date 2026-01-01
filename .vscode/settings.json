@@ -3,36 +3,12 @@
   // NOTE: VS Code settings files are JSONC → comments are allowed.
 
   // --- EVA brand accents (from tailwind.config.ts) ---
-  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.colorTheme": "Andromeda",
   "workbench.preferredDarkColorTheme": "Default Dark Modern",
   "window.commandCenter": true,
   "workbench.startupEditor": "none",
   "workbench.editor.enablePreview": false,
   "workbench.editor.labelFormat": "short",
-  "workbench.colorCustomizations": {
-    "focusBorder": "#BA8A2D",
-    "selection.background": "#99432455",
-    "button.background": "#BA8A2D",
-    "button.foreground": "#07060A",
-    "button.hoverBackground": "#C5914C",
-    "activityBar.background": "#07060A",
-    "activityBar.foreground": "#FBF5EC",
-    "activityBar.inactiveForeground": "#E7CFA6AA",
-    "activityBarBadge.background": "#BA8A2D",
-    "activityBarBadge.foreground": "#07060A",
-    "sideBar.background": "#07060A",
-    "sideBar.foreground": "#FBF5EC",
-    "sideBar.border": "#333342",
-    "statusBar.background": "#121219",
-    "statusBar.foreground": "#FBF5EC",
-    "statusBar.border": "#333342",
-    "statusBarItem.remoteBackground": "#994324",
-    "statusBarItem.remoteForeground": "#FBF5EC",
-    "titleBar.activeBackground": "#07060A",
-    "titleBar.activeForeground": "#FBF5EC",
-    "titleBar.inactiveBackground": "#07060A",
-    "titleBar.inactiveForeground": "#A3A4B7"
-  },
 
   // --- Editor feel: smooth + “futuristic” without being noisy ---
   "editor.fontFamily": "'Cascadia Code', 'JetBrains Mono', 'Fira Code', Consolas, 'Courier New', monospace",
@@ -75,6 +51,8 @@
   "typescript.preferences.importModuleSpecifier": "shortest",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
   "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.tsserver.experimental.enableProjectDiagnostics": false,
+  "typescript.surveys.enabled": false,
 
   // --- Biome (biomejs.biome) ---
   "biome.enabled": true,
@@ -89,6 +67,10 @@
   "eslint.format.enable": false,
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "eslint.workingDirectories": [{ "mode": "auto" }],
+  "eslint.rules.customizations": [
+    { "rule": "react-compiler/*", "severity": "off" },
+    { "rule": "**/react-compiler/**", "severity": "off" }
+  ],
 
   // --- Formatter routing (Biome for JS/TS/JSON) ---
   "[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
@@ -204,5 +186,28 @@
   "vscord.status.details.text.noWorkSpaceText": "EVA · No workspace",
   "vscord.status.state.text.noWorkspaceFound": "Boot sequence…",
   "vscord.status.details.text.notInFile": "EVA · {workspace} {problems}",
-  "vscord.status.state.text.notInFile": "Navigating"
+  "vscord.status.state.text.notInFile": "Navigating",
+
+  // --- Markdown (davidanson.vscode-markdownlint) ---
+  // Disable noisy markdown linting rules
+  "markdownlint.config": {
+    "MD041": false,
+    "MD013": false,
+    "MD033": false,
+    "MD034": false,
+    "MD036": false,
+    "MD040": false,
+    "MD046": false
+  },
+
+  // --- Problems Panel ---
+  // Filter out low-priority warnings
+  "problems.showCurrentInStatus": true,
+  "problems.sortOrder": "severity",
+
+  // --- Files associations ---
+  "files.associations": {
+    "*.css": "tailwindcss",
+    "*.md": "markdown"
+  }
 }

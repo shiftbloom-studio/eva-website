@@ -25,9 +25,11 @@ function LenisBridge() {
 
   React.useEffect(() => {
     if (!lenis) return
+    // TS-safe snapshot for the raf callback (avoids "possibly undefined" under strict builds).
+    const instance = lenis
 
     function update(data: { timestamp: number }) {
-      lenis.raf(data.timestamp)
+      instance.raf(data.timestamp)
     }
 
     frame.update(update, true)
@@ -50,7 +52,7 @@ function LenisBridge() {
       root.style.setProperty('--eva-scroll-progress', `${lenis.progress ?? 0}`)
       root.style.setProperty('--eva-scroll-velocity', `${lenis.velocity ?? 0}`)
       root.style.setProperty('--eva-scroll-direction', `${lenis.direction ?? 0}`)
-      root.dataset.evaIsScrolling = String(Boolean(lenis.isScrolling && lenis.isScrolling !== false))
+      root.dataset.evaIsScrolling = String(Boolean(lenis.isScrolling))
     }
 
     updateCssVars()
