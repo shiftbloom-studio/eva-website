@@ -75,4 +75,3 @@ export function MarketingBackdrop({ className }: MarketingBackdropProps) {
     </div>
   )
 }
-

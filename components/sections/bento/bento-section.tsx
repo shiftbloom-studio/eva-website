@@ -89,4 +89,3 @@ export function BentoSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: B
     </section>
   )
 }
-

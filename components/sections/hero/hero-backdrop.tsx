@@ -2,11 +2,10 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
-import * as React from 'react'
 
-import { cn } from '#lib/cn'
 import { FloatingParticles } from '#components/ui/floating-particles'
 import { NoiseOverlay } from '#components/ui/noise-overlay'
+import { cn } from '#lib/cn'
 import { marketingImages } from '#lib/marketing-images'
 
 const ASHES_PRESET = 'inferno' as const
@@ -214,4 +213,3 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
     </div>
   )
 }
-

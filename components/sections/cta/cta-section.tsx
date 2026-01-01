@@ -55,4 +55,3 @@ export function CtaSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: Cta
     </Section>
   )
 }
-
