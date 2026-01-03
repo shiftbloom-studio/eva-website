@@ -166,7 +166,9 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
           src={marketingImages.heroWide}
           alt=""
           fill
-          sizes="(max-width: 768px) 100vw, 2560px"
+          // On mobile portrait the image is effectively "zoomed" via `object-cover`,
+          // so we request a larger candidate to keep it crisp on high-DPR screens.
+          sizes="(max-width: 640px) 200vw, (max-width: 768px) 100vw, 2560px"
           priority
           placeholder="blur"
           quality={86}
