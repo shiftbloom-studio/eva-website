@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { Clock } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { useCake } from '#components/birthday-cake'
 import faq from '#data/faq'
@@ -108,6 +109,13 @@ function MarketingHomeBase() {
               >
                 Lore entdecken
               </a>
+
+              <Link
+                href="/enzyklopaedie"
+                className="inline-flex w-full items-center justify-center rounded-full border border-white/10 bg-white/[0.03] px-5 py-2.5 text-sm font-medium text-vellum-50/90 transition hover:border-sunbronze/30 hover:bg-white/[0.05] hover:shadow-glow-bronze focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950 sm:w-auto sm:px-6 sm:py-3"
+              >
+                Enzyklopädie öffnen <span aria-hidden="true">→</span>
+              </Link>
             </div>
 
             <div className="mt-10 flex flex-wrap items-center gap-3 text-xs text-vellum-200/65">

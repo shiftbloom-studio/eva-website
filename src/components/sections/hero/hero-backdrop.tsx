@@ -151,7 +151,7 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
 
       {/* Parallax Image Layer */}
       <div
-        className="absolute inset-0 h-[120%] will-change-transform"
+        className="absolute inset-0 h-[120%] will-change-transform [@media(hover:none)]:!transform-none [@media(hover:none)]:!opacity-100"
         style={
           reduceMotion
             ? undefined
@@ -177,40 +177,48 @@ export function HeroBackdrop({ className }: HeroBackdropProps) {
         <div className="absolute inset-0 bg-gradient-to-r from-void-950/50 via-transparent to-void-950/50" />
       </div>
 
-      {/* Animated Orbs/Glows */}
-      {reduceMotion ? (
-        <>
-          <div className="absolute -left-[10%] -top-[10%] h-[38rem] w-[38rem] rounded-full bg-sunbronze/10 blur-[105px] sm:h-[50rem] sm:w-[50rem] sm:blur-[120px]" />
-          <div className="absolute -right-[10%] top-[20%] h-[32rem] w-[32rem] rounded-full bg-bloodstone/10 blur-[105px] sm:h-[40rem] sm:w-[40rem] sm:blur-[120px]" />
-        </>
-      ) : (
-        <>
-          <motion.div
-            className="absolute -left-[10%] -top-[10%] h-[38rem] w-[38rem] rounded-full bg-sunbronze/10 blur-[105px] mix-blend-screen sm:h-[50rem] sm:w-[50rem] sm:blur-[120px]"
-            animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as const }}
-          />
-          <motion.div
-            className="absolute -right-[10%] top-[20%] h-[32rem] w-[32rem] rounded-full bg-bloodstone/10 blur-[105px] mix-blend-screen sm:h-[40rem] sm:w-[40rem] sm:blur-[120px]"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.2, 0.4, 0.2],
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as const, delay: 2 }}
-          />
-        </>
-      )}
+      {/* Touch fallback: cheap static glow (no blend/filter). */}
+      <div className="pointer-events-none absolute inset-0 hidden [@media(hover:none)]:block" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_20%_10%,rgba(186,138,45,0.14),transparent_55%),radial-gradient(800px_circle_at_80%_30%,rgba(153,67,36,0.10),transparent_60%)] opacity-80" />
+      </div>
 
-      {/* Particles */}
-      <FloatingParticles {...ashes.embers} className="mix-blend-screen" />
-      <FloatingParticles {...ashes.cinders} className="hidden mix-blend-screen opacity-90 sm:block" />
-      <FloatingParticles {...ashes.ash} className="hidden opacity-55 sm:block" />
+      {/* Heavy FX (mix-blend, blur filters, particles, SVG turbulence) are disabled on touch devices for iOS/mobile perf. */}
+      <div className="hidden sm:block [@media(hover:none)]:hidden">
+        {/* Animated Orbs/Glows */}
+        {reduceMotion ? (
+          <>
+            <div className="absolute -left-[10%] -top-[10%] h-[38rem] w-[38rem] rounded-full bg-sunbronze/10 blur-[105px] sm:h-[50rem] sm:w-[50rem] sm:blur-[120px]" />
+            <div className="absolute -right-[10%] top-[20%] h-[32rem] w-[32rem] rounded-full bg-bloodstone/10 blur-[105px] sm:h-[40rem] sm:w-[40rem] sm:blur-[120px]" />
+          </>
+        ) : (
+          <>
+            <motion.div
+              className="absolute -left-[10%] -top-[10%] h-[38rem] w-[38rem] rounded-full bg-sunbronze/10 blur-[105px] mix-blend-screen sm:h-[50rem] sm:w-[50rem] sm:blur-[120px]"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{ duration: 10, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as const }}
+            />
+            <motion.div
+              className="absolute -right-[10%] top-[20%] h-[32rem] w-[32rem] rounded-full bg-bloodstone/10 blur-[105px] mix-blend-screen sm:h-[40rem] sm:w-[40rem] sm:blur-[120px]"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.2, 0.4, 0.2],
+              }}
+              transition={{ duration: 15, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as const, delay: 2 }}
+            />
+          </>
+        )}
 
-      {/* Texture */}
-      <NoiseOverlay opacity={0.06} />
+        {/* Particles */}
+        <FloatingParticles {...ashes.embers} className="mix-blend-screen" />
+        <FloatingParticles {...ashes.cinders} className="hidden mix-blend-screen opacity-90 sm:block" />
+        <FloatingParticles {...ashes.ash} className="hidden opacity-55 sm:block" />
+
+        {/* Texture */}
+        <NoiseOverlay opacity={0.06} />
+      </div>
     </div>
   )
 }

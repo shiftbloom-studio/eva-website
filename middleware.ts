@@ -14,14 +14,16 @@ function getSupabaseEnv() {
 }
 
 export async function middleware(request: NextRequest) {
-  // In public mode we bypass authentication entirely (read-only access is enforced at the UI/data layer).
-  if (isPublicEncyclopediaEnabled()) {
-    return NextResponse.next()
-  }
-
   const pathname = request.nextUrl.pathname
   const isLogin = pathname.startsWith('/enzyklopaedie/login')
   const isAuthCallback = pathname.startsWith('/enzyklopaedie/auth')
+  const isEditor = pathname.startsWith('/enzyklopaedie/editor')
+
+  // In public mode we bypass authentication for READ-only encyclopedia routes,
+  // but we still require auth for editor/admin functionality.
+  if (isPublicEncyclopediaEnabled() && !isEditor) {
+    return NextResponse.next()
+  }
 
   const { url: supabaseUrl, key: supabaseKey } = getSupabaseEnv()
   if (!supabaseUrl || !supabaseKey) {

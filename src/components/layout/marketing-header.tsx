@@ -69,6 +69,9 @@ export function MarketingHeader() {
             <a href="#faq" onClick={() => audio.playSfx('sfx_scroll_whoosh')} className="transition hover:text-vellum-50">
               FAQ
             </a>
+            <Link href="/enzyklopaedie" onClick={() => audio.playSfx('sfx_link_hint')} className="transition hover:text-vellum-50">
+              Enzyklopädie
+            </Link>
             <a
               href="https://discord.gg/6B3WHTJaRA"
               target="_blank"
@@ -82,17 +85,29 @@ export function MarketingHeader() {
             </a>
           </nav>
 
-          <a
-            href="https://discord.gg/6B3WHTJaRA"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              'inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-medium text-vellum-50/90',
-              'transition hover:border-sunbronze/40 hover:shadow-glow-bronze md:hidden',
-            )}
-          >
-            Discord <ArrowUpRight className="h-4 w-4" strokeWidth={1.25} />
-          </a>
+          <div className="flex items-center gap-2 md:hidden">
+            <Link
+              href="/enzyklopaedie"
+              onClick={() => audio.playSfx('sfx_link_hint')}
+              className={cn(
+                'inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-medium text-vellum-50/90',
+                'transition hover:border-sunbronze/40 hover:shadow-glow-bronze',
+              )}
+            >
+              Enzyklopädie <span aria-hidden="true">→</span>
+            </Link>
+            <a
+              href="https://discord.gg/6B3WHTJaRA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                'inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-medium text-vellum-50/90',
+                'transition hover:border-sunbronze/40 hover:shadow-glow-bronze',
+              )}
+            >
+              Discord <ArrowUpRight className="h-4 w-4" strokeWidth={1.25} />
+            </a>
+          </div>
         </div>
 
         <div className={cn('h-px w-full bg-white/5 transition-opacity', scrolled ? 'opacity-100' : 'opacity-0')} />

@@ -6,6 +6,7 @@ import { getCategoryDef } from '../../../_lib/content/categories'
 import { getEncyclopediaIndex, resolveWikilinkTargetToSlug } from '../../../_lib/content'
 import { slugify } from '../../../_lib/content/slug'
 import { renderEncyclopediaMdx } from '../../../_lib/mdx/render'
+import { getOptionalEncyclopediaUser } from '../../../_lib/supabase/optional-user'
 
 const WIKILINK_RE = /^\s*\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]\s*$/
 
@@ -18,8 +19,13 @@ function parseWikilink(raw: string): { target: string; label: string } | null {
   return { target, label }
 }
 
-export default async function EncyclopediaArticlePage(props: { params: Promise<{ slug: string }> }) {
+export default async function EncyclopediaArticlePage(props: {
+  params: Promise<{ slug: string }>
+  searchParams?: Promise<{ saved?: string }>
+}) {
   const { slug } = await props.params
+  const searchParams = props.searchParams ? await props.searchParams : undefined
+  const saved = searchParams?.saved === '1'
 
   const index = await getEncyclopediaIndex()
   const article = index.bySlug.get(slugify(slug)) ?? null
@@ -28,6 +34,7 @@ export default async function EncyclopediaArticlePage(props: { params: Promise<{
   const content = await renderEncyclopediaMdx(article.content, { wikilinkMap: index.wikilinkMap })
 
   const category = getCategoryDef(article.category)
+  const canEdit = Boolean(await getOptionalEncyclopediaUser())
 
   const related = article.related
     .map((raw) => {
@@ -69,9 +76,23 @@ export default async function EncyclopediaArticlePage(props: { params: Promise<{
       <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-12">
         <div className="lg:col-span-8">
           <header className="max-w-3xl">
+            {saved ? (
+              <div className="mb-6 rounded-4xl border border-moss-300/20 bg-moss-900/20 p-5 text-sm text-vellum-200/85">
+                Gespeichert. Der Eintrag wurde aktualisiert.
+              </div>
+            ) : null}
+
             <div className="flex flex-wrap items-center gap-3">
               <p className="text-xs uppercase tracking-[0.22em] text-vellum-200/60">{category.label}</p>
               <KnowledgeBadge type={article.knowledgeType} />
+              {canEdit ? (
+                <Link
+                  href={`/enzyklopaedie/editor/${article.slug}`}
+                  className="ml-auto inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-medium text-vellum-50/90 transition hover:border-sunbronze/40 hover:shadow-glow-bronze focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950"
+                >
+                  Bearbeiten →
+                </Link>
+              ) : null}
             </div>
 
             <h1 className="mt-3 font-display text-3xl tracking-[-0.02em] text-vellum-50 sm:text-4xl">

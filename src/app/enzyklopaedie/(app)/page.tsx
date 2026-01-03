@@ -6,6 +6,7 @@ import { SearchBar } from '../_components/SearchBar'
 import { TagCloud } from '../_components/TagCloud'
 import { CATEGORY_DEFS, getCategoryDef } from '../_lib/content/categories'
 import { getEncyclopediaIndex, listArticlesFromIndex } from '../_lib/content'
+import { getOptionalEncyclopediaUser } from '../_lib/supabase/optional-user'
 
 export default async function EncyclopediaHubPage(props: {
   searchParams?: Promise<{ q?: string; tag?: string }>
@@ -15,6 +16,7 @@ export default async function EncyclopediaHubPage(props: {
   const tag = searchParams?.tag?.trim().replace(/^#/, '').toLowerCase() ?? ''
 
   const index = await getEncyclopediaIndex()
+  const canEdit = Boolean(await getOptionalEncyclopediaUser())
 
   const hasFilters = Boolean(q || tag)
   const results = listArticlesFromIndex(index, { q, tags: tag ? [tag] : [] })
@@ -69,6 +71,17 @@ export default async function EncyclopediaHubPage(props: {
         <div className="mt-7">
           <SearchBar />
         </div>
+
+        {canEdit ? (
+          <div className="mt-5">
+            <Link
+              href="/enzyklopaedie/editor/new"
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-medium text-vellum-50/90 transition hover:border-sunbronze/40 hover:shadow-glow-bronze focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950"
+            >
+              Neuer Eintrag →
+            </Link>
+          </div>
+        ) : null}
 
         {tag ? (
           <div className="mt-4 text-xs text-vellum-200/70">

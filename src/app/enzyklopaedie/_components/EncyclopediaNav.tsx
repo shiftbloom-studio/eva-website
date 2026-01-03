@@ -1,12 +1,15 @@
-import { LogIn, LogOut, ScrollText } from 'lucide-react'
+import { LogIn, LogOut, PenLine, ScrollText } from 'lucide-react'
 import Link from 'next/link'
 
 import { cn } from '#lib/cn'
 
 import { encyclopediaLogout } from '../_actions/auth'
+import { getOptionalEncyclopediaUser } from '../_lib/supabase/optional-user'
 
-export function EncyclopediaNav() {
+export async function EncyclopediaNav() {
   const publicMode = String(process.env.ENCYCLOPEDIA_PUBLIC ?? '').toLowerCase() === 'true'
+  const user = await getOptionalEncyclopediaUser()
+  const canEdit = Boolean(user)
 
   return (
     <header className="sticky top-0 z-50">
@@ -34,19 +37,21 @@ export function EncyclopediaNav() {
               Hub
             </Link>
 
-            {publicMode ? (
+            {canEdit ? (
               <Link
-                href="/enzyklopaedie/login"
+                href="/enzyklopaedie/editor"
                 className={cn(
                   'inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-medium text-vellum-50/90',
                   'transition hover:border-sunbronze/40 hover:shadow-glow-bronze',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950',
                 )}
               >
-                <LogIn className="h-4 w-4" strokeWidth={1.25} />
-                Login
+                <PenLine className="h-4 w-4" strokeWidth={1.25} />
+                Editor
               </Link>
-            ) : (
+            ) : null}
+
+            {user ? (
               <form action={encyclopediaLogout}>
                 <button
                   type="submit"
@@ -60,7 +65,19 @@ export function EncyclopediaNav() {
                   Logout
                 </button>
               </form>
-            )}
+            ) : publicMode ? (
+              <Link
+                href="/enzyklopaedie/login"
+                className={cn(
+                  'inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-medium text-vellum-50/90',
+                  'transition hover:border-sunbronze/40 hover:shadow-glow-bronze',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950',
+                )}
+              >
+                <LogIn className="h-4 w-4" strokeWidth={1.25} />
+                Login
+              </Link>
+            ) : null}
           </nav>
         </div>
       </div>

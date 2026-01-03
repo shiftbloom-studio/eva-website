@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Clock, Sparkles } from 'lucide-react'
+import Link from 'next/link'
 
 import { DisplayText } from '#components/ui/display-text'
 import { MagneticButton } from '#components/ui/magnetic-button'
@@ -63,7 +64,7 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
       <div className="relative z-10 mx-auto flex min-h-[92svh] max-w-7xl flex-col justify-center px-5 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-32">
         <div className="max-w-3xl">
           <motion.div
-            className="inline-flex items-center gap-2 rounded-full border border-sunbronze/30 bg-sunbronze/10 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-sunbronze backdrop-blur-md"
+            className="inline-flex items-center gap-2 rounded-full border border-sunbronze/30 bg-sunbronze/10 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-sunbronze sm:backdrop-blur-md"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
@@ -80,7 +81,7 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
               className="relative z-10 mt-8 font-display text-display-md text-transparent bg-clip-text bg-gradient-to-b from-vellum-50 via-vellum-100 to-vellum-400 lg:text-display-lg"
             />
              {/* Subtle glow behind text */}
-             <div className="pointer-events-none absolute -inset-x-8 -top-8 -bottom-8 z-0 rounded-full bg-sunbronze/10 blur-[80px] opacity-50 sm:-inset-x-10 sm:-top-10 sm:-bottom-10 sm:blur-[90px] sm:opacity-60" />
+             <div className="pointer-events-none absolute -inset-x-8 -top-8 -bottom-8 z-0 rounded-full bg-sunbronze/10 blur-[60px] opacity-45 sm:-inset-x-10 sm:-top-10 sm:-bottom-10 sm:blur-[90px] sm:opacity-60" />
           </div>
 
           <motion.p
@@ -121,6 +122,14 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
             >
               Lore entdecken
             </a>
+
+            <Link
+              href="/enzyklopaedie"
+              onClick={() => audio.playSfx('sfx_link_hint')}
+              className="inline-flex w-full items-center justify-center rounded-full border border-white/10 bg-white/[0.03] px-5 py-2.5 text-sm font-medium text-vellum-50/90 transition hover:border-sunbronze/30 hover:bg-white/[0.05] hover:shadow-glow-bronze focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950 sm:w-auto sm:px-6 sm:py-3"
+            >
+              Enzyklopädie öffnen <span aria-hidden="true">→</span>
+            </Link>
           </div>
 
           <motion.div
@@ -147,7 +156,7 @@ export function HeroSection({ discordUrl = 'https://discord.gg/6B3WHTJaRA' }: He
 
       <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center" aria-hidden="true">
         <motion.div
-          className="rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-vellum-200/70 backdrop-blur"
+          className="rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-vellum-200/70 sm:backdrop-blur"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55, ease: [0.22, 1, 0.36, 1] as const }}
