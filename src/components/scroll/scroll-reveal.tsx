@@ -46,11 +46,11 @@ export function Reveal({
 }: RevealProps) {
   const reduceMotion = useReducedMotion() ?? false
   const ref = React.useRef<HTMLDivElement | null>(null)
-  const isInView = useInView(ref, { amount, once })
-  // Optimistic default: visible. If we're actually off-screen, we correct to "hidden"
-  // in a layout effect *before paint*. This avoids a one-frame flash when the rich
-  // layer swaps in after the user already scrolled to this section.
-  const [hasBeenInView, setHasBeenInView] = React.useState(true)
+  const isInView = useInView(ref, { amount, once: false })
+  // Lock the reveal state once the element has been seen to avoid replaying animations
+  // when IntersectionObserver updates jitter around the threshold.
+  const hasBeenInViewRef = React.useRef(false)
+  const [hasBeenInView, setHasBeenInView] = React.useState(false)
 
   // If the rich layer swaps in late (after the user already scrolled), `useInView()`
   // won't report "true" until after mount. Prevent a one-frame flash by pre-seeding
@@ -60,13 +60,17 @@ export function Reveal({
     if (!once) return
     const el = ref.current
     if (!el) return
-    // If we're not intersecting at all, start hidden so we can play the reveal on scroll.
-    if (getViewportIntersectionRatio(el) === 0) setHasBeenInView(false)
+    const isIntersecting = getViewportIntersectionRatio(el) > 0
+    hasBeenInViewRef.current = isIntersecting
+    setHasBeenInView(isIntersecting)
   }, [once, reduceMotion])
 
   React.useEffect(() => {
-    if (isInView) setHasBeenInView(true)
-  }, [isInView])
+    if (!once) return
+    if (!isInView || hasBeenInViewRef.current) return
+    hasBeenInViewRef.current = true
+    setHasBeenInView(true)
+  }, [isInView, once])
 
   if (reduceMotion) {
     return (
@@ -90,7 +94,7 @@ export function Reveal({
         ? { opacity: 1, y: 0 }
         : { opacity: 1, y: 0, filter: 'blur(0px)' }
 
-  const shouldReveal = once ? hasBeenInView || isInView : isInView
+  const shouldReveal = once ? hasBeenInView : isInView
 
   return (
     <motion.div
@@ -132,20 +136,26 @@ export function RevealGroup({
 }: RevealGroupProps) {
   const reduceMotion = useReducedMotion() ?? false
   const ref = React.useRef<HTMLDivElement | null>(null)
-  const isInView = useInView(ref, { amount, once })
-  const [hasBeenInView, setHasBeenInView] = React.useState(true)
+  const isInView = useInView(ref, { amount, once: false })
+  const hasBeenInViewRef = React.useRef(false)
+  const [hasBeenInView, setHasBeenInView] = React.useState(false)
 
   React.useLayoutEffect(() => {
     if (reduceMotion) return
     if (!once) return
     const el = ref.current
     if (!el) return
-    if (getViewportIntersectionRatio(el) === 0) setHasBeenInView(false)
+    const isIntersecting = getViewportIntersectionRatio(el) > 0
+    hasBeenInViewRef.current = isIntersecting
+    setHasBeenInView(isIntersecting)
   }, [once, reduceMotion])
 
   React.useEffect(() => {
-    if (isInView) setHasBeenInView(true)
-  }, [isInView])
+    if (!once) return
+    if (!isInView || hasBeenInViewRef.current) return
+    hasBeenInViewRef.current = true
+    setHasBeenInView(true)
+  }, [isInView, once])
 
   if (reduceMotion) {
     return (
@@ -155,7 +165,7 @@ export function RevealGroup({
     )
   }
 
-  const shouldReveal = once ? hasBeenInView || isInView : isInView
+  const shouldReveal = once ? hasBeenInView : isInView
 
   return (
     <motion.div
