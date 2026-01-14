@@ -94,7 +94,7 @@ export function Reveal({
         ? { opacity: 1, y: 0 }
         : { opacity: 1, y: 0, filter: 'blur(0px)' }
 
-  const shouldReveal = once ? hasBeenInView : isInView
+  const shouldReveal = once ? hasBeenInView || isInView : isInView
 
   return (
     <motion.div
@@ -165,7 +165,7 @@ export function RevealGroup({
     )
   }
 
-  const shouldReveal = once ? hasBeenInView : isInView
+  const shouldReveal = once ? hasBeenInView || isInView : isInView
 
   return (
     <motion.div
