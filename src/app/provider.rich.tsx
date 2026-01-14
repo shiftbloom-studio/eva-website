@@ -44,8 +44,10 @@ function LenisBridge() {
     window.__eva_lenis = lenis
 
     const root = document.documentElement
+    let rafId: number | null = null
 
     const updateCssVars = () => {
+      rafId = null
       const y = lenis.scroll ?? window.scrollY ?? 0
       // Provide both a CSS-usable length and a raw number string for debugging.
       root.style.setProperty('--eva-scroll-y', `${y}px`)
@@ -56,13 +58,22 @@ function LenisBridge() {
       root.dataset.evaIsScrolling = String(Boolean(lenis.isScrolling))
     }
 
+    const scheduleCssVarsUpdate = () => {
+      if (rafId !== null) return
+      rafId = window.requestAnimationFrame(updateCssVars)
+    }
+
     updateCssVars()
     const unsubscribe = lenis.on('scroll', () => {
-      updateCssVars()
+      scheduleCssVarsUpdate()
     })
 
     return () => {
       unsubscribe?.()
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId)
+        rafId = null
+      }
       delete window.__eva_lenis
     }
   }, [lenis])
