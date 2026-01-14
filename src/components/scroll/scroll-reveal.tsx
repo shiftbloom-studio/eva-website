@@ -46,10 +46,7 @@ export function Reveal({
 }: RevealProps) {
   const reduceMotion = useReducedMotion() ?? false
   const ref = React.useRef<HTMLDivElement | null>(null)
-  const isInView = useInView(ref, { amount, once: false })
-  // Lock the reveal state once the element has been seen to avoid replaying animations
-  // when IntersectionObserver updates jitter around the threshold.
-  const hasBeenInViewRef = React.useRef(false)
+  const isInView = useInView(ref, { amount, once: true })
   const [hasBeenInView, setHasBeenInView] = React.useState(false)
 
   // If the rich layer swaps in late (after the user already scrolled), `useInView()`
@@ -60,15 +57,11 @@ export function Reveal({
     if (!once) return
     const el = ref.current
     if (!el) return
-    const isIntersecting = getViewportIntersectionRatio(el) > 0
-    hasBeenInViewRef.current = isIntersecting
-    setHasBeenInView(isIntersecting)
+    if (getViewportIntersectionRatio(el) > 0) setHasBeenInView(true)
   }, [once, reduceMotion])
 
   React.useEffect(() => {
-    if (!once) return
-    if (!isInView || hasBeenInViewRef.current) return
-    hasBeenInViewRef.current = true
+    if (!once || !isInView) return
     setHasBeenInView(true)
   }, [isInView, once])
 
@@ -136,8 +129,7 @@ export function RevealGroup({
 }: RevealGroupProps) {
   const reduceMotion = useReducedMotion() ?? false
   const ref = React.useRef<HTMLDivElement | null>(null)
-  const isInView = useInView(ref, { amount, once: false })
-  const hasBeenInViewRef = React.useRef(false)
+  const isInView = useInView(ref, { amount, once: true })
   const [hasBeenInView, setHasBeenInView] = React.useState(false)
 
   React.useLayoutEffect(() => {
@@ -145,15 +137,11 @@ export function RevealGroup({
     if (!once) return
     const el = ref.current
     if (!el) return
-    const isIntersecting = getViewportIntersectionRatio(el) > 0
-    hasBeenInViewRef.current = isIntersecting
-    setHasBeenInView(isIntersecting)
+    if (getViewportIntersectionRatio(el) > 0) setHasBeenInView(true)
   }, [once, reduceMotion])
 
   React.useEffect(() => {
-    if (!once) return
-    if (!isInView || hasBeenInViewRef.current) return
-    hasBeenInViewRef.current = true
+    if (!once || !isInView) return
     setHasBeenInView(true)
   }, [isInView, once])
 
