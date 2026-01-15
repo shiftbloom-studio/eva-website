@@ -1,11 +1,10 @@
 'use client'
 
-import * as React from 'react'
 import { Clock } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import * as React from 'react'
 
-import { useCake } from '#components/birthday-cake'
 import faq from '#data/faq'
 import { legal } from '#data/legal'
 import { systems } from '#data/systems'
@@ -365,12 +364,6 @@ function MarketingHomeBase() {
 }
 
 export function MarketingHomeCake() {
-  const { profile } = useCake()
-
-  const wantsEnhanced = profile.tier === 'rich' || profile.tier === 'ultra'
-
-  if (!wantsEnhanced) return <MarketingHomeBase />
-
   return (
     <React.Suspense fallback={<MarketingHomeBase />}>
       <MarketingHomeEnhanced />

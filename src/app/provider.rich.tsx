@@ -6,9 +6,8 @@ import * as React from 'react'
 
 import { AudioLayer } from '#components/audio'
 import { PrivacyLayer } from '#components/privacy'
-import { ScrollDebugOverlay } from '#components/scroll'
-import { useCake } from '#components/birthday-cake'
 import { PrivacyOpenBridge } from '#components/privacy/privacy-open-bridge'
+import { ScrollDebugOverlay } from '#components/scroll'
 import { AudioProvider } from '#lib/audio'
 
 declare global {
@@ -71,13 +70,12 @@ function LenisBridge() {
 }
 
 function RichLayer(props: { children: React.ReactNode }) {
-  const { profile } = useCake()
   const reduceMotion = useReducedMotion() ?? false
 
-  const motionEnabled = profile.features.motion && !reduceMotion
-  const smoothScrollEnabled = profile.features.smoothScroll && motionEnabled
-  const audioEnabled = profile.features.audio
-  const privacyEnabled = profile.features.privacyBanner
+  const motionEnabled = !reduceMotion
+  const smoothScrollEnabled = motionEnabled
+  const audioEnabled = true
+  const privacyEnabled = true
 
   const lenisOptions = React.useMemo(
     () => ({
@@ -133,10 +131,6 @@ function RichLayer(props: { children: React.ReactNode }) {
   )
 }
 
-/**
- * Rich providers are only lazy-loaded for capable devices.
- * We still wrap with CakeProvider here to make the module usable in isolation if needed.
- */
 export function RichProvider(props: { children: React.ReactNode }) {
   return <RichLayer>{props.children}</RichLayer>
 }
