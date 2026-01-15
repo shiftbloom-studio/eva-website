@@ -110,10 +110,16 @@ test.describe('Consent & Settings', () => {
     })
     await page.goto('/')
 
+    // Ensure any auto-prompt is closed before interacting with the controls.
+    const gate = page.getByRole('dialog', { name: 'Atmosphäre aktivieren?' })
+    if (await gate.isVisible()) {
+      await page.keyboard.press('Escape')
+      await expect(gate).toBeHidden()
+    }
+
     // Clicking the kill-switch while consent is not granted should open the gate.
     await page.getByRole('button', { name: 'Audio einschalten', exact: true }).click()
 
-    const gate = page.getByRole('dialog', { name: 'Atmosphäre aktivieren?' })
     await expect(gate).toBeVisible()
     await gate.getByRole('button', { name: 'Aktivieren', exact: true }).click()
     await expect(gate).toBeHidden()

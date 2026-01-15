@@ -209,7 +209,17 @@ test.describe('Accessibility', () => {
   })
 
   test('should be keyboard navigable', async ({ page }) => {
+    await page.addInitScript(() => {
+      window.localStorage.setItem('eva_audio_consent', 'denied')
+      window.localStorage.setItem('eva_audio_enabled', '0')
+    })
     await page.goto('/')
+
+    const gate = page.getByRole('dialog', { name: 'Atmosphäre aktivieren?' })
+    if (await gate.isVisible()) {
+      await page.keyboard.press('Escape')
+      await expect(gate).toBeHidden()
+    }
 
     // First tabbable item should be the "skip to content" link.
     const skip = page.getByRole('link', { name: 'Zum Inhalt springen', exact: true })

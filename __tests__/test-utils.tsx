@@ -1,6 +1,5 @@
 /* eslint-disable react/display-name */
 
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { render as rtlRender, type RenderOptions } from '@testing-library/react'
 import * as React from 'react'
 import { vi } from 'vitest'
@@ -24,14 +23,6 @@ const mockAudioLayerApi = {
   playVoice: vi.fn(),
   stopAll: vi.fn(),
 }
-
-// Create a simple theme for Chakra
-const theme = extendTheme({
-  config: {
-    initialColorMode: 'dark',
-    useSystemColorMode: false,
-  },
-})
 
 // Mock AudioLayerContext
 const MockAudioLayerContext = React.createContext(mockAudioLayerApi)
@@ -101,11 +92,7 @@ interface WrapperProps {
 }
 
 function AllProviders({ children }: WrapperProps) {
-  return (
-    <ChakraProvider theme={theme}>
-      <MockAudioProvider>{children}</MockAudioProvider>
-    </ChakraProvider>
-  )
+  return <MockAudioProvider>{children}</MockAudioProvider>
 }
 
 function customRender(ui: React.ReactElement, options?: Omit<RenderOptions, 'wrapper'>) {
@@ -114,4 +101,4 @@ function customRender(ui: React.ReactElement, options?: Omit<RenderOptions, 'wra
 
 // Re-export everything
 export * from '@testing-library/react'
-export { customRender as render, mockAudioLayerApi }
+export { mockAudioLayerApi, customRender as render }
