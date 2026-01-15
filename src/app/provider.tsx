@@ -1,9 +1,111 @@
 'use client'
 
+import { cancelFrame, frame, MotionConfig, useReducedMotion } from 'framer-motion'
+import { ReactLenis, useLenis } from 'lenis/react'
 import * as React from 'react'
 
-import { RichProvider } from './provider.rich'
+import { AudioLayer } from '#components/audio'
+import { PrivacyLayer } from '#components/privacy'
+import { PrivacyOpenBridge } from '#components/privacy/privacy-open-bridge'
+import { ScrollDebugOverlay } from '#components/scroll'
+import { AudioProvider } from '#lib/audio'
+
+declare global {
+  interface Window {
+    __eva_lenis?: unknown
+  }
+}
+
+function easeInOutCubic(t: number) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+}
+
+function LenisBridge() {
+  const lenis = useLenis()
+
+  React.useEffect(() => {
+    if (!lenis) return
+    const instance = lenis
+
+    function update(data: { timestamp: number }) {
+      instance.raf(data.timestamp)
+    }
+
+    frame.update(update, true)
+    return () => cancelFrame(update)
+  }, [lenis])
+
+  React.useEffect(() => {
+    if (!lenis) return
+
+    window.__eva_lenis = lenis
+
+    const root = document.documentElement
+
+    const updateCssVars = () => {
+      const y = lenis.scroll ?? window.scrollY ?? 0
+      root.style.setProperty('--eva-scroll-y', `${y}px`)
+      root.style.setProperty('--eva-scroll-y-num', `${y}`)
+      root.style.setProperty('--eva-scroll-progress', `${lenis.progress ?? 0}`)
+      root.style.setProperty('--eva-scroll-velocity', `${lenis.velocity ?? 0}`)
+      root.style.setProperty('--eva-scroll-direction', `${lenis.direction ?? 0}`)
+      root.dataset.evaIsScrolling = String(Boolean(lenis.isScrolling))
+    }
+
+    updateCssVars()
+    const unsubscribe = lenis.on('scroll', () => {
+      updateCssVars()
+    })
+
+    return () => {
+      unsubscribe?.()
+      delete window.__eva_lenis
+    }
+  }, [lenis])
+
+  return null
+}
 
 export function Provider(props: { children: React.ReactNode }) {
-  return <RichProvider>{props.children}</RichProvider>
+  const reduceMotion = useReducedMotion() ?? false
+
+  const lenisOptions = React.useMemo(
+    () => ({
+      autoRaf: false,
+      lerp: reduceMotion ? 1 : 0.15,
+      smoothWheel: !reduceMotion,
+      syncTouch: !reduceMotion,
+      syncTouchLerp: reduceMotion ? 1 : 0.12,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.0,
+      anchors: reduceMotion
+        ? { offset: -112, immediate: true }
+        : {
+            offset: -112,
+            duration: 1.15,
+            easing: easeInOutCubic,
+          },
+      stopInertiaOnNavigate: true,
+    }),
+    [reduceMotion],
+  )
+
+  const content = (
+    <>
+      {props.children}
+      <AudioLayer />
+      <PrivacyOpenBridge />
+      <PrivacyLayer />
+      <ScrollDebugOverlay />
+    </>
+  )
+
+  return (
+    <MotionConfig reducedMotion="user">
+      <ReactLenis root options={lenisOptions} autoRaf={false}>
+        <LenisBridge />
+        <AudioProvider>{content}</AudioProvider>
+      </ReactLenis>
+    </MotionConfig>
+  )
 }

@@ -1,46 +1,27 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import * as React from 'react'
 
-import { Reveal, RevealGroup } from '#components/scroll'
 import { Section, SectionHeader } from '#components/ui/section'
-import { cn } from '#lib/cn'
 import { testimonials } from '#data/testimonials-arda'
+import { cn } from '#lib/cn'
 
 export function TestimonialsSection() {
-  const cardVariants = React.useMemo(
-    () => ({
-      hidden: { opacity: 0, y: 18, filter: 'blur(10px)' },
-      visible: {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] as const },
-      },
-    }),
-    [],
-  )
-
   return (
     <Section id="stimmen" className="pb-28 pt-6">
-      <Reveal preset="rise-blur" amount={0.55}>
-        <SectionHeader
-          eyebrow="Stimmen"
-          title="Auszüge aus Leben, Blut und Bannern."
-          subtitle="Keine Rezensionen. Keine Sterne. Nur Fragmente aus Tagebüchern, Briefen und Lagerfeuern – erzählt von denen, die Arda bereits geprägt hat."
-        />
-      </Reveal>
+      <SectionHeader
+        eyebrow="Stimmen"
+        title="Auszüge aus Leben, Blut und Bannern."
+        subtitle="Keine Rezensionen. Keine Sterne. Nur Fragmente aus Tagebüchern, Briefen und Lagerfeuern – erzählt von denen, die Arda bereits geprägt hat."
+      />
 
-      <RevealGroup className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6" amount={0.25} stagger={0.08}>
+      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
         {testimonials.map((t) => (
-          <motion.article
+          <article
             key={t.id}
             className={cn(
               'relative overflow-hidden rounded-4xl border border-white/10 bg-void-900/35 p-6 backdrop-blur-md',
               'transition hover:border-white/15 hover:bg-void-900/45',
             )}
-            variants={cardVariants}
           >
             {(() => {
               const [first, ...rest] = t.story
@@ -70,9 +51,9 @@ export function TestimonialsSection() {
                 </>
               )
             })()}
-          </motion.article>
+          </article>
         ))}
-      </RevealGroup>
+      </div>
     </Section>
   )
 }

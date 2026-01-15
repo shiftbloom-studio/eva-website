@@ -47,10 +47,9 @@ export function Reveal({
   const reduceMotion = useReducedMotion() ?? false
   const ref = React.useRef<HTMLDivElement | null>(null)
   const isInView = useInView(ref, { amount, once })
-  // Optimistic default: visible. If we're actually off-screen, we correct to "hidden"
-  // in a layout effect *before paint*. This avoids a one-frame flash when the rich
-  // layer swaps in after the user already scrolled to this section.
-  const [hasBeenInView, setHasBeenInView] = React.useState(true)
+  // Default: hidden. If we're intersecting on mount, we flip to visible in a layout effect
+  // before paint to avoid flashes or stale hidden state.
+  const [hasBeenInView, setHasBeenInView] = React.useState(false)
 
   // If the rich layer swaps in late (after the user already scrolled), `useInView()`
   // won't report "true" until after mount. Prevent a one-frame flash by pre-seeding
@@ -60,8 +59,8 @@ export function Reveal({
     if (!once) return
     const el = ref.current
     if (!el) return
-    // If we're not intersecting at all, start hidden so we can play the reveal on scroll.
-    if (getViewportIntersectionRatio(el) === 0) setHasBeenInView(false)
+    const ratio = getViewportIntersectionRatio(el)
+    setHasBeenInView(ratio > 0)
   }, [once, reduceMotion])
 
   React.useEffect(() => {
@@ -78,17 +77,17 @@ export function Reveal({
 
   const hidden =
     preset === 'fade'
-      ? { opacity: 0 }
+      ? { opacity: 0, visibility: 'hidden', pointerEvents: 'none' }
       : preset === 'rise'
-        ? { opacity: 0, y }
-        : { opacity: 0, y, filter: 'blur(10px)' }
+        ? { opacity: 0, y, visibility: 'hidden', pointerEvents: 'none' }
+        : { opacity: 0, y, filter: 'blur(10px)', visibility: 'hidden', pointerEvents: 'none' }
 
   const visible =
     preset === 'fade'
-      ? { opacity: 1 }
+      ? { opacity: 1, visibility: 'visible', pointerEvents: 'auto' }
       : preset === 'rise'
-        ? { opacity: 1, y: 0 }
-        : { opacity: 1, y: 0, filter: 'blur(0px)' }
+        ? { opacity: 1, y: 0, visibility: 'visible', pointerEvents: 'auto' }
+        : { opacity: 1, y: 0, filter: 'blur(0px)', visibility: 'visible', pointerEvents: 'auto' }
 
   const shouldReveal = once ? hasBeenInView || isInView : isInView
 
@@ -133,14 +132,15 @@ export function RevealGroup({
   const reduceMotion = useReducedMotion() ?? false
   const ref = React.useRef<HTMLDivElement | null>(null)
   const isInView = useInView(ref, { amount, once })
-  const [hasBeenInView, setHasBeenInView] = React.useState(true)
+  const [hasBeenInView, setHasBeenInView] = React.useState(false)
 
   React.useLayoutEffect(() => {
     if (reduceMotion) return
     if (!once) return
     const el = ref.current
     if (!el) return
-    if (getViewportIntersectionRatio(el) === 0) setHasBeenInView(false)
+    const ratio = getViewportIntersectionRatio(el)
+    setHasBeenInView(ratio > 0)
   }, [once, reduceMotion])
 
   React.useEffect(() => {
@@ -207,17 +207,17 @@ export function RevealGroupItem({
 
   const hidden =
     preset === 'fade'
-      ? { opacity: 0 }
+      ? { opacity: 0, visibility: 'hidden', pointerEvents: 'none' }
       : preset === 'rise'
-        ? { opacity: 0, y }
-        : { opacity: 0, y, filter: 'blur(10px)' }
+        ? { opacity: 0, y, visibility: 'hidden', pointerEvents: 'none' }
+        : { opacity: 0, y, filter: 'blur(10px)', visibility: 'hidden', pointerEvents: 'none' }
 
   const visible =
     preset === 'fade'
-      ? { opacity: 1 }
+      ? { opacity: 1, visibility: 'visible', pointerEvents: 'auto' }
       : preset === 'rise'
-        ? { opacity: 1, y: 0 }
-        : { opacity: 1, y: 0, filter: 'blur(0px)' }
+        ? { opacity: 1, y: 0, visibility: 'visible', pointerEvents: 'auto' }
+        : { opacity: 1, y: 0, filter: 'blur(0px)', visibility: 'visible', pointerEvents: 'auto' }
 
   return (
     <motion.div

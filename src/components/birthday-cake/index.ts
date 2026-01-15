@@ -1,1 +1,1 @@
-export { CakeProvider, useCake } from './cake-context'
+// Cake functionality removed.

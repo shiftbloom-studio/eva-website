@@ -1,11 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Crown, ScrollText, Swords, Wheat } from 'lucide-react'
 import Image from 'next/image'
 import * as React from 'react'
 
-import { Reveal, RevealGroup } from '#components/scroll'
 import { Section, SectionHeader } from '#components/ui/section'
 import { systems } from '#data/systems'
 import { useAudio } from '#lib/audio'
@@ -37,36 +35,21 @@ export function SystemsSection() {
   const audio = useAudio()
   const [openId, setOpenId] = React.useState<(typeof systems)[number]['id'] | null>('wirtschaft')
 
-  const cardVariants = React.useMemo(
-    () => ({
-      hidden: { opacity: 0, y: 18, filter: 'blur(10px)' },
-      visible: {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
-      },
-    }),
-    [],
-  )
-
   return (
     <Section id="systeme" className="pb-28 pt-6">
-      <Reveal preset="rise-blur" amount={0.55}>
-        <SectionHeader
-          eyebrow="Systeme"
-          title="Gebaut für Legenden, nicht für Listen."
-          subtitle="Drei Säulen treiben die Welt: Wirtschaft, Diplomatie, Krieg. Doch darunter liegt das eigentliche Fundament: Rollenspiel. Keine Questline. Kein vorgezeichnetes Ende. Du schmiedest deine Geschichte – mit anderen."
-        />
-      </Reveal>
+      <SectionHeader
+        eyebrow="Systeme"
+        title="Gebaut für Legenden, nicht für Listen."
+        subtitle="Drei Säulen treiben die Welt: Wirtschaft, Diplomatie, Krieg. Doch darunter liegt das eigentliche Fundament: Rollenspiel. Keine Questline. Kein vorgezeichnetes Ende. Du schmiedest deine Geschichte – mit anderen."
+      />
 
-      <RevealGroup className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6" amount={0.25} stagger={0.07}>
+      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6">
         {systems.map((item) => {
           const Icon = icons[item.id]
           const isOpen = openId === item.id
 
           return (
-            <motion.button
+            <button
               key={item.id}
               type="button"
               onMouseEnter={() => audio.playSfx('sfx_hover_card')}
@@ -88,13 +71,12 @@ export function SystemsSection() {
                 'group relative isolate flex h-full w-full flex-col overflow-hidden rounded-4xl border border-white/10 bg-void-900/35 p-6 text-left backdrop-blur-md',
                 'transition hover:border-sunbronze/30 hover:bg-void-900/45',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunbronze/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void-950',
+                'will-change-[border-color,background-color]',
                 item.id === 'wirtschaft' ? 'md:col-span-7' : 'md:col-span-5',
               )}
-              layout
-              variants={cardVariants}
             >
               {/* Background image (storytelling) */}
-              <div className="absolute inset-0 z-0">
+              <div className="absolute inset-0 z-0 will-change-auto">
                 <Image
                   src={imagery[item.id]}
                   alt=""
@@ -102,13 +84,14 @@ export function SystemsSection() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className={cn(
                     'object-cover opacity-[0.24] transition duration-700 group-hover:opacity-[0.30]',
+                    'will-change-[opacity] transform-gpu',
                     item.id === 'rollenspiel' ? 'object-center' : 'object-center',
                   )}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-void-950 via-void-950/65 to-transparent" />
               </div>
 
-              <div className="absolute inset-0 z-0 bg-[radial-gradient(85%_140%_at_10%_0%,rgba(186,138,45,0.10),transparent_55%),radial-gradient(95%_120%_at_90%_30%,rgba(153,67,36,0.10),transparent_60%)] opacity-0 transition duration-500 group-hover:opacity-100" />
+              <div className="absolute inset-0 z-0 bg-[radial-gradient(85%_140%_at_10%_0%,rgba(186,138,45,0.10),transparent_55%),radial-gradient(95%_120%_at_90%_30%,rgba(153,67,36,0.10),transparent_60%)] opacity-0 transition duration-500 group-hover:opacity-100 will-change-[opacity] transform-gpu" />
 
               <div className="relative z-10 flex items-start justify-between gap-4">
                 <div className="min-w-0">
@@ -129,11 +112,8 @@ export function SystemsSection() {
                 {item.description}
               </p>
 
-              <motion.div
+              <div
                 className="relative z-10 overflow-hidden"
-                initial={false}
-                animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }}
                 id={`system-content-${item.id}`}
                 data-eva-audio-autoplay={item.id === 'wirtschaft' ? '' : undefined}
                 data-eva-audio-voice={item.id === 'wirtschaft' ? voices[item.id] : undefined}
@@ -158,15 +138,15 @@ export function SystemsSection() {
                     </div>
                   </div>
                 ) : null}
-              </motion.div>
+              </div>
 
               <div className="relative z-10 mt-5 inline-flex items-center gap-2 text-xs font-medium text-sunbronze">
                 {isOpen ? 'Weniger' : 'Mehr'} <span aria-hidden="true">→</span>
               </div>
-            </motion.button>
+            </button>
           )
         })}
-      </RevealGroup>
+      </div>
     </Section>
   )
 }
