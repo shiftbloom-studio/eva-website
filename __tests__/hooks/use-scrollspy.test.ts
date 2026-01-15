@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { renderHook, act } from '@testing-library/react'
 import { useScrollSpy } from '#hooks/use-scrollspy'
+import { act, renderHook } from '@testing-library/react'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('useScrollSpy hook', () => {
   let mockObserverInstance: {
@@ -9,6 +9,7 @@ describe('useScrollSpy hook', () => {
     disconnect: ReturnType<typeof vi.fn>
     callback: IntersectionObserverCallback | null
   }
+  let lastObserverOptions: IntersectionObserverInit | undefined
 
   beforeEach(() => {
     mockObserverInstance = {
@@ -17,18 +18,20 @@ describe('useScrollSpy hook', () => {
       disconnect: vi.fn(),
       callback: null,
     }
+    lastObserverOptions = undefined
 
-    vi.stubGlobal(
-      'IntersectionObserver',
-      vi.fn().mockImplementation((callback: IntersectionObserverCallback) => {
+    class MockIntersectionObserver {
+      constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
         mockObserverInstance.callback = callback
-        return {
-          observe: mockObserverInstance.observe,
-          unobserve: mockObserverInstance.unobserve,
-          disconnect: mockObserverInstance.disconnect,
-        }
-      })
-    )
+        lastObserverOptions = options
+      }
+
+      observe = mockObserverInstance.observe
+      unobserve = mockObserverInstance.unobserve
+      disconnect = mockObserverInstance.disconnect
+    }
+
+    vi.stubGlobal('IntersectionObserver', MockIntersectionObserver as unknown as typeof IntersectionObserver)
   })
 
   afterEach(() => {
@@ -133,7 +136,7 @@ describe('useScrollSpy hook', () => {
 
     renderHook(() => useScrollSpy(['#section-1'], options))
 
-    expect(IntersectionObserver).toHaveBeenCalledWith(expect.any(Function), options)
+    expect(lastObserverOptions).toEqual(options)
 
     document.body.removeChild(mockElement)
   })

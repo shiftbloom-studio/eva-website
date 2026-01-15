@@ -1,6 +1,6 @@
-import { MarketingHomeEnhanced } from '#components/pages/marketing-home-enhanced';
+import { MarketingHome } from '#components/pages/marketing-home'
 
 
 export default function HomePage() {
-  return <MarketingHomeEnhanced />
+  return <MarketingHome />
 }

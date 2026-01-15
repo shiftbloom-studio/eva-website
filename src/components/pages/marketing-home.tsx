@@ -7,7 +7,7 @@ import { HeroSection } from '#components/sections/hero'
 import { SystemsSection } from '#components/sections/systems'
 import { TestimonialsSection } from '#components/sections/testimonials'
 
-export function MarketingHomeEnhanced() {
+export function MarketingHome() {
   return (
     <>
       <HeroSection />

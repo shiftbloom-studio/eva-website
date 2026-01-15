@@ -1,8 +1,8 @@
-import type { ReactNode } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
-import { ArrowUpRight } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 import { legal } from '#data/legal'
 import { cn } from '#lib/cn'
@@ -25,7 +25,7 @@ export function MarketingLayout({ children }: MarketingLayoutProps) {
       </div>
 
       {/* Ensure the skip-link is reachable by keyboard in WebKit/Safari even when "tab-to-links" is disabled. */}
-      <Script id="eva-skiplink-focus" strategy="beforeInteractive">
+      <Script id="eva-skiplink-focus" strategy="afterInteractive">
         {`
 (() => {
   let used = false;
