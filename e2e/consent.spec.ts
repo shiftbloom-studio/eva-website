@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Consent & Settings', () => {
   // Override global storageState seeding so we can validate first-visit behavior.
